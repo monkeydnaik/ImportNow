@@ -997,3 +997,654 @@ export default function App() {
                       CN-PVG
                     </span>
                   </div>
+
+                  <div className="flex items-center justify-center">
+                    <div className="px-3 py-1 rounded-full bg-red-50 text-[#E1251B] text-[11px] font-bold">
+                      100% GST Billed • Zero Middlemen
+                    </div>
+                  </div>
+
+                  <div className="p-3.5 rounded-2xl bg-[#F9FAFB] border border-gray-100 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <IndiaFlag className="w-6 h-4 rounded-[2px]" />
+                      <div>
+                        <div className="text-xs font-bold text-[#111111]">Nhava Sheva, Chennai & Mundra</div>
+                        <div className="text-[11px] text-gray-500">Customs duty, BIS check & door delivery</div>
+                      </div>
+                    </div>
+                    <span className="text-[11px] font-bold text-gray-700 bg-white px-2.5 py-1 rounded-lg border border-gray-200">
+                      IN-NSA
+                    </span>
+                  </div>
+                </div>
+
+                <div className="mt-5 pt-4 border-t border-gray-100 flex items-center justify-between text-xs">
+                  <span className="text-gray-500">Next LCL Container Cutoff:</span>
+                  <span className="font-bold text-[#111111]">Every Friday (Ningbo / Shenzhen)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Continuous Trade Corridor Strip (Guangzhou -> Chennai • Shanghai -> Nhava Sheva) */}
+        <div className="mt-12 bg-white border-y border-gray-200/80 py-3.5 overflow-hidden">
+          <div className="animate-corridor flex items-center gap-8">
+            {[...TRADE_ROUTES, ...TRADE_ROUTES, ...TRADE_ROUTES].map((route, idx) => (
+              <div key={idx} className="inline-flex items-center gap-2.5 text-xs sm:text-sm whitespace-nowrap px-2">
+                <span className="font-bold text-[#111111]">{route.from}</span>
+                <span className="text-[#E1251B] font-black">→</span>
+                <span className="font-bold text-[#111111]">{route.to}</span>
+                <span className="text-[11px] font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
+                  {route.transit}
+                </span>
+                <span className="text-gray-300 ml-3">•</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* =====================================================================
+          3. END-TO-END IMPORTS SERVICES SECTION (#services)
+         ===================================================================== */}
+      <section id="services" className="py-14 sm:py-20 bg-[#F9FAFB]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          {/* Eyebrow + Headline */}
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-[0.14em] text-[#E1251B]">
+              <span className="w-5 h-[2px] bg-[#E1251B]" />
+              <span>END-TO-END IMPORTS</span>
+            </div>
+            <h2 className="mt-3 text-3xl sm:text-4xl lg:text-[2.75rem] font-black tracking-tight text-[#111111] leading-[1.12]">
+              One team from the{' '}
+              <span className="text-[#E1251B]">factory floor</span> to your front door.
+            </h2>
+            <p className="mt-4 text-sm sm:text-base text-gray-600 leading-relaxed">
+              Anyone can say they import from China. What you actually need is a smooth process, clear communication and a shipment that arrives safely.
+            </p>
+          </div>
+
+          {/* 6 Interactive Service Cards */}
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {SERVICES_DATA.map((service) => {
+              const IconComponent = service.icon;
+              const isExpanded = expandedService === service.id;
+
+              return (
+                <div
+                  key={service.id}
+                  onClick={() => setExpandedService(isExpanded ? '' : service.id)}
+                  className={`group bg-white rounded-3xl p-6 sm:p-7 border transition-all duration-200 cursor-pointer ${
+                    isExpanded
+                      ? 'border-[#111111] shadow-lg ring-1 ring-[#111111]/10'
+                      : 'border-gray-200/80 shadow-xs hover:border-gray-300 hover:shadow-md'
+                  }`}
+                >
+                  <div className="flex items-start justify-between">
+                    <div className="w-11 h-11 rounded-2xl bg-[#111111] text-white flex items-center justify-center shadow-xs group-hover:bg-[#E1251B] transition-colors">
+                      <IconComponent className="w-5 h-5" />
+                    </div>
+                    <span className="text-xs font-mono font-bold text-gray-300 group-hover:text-gray-500 transition">
+                      {service.step}
+                    </span>
+                  </div>
+
+                  <h3 className="mt-5 text-lg sm:text-xl font-extrabold text-[#111111]">
+                    {service.title}
+                  </h3>
+
+                  <p className="mt-2 text-sm text-gray-600 leading-relaxed">
+                    {service.shortDesc}
+                  </p>
+
+                  {/* Expandable Deliverables Checklist */}
+                  <div
+                    className={`overflow-hidden transition-all duration-300 ${
+                      isExpanded ? 'max-h-64 mt-4 pt-4 border-t border-gray-100 opacity-100' : 'max-h-0 opacity-0'
+                    }`}
+                  >
+                    <div className="text-[11px] font-bold uppercase tracking-wider text-[#E1251B] mb-2">
+                      Included Deliverables
+                    </div>
+                    <ul className="space-y-2">
+                      {service.deliverables.map((item, i) => (
+                        <li key={i} className="flex items-start gap-2 text-xs text-gray-700">
+                          <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="mt-3 text-[11px] font-medium text-gray-500">
+                      Hubs: <span className="text-[#111111] font-semibold">{service.hubs}</span>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 flex items-center justify-between text-xs font-bold text-[#111111]">
+                    <span>{isExpanded ? 'Hide checklist' : 'View deliverables'}</span>
+                    <ChevronRight
+                      className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-90 text-[#E1251B]' : 'text-gray-400'}`}
+                    />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* =====================================================================
+          4. HOW IT WORKS: INTERACTIVE CHINA -> INDIA JOURNEY (#how-it-works)
+         ===================================================================== */}
+      <section id="how-it-works" className="py-14 sm:py-20 bg-white border-y border-gray-200/70">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-9">
+            <div className="max-w-2xl">
+              <div className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-[0.14em] text-[#E1251B]">
+                <span className="w-5 h-[2px] bg-[#E1251B]" />
+                <span>HOW IT WORKS</span>
+              </div>
+              <h2 className="mt-3 text-3xl sm:text-4xl font-black tracking-tight text-[#111111] leading-[1.12]">
+                Watch your order travel from China to India.
+              </h2>
+            </div>
+
+            <p className="text-xs sm:text-sm text-gray-500 max-w-xs">
+              Click any milestone dot (1–5) on the corridor below to inspect each stage of your shipment.
+            </p>
+          </div>
+
+          {/* Interactive Port & Ship Scene */}
+          <PortJourneyVisual
+            activeStep={activeJourneyStep}
+            onSelectStep={setActiveJourneyStep}
+            isPlaying={isJourneyPlaying}
+            setIsPlaying={setIsJourneyPlaying}
+          />
+
+          {/* Quick Step Selector Pills for Easy Mobile & Desktop Tapping */}
+          <div className="mt-6 grid grid-cols-2 sm:grid-cols-5 gap-2.5">
+            {JOURNEY_STEPS.map((stepObj) => {
+              const active = stepObj.step === activeJourneyStep;
+              return (
+                <button
+                  key={stepObj.step}
+                  type="button"
+                  onClick={() => {
+                    setIsJourneyPlaying(false);
+                    setActiveJourneyStep(stepObj.step);
+                  }}
+                  className={`text-left p-3.5 rounded-2xl border transition cursor-pointer ${
+                    active
+                      ? 'bg-[#111111] text-white border-[#111111] shadow-sm'
+                      : 'bg-[#F9FAFB] hover:bg-gray-100 text-[#111111] border-gray-200/80'
+                  }`}
+                >
+                  <div className="flex items-center justify-between text-[11px] font-bold">
+                    <span className={active ? 'text-[#E1251B]' : 'text-gray-400'}>
+                      STEP 0{stepObj.step}
+                    </span>
+                    <span className={active ? 'text-gray-300' : 'text-gray-500'}>
+                      {stepObj.eta}
+                    </span>
+                  </div>
+                  <div className="mt-1 text-xs sm:text-sm font-bold line-clamp-1">
+                    {stepObj.title}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* =====================================================================
+          5. WHAT WE IMPORT + INTERACTIVE LANDED COST CALCULATOR (#what-we-import)
+         ===================================================================== */}
+      <section id="what-we-import" className="py-14 sm:py-20 bg-[#F9FAFB]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-[0.14em] text-[#E1251B]">
+              <span className="w-5 h-[2px] bg-[#E1251B]" />
+              <span>WHAT WE IMPORT & COST ESTIMATOR</span>
+            </div>
+            <h2 className="mt-3 text-3xl sm:text-4xl font-black tracking-tight text-[#111111]">
+              Know your exact landed cost before you spend a rupee.
+            </h2>
+          </div>
+
+          <div className="mt-9 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            {/* Left 6 Cols: Category Explorer */}
+            <div className="lg:col-span-6 space-y-4">
+              <div className="flex flex-wrap gap-2">
+                {IMPORT_CATEGORIES.map((cat) => (
+                  <button
+                    key={cat.id}
+                    type="button"
+                    onClick={() => setSelectedCategory(cat.id)}
+                    className={`px-4 py-2.5 rounded-full text-xs sm:text-sm font-bold transition cursor-pointer ${
+                      selectedCategory === cat.id
+                        ? 'bg-[#111111] text-white shadow-xs'
+                        : 'bg-white text-gray-700 border border-gray-200 hover:border-gray-300'
+                    }`}
+                  >
+                    {cat.name}
+                  </button>
+                ))}
+              </div>
+
+              <div className="bg-white rounded-3xl p-6 sm:p-7 border border-gray-200/80 shadow-xs">
+                <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-gray-100">
+                  <div>
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-[#E1251B]">
+                      Primary Sourcing Cluster
+                    </span>
+                    <h3 className="text-xl font-extrabold text-[#111111] mt-0.5">
+                      {activeCategoryObj.name}
+                    </h3>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="px-3 py-1 rounded-full bg-gray-100 text-xs font-bold text-[#111111]">
+                      MOQ: {activeCategoryObj.moq}
+                    </span>
+                    <span className="px-3 py-1 rounded-full bg-red-50 text-xs font-bold text-[#E1251B]">
+                      {activeCategoryObj.leadTime}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="mt-4">
+                  <div className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">
+                    High-Demand SKUs We Source Regularly
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    {activeCategoryObj.popularItems.map((sku) => (
+                      <button
+                        key={sku}
+                        type="button"
+                        onClick={() => openQuoteWithPreset(sku)}
+                        className="flex items-center justify-between p-3 rounded-2xl bg-[#F9FAFB] hover:bg-gray-100 border border-gray-100 text-left text-xs sm:text-sm font-semibold text-[#111111] transition group cursor-pointer"
+                      >
+                        <span>{sku}</span>
+                        <ArrowRight className="w-3.5 h-3.5 text-gray-400 group-hover:text-[#E1251B] transition" />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-5 pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-600">
+                  <span>Factory Belt: <strong className="text-[#111111]">{activeCategoryObj.hub}</strong></span>
+                  <button
+                    type="button"
+                    onClick={() => openQuoteWithPreset(activeCategoryObj.name)}
+                    className="font-bold text-[#E1251B] hover:underline cursor-pointer"
+                  >
+                    Get catalog & pricing →
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Right 6 Cols: Interactive Landed Cost Calculator */}
+            <div className="lg:col-span-6 bg-white rounded-3xl p-6 sm:p-7 border border-gray-200/80 shadow-md">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-10 h-10 rounded-2xl bg-red-50 text-[#E1251B] flex items-center justify-center">
+                    <Calculator className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-extrabold text-[#111111]">
+                      Instant Landed Cost Estimator
+                    </h3>
+                    <p className="text-xs text-gray-500">
+                      Includes Freight + Indian Customs Duty + 18% GST
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Order Value Slider */}
+              <div className="mt-6">
+                <div className="flex items-center justify-between text-sm font-bold mb-2">
+                  <span className="text-gray-700">Factory Order Value (USD)</span>
+                  <span className="text-lg font-black text-[#111111]">
+                    ${fobUsd.toLocaleString()} <span className="text-xs font-medium text-gray-400">(~₹{Math.round(fobUsd * exchangeRate).toLocaleString('en-IN')})</span>
+                  </span>
+                </div>
+                <input
+                  type="range"
+                  min={500}
+                  max={25000}
+                  step={250}
+                  value={fobUsd}
+                  onChange={(e) => setFobUsd(Number(e.target.value))}
+                  className="w-full accent-[#E1251B] cursor-pointer"
+                  aria-label="Factory order value in USD"
+                />
+                <div className="flex justify-between text-[11px] text-gray-400 mt-1">
+                  <span>$500 (Sample / LCL)</span>
+                  <span>$10,000</span>
+                  <span>$25,000 (FCL)</span>
+                </div>
+              </div>
+
+              {/* Freight Mode Selector */}
+              <div className="mt-5">
+                <label className="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">
+                  Select Shipping Mode
+                </label>
+                <div className="grid grid-cols-3 gap-2.5">
+                  {[
+                    { id: 'sea_lcl', label: 'Sea LCL', sub: '16–20 Days', icon: Package },
+                    { id: 'sea_fcl', label: 'Sea 20ft FCL', sub: '14–18 Days', icon: Ship },
+                    { id: 'air', label: 'Air Express', sub: '4–6 Days', icon: Plane }
+                  ].map((mode) => {
+                    const ModeIcon = mode.icon;
+                    const active = shippingMode === mode.id;
+                    return (
+                      <button
+                        key={mode.id}
+                        type="button"
+                        onClick={() => setShippingMode(mode.id)}
+                        className={`p-3 rounded-2xl border text-left transition cursor-pointer ${
+                          active
+                            ? 'border-[#111111] bg-[#111111] text-white'
+                            : 'border-gray-200 bg-[#F9FAFB] text-[#111111] hover:border-gray-300'
+                        }`}
+                      >
+                        <ModeIcon className={`w-4 h-4 mb-1.5 ${active ? 'text-[#E1251B]' : 'text-gray-600'}`} />
+                        <div className="text-xs font-bold">{mode.label}</div>
+                        <div className={`text-[10px] ${active ? 'text-gray-300' : 'text-gray-500'}`}>
+                          {mode.sub}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Cost Breakdown Box */}
+              <div className="mt-5 p-4 rounded-2xl bg-[#F9FAFB] border border-gray-200/70 space-y-2 text-xs">
+                <div className="flex justify-between text-gray-600">
+                  <span>International Freight & Insurance</span>
+                  <span className="font-semibold text-[#111111]">${Math.round(fobUsd * freightMultiplier).toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between text-gray-600">
+                  <span>Est. Basic Customs Duty ({Math.round(activeCategoryObj.dutyRate * 100)}%)</span>
+                  <span className="font-semibold text-[#111111]">${Math.round(customsDutyUsd).toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between text-gray-600">
+                  <span>IGST (18% — Claimable Input Credit)</span>
+                  <span className="font-semibold text-emerald-700">${Math.round(igstUsd).toLocaleString()}</span>
+                </div>
+                <div className="pt-2.5 border-t border-gray-200 flex items-baseline justify-between">
+                  <span className="font-bold text-sm text-[#111111]">Est. Doorstep Landed Total</span>
+                  <div className="text-right">
+                    <div className="text-lg font-black text-[#E1251B]">
+                      ₹{totalLandedInr.toLocaleString('en-IN')}
+                    </div>
+                    <div className="text-[11px] text-gray-500">
+                      (${totalLandedUsd.toLocaleString()} USD all-inclusive)
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={() =>
+                  openQuoteWithPreset(`${activeCategoryObj.name} (~$${fobUsd.toLocaleString()} order)`)
+                }
+                className="mt-5 w-full py-3.5 px-6 rounded-full bg-[#111111] hover:bg-black/85 text-white font-bold text-sm flex items-center justify-center gap-2 transition cursor-pointer"
+              >
+                <span>Lock This Quote with Exact HSN Code</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =====================================================================
+          6. CHINA SOURCING TRIPS & BLOG INSIGHTS (#china-trips, #blog)
+         ===================================================================== */}
+      <section id="china-trips" className="py-14 sm:py-20 bg-white border-t border-gray-200/70">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          {/* Canton Fair & Yiwu Guided Business Trip Banner */}
+          <div className="rounded-3xl bg-[#111111] text-white p-7 sm:p-10 lg:p-12 relative overflow-hidden">
+            <div
+              aria-hidden="true"
+              className="absolute -right-16 -bottom-16 w-72 h-72 rounded-full bg-[#E1251B]/25 blur-3xl pointer-events-none"
+            />
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <div className="lg:col-span-8">
+                <div className="inline-flex items-center gap-2 bg-white/10 px-3.5 py-1.5 rounded-full text-xs font-bold text-white mb-4">
+                  <Plane className="w-3.5 h-3.5 text-[#E1251B]" />
+                  <span>CANTON FAIR & YIWU DELEGATIONS</span>
+                </div>
+                <h2 className="text-2xl sm:text-4xl font-black tracking-tight leading-tight">
+                  Walk the factory floors of China with our bilingual Shanghai team.
+                </h2>
+                <p className="mt-3 text-sm sm:text-base text-gray-300 max-w-2xl leading-relaxed">
+                  Join our 6-day guided sourcing trips to Guangzhou, Foshan, and Yiwu. We handle business visa invitations, Mandarin negotiation, factory visits, and sample consolidation.
+                </p>
+                <div className="mt-5 flex flex-wrap gap-4 text-xs text-gray-300">
+                  <span className="inline-flex items-center gap-1.5">
+                    <Calendar className="w-4 h-4 text-[#E1251B]" /> Next Batch: Canton Fair Phase 1–3
+                  </span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <MapPin className="w-4 h-4 text-[#E1251B]" /> Guangzhou • Yiwu • Shanghai
+                  </span>
+                </div>
+              </div>
+
+              <div className="lg:col-span-4 flex lg:justify-end">
+                <button
+                  type="button"
+                  onClick={() => openQuoteWithPreset('Guided China Sourcing Trip / Canton Fair')}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-[#E1251B] hover:bg-red-600 text-white font-bold text-sm shadow-lg transition cursor-pointer"
+                >
+                  <span>Reserve Delegation Seat</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Blog / Importer Playbooks */}
+          <div id="blog" className="mt-16">
+            <div className="flex items-end justify-between gap-4 mb-8">
+              <div>
+                <div className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-[0.14em] text-[#E1251B]">
+                  <span className="w-5 h-[2px] bg-[#E1251B]" />
+                  <span>IMPORTER PLAYBOOKS</span>
+                </div>
+                <h3 className="mt-2 text-2xl sm:text-3xl font-black tracking-tight text-[#111111]">
+                  Field notes from Shanghai & Indian ports.
+                </h3>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {BLOG_ARTICLES.map((post, i) => (
+                <article
+                  key={i}
+                  onClick={() => openQuoteWithPreset(`Guide Inquiry: ${post.title}`)}
+                  className="bg-[#F9FAFB] hover:bg-white rounded-3xl p-6 border border-gray-200/80 hover:shadow-md transition flex flex-col justify-between cursor-pointer group"
+                >
+                  <div>
+                    <div className="flex items-center justify-between text-[11px] font-bold">
+                      <span className="text-[#E1251B]">{post.tag}</span>
+                      <span className="text-gray-400">{post.readTime}</span>
+                    </div>
+                    <h4 className="mt-3 text-lg font-extrabold text-[#111111] group-hover:text-[#E1251B] transition leading-snug">
+                      {post.title}
+                    </h4>
+                    <p className="mt-2.5 text-xs sm:text-sm text-gray-600 leading-relaxed">
+                      {post.excerpt}
+                    </p>
+                  </div>
+
+                  <div className="mt-5 pt-4 border-t border-gray-200/70 inline-flex items-center gap-1.5 text-xs font-bold text-[#111111]">
+                    <BookOpen className="w-3.5 h-3.5 text-[#E1251B]" />
+                    <span>Request full checklist</span>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =====================================================================
+          7. FOOTER & DUAL-OFFICE CONTACT (#contact)
+         ===================================================================== */}
+      <footer id="contact" className="bg-[#111111] text-white pt-14 pb-24 sm:pb-14">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-white/10">
+            <div className="md:col-span-5">
+              <div className="inline-flex items-center font-black tracking-tighter text-2xl text-white">
+                <span>IMP</span>
+                <span className="inline-block w-3.5 h-3.5 rounded-full bg-[#E1251B] mx-1" />
+                <span>RTNOW</span>
+              </div>
+              <p className="mt-3 text-sm text-gray-400 max-w-sm leading-relaxed">
+                End-to-end China-to-India B2B sourcing, on-site factory inspection, freight forwarding, and customs clearance backed by our registered Shanghai entity.
+              </p>
+              <div className="mt-5 flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => openQuoteWithPreset('')}
+                  className="px-5 py-2.5 rounded-full bg-white text-[#111111] text-xs font-bold hover:bg-gray-100 transition cursor-pointer"
+                >
+                  Start a Sourcing Request
+                </button>
+              </div>
+            </div>
+
+            <div className="md:col-span-4 space-y-4">
+              <div className="text-xs font-extrabold uppercase tracking-wider text-gray-400">
+                Ground Offices
+              </div>
+              <div className="flex items-start gap-2.5 text-xs text-gray-300">
+                <ChinaFlag className="w-5 h-3.5 mt-0.5 rounded-[2px]" />
+                <div>
+                  <div className="font-bold text-white">Shanghai Operations Hub</div>
+                  <p className="text-gray-400 mt-0.5">
+                    Minhang District, Shanghai, China • Warehouse Consolidation & QC Center
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2.5 text-xs text-gray-300">
+                <IndiaFlag className="w-5 h-3.5 mt-0.5 rounded-[2px]" />
+                <div>
+                  <div className="font-bold text-white">India Client & Customs Desk</div>
+                  <p className="text-gray-400 mt-0.5">
+                    Mumbai • Chennai • Bengaluru • New Delhi
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="md:col-span-3 space-y-2.5">
+              <div className="text-xs font-extrabold uppercase tracking-wider text-gray-400">
+                Quick Links
+              </div>
+              <ul className="space-y-2 text-xs text-gray-300">
+                {navItems.map((item) => (
+                  <li key={item.href}>
+                    <button
+                      type="button"
+                      onClick={() => scrollToSection(item.href)}
+                      className="hover:text-white transition cursor-pointer"
+                    >
+                      {item.label}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-500">
+            <div>© {new Date().getFullYear()} ImportNow Trade & Logistics. All rights reserved.</div>
+            <div>Direct China-to-India Supply Chain Partner</div>
+          </div>
+        </div>
+      </footer>
+
+      {/* =====================================================================
+          8. FLOATING WHATSAPP EMERALD QUICK-CHAT WIDGET (Exact bottom-right)
+         ===================================================================== */}
+      <div className="fixed bottom-5 right-5 z-40">
+        {whatsappOpen && (
+          <div className="mb-3 w-80 bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden animate-fadeIn">
+            <div className="bg-[#25D366] text-white px-4 py-3.5 flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center font-black text-sm">
+                  IN
+                </div>
+                <div>
+                  <div className="text-xs font-extrabold">ImportNow Sourcing Desk</div>
+                  <div className="text-[10px] text-white/90">Replies typically in 10 mins</div>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setWhatsappOpen(false)}
+                className="p-1 rounded-full hover:bg-white/20 transition cursor-pointer"
+                aria-label="Close WhatsApp chat"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="p-4 bg-[#F0F2F5]">
+              <div className="bg-white rounded-2xl rounded-tl-none p-3 text-xs text-gray-700 shadow-2xs">
+                Namaste! Looking to source products or ship cargo from China to India? Send us your product details below.
+              </div>
+
+              <textarea
+                rows={2}
+                value={whatsappMsg}
+                onChange={(e) => setWhatsappMsg(e.target.value)}
+                className="mt-3 w-full rounded-xl border border-gray-200 bg-white p-2.5 text-xs text-[#111111] focus:outline-none focus:border-[#25D366]"
+              />
+
+              <button
+                type="button"
+                onClick={() => {
+                  setWhatsappOpen(false);
+                  openQuoteWithPreset(whatsappMsg);
+                }}
+                className="mt-2.5 w-full py-2.5 px-4 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs transition cursor-pointer"
+              >
+                <Send className="w-3.5 h-3.5" />
+                <span>Send to Sourcing Specialist</span>
+              </button>
+            </div>
+          </div>
+        )}
+
+        <button
+          type="button"
+          onClick={() => setWhatsappOpen(!whatsappOpen)}
+          className="w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white shadow-xl flex items-center justify-center transition-transform hover:scale-105 active:scale-95 cursor-pointer ml-auto"
+          aria-label="Chat with ImportNow on WhatsApp"
+        >
+          {/* Crisp WhatsApp Phone Bubble SVG */}
+          <svg viewBox="0 0 32 32" className="w-7 h-7 fill-current">
+            <path d="M16.04 4C9.41 4 4.03 9.38 4.03 16.01c0 2.12.55 4.19 1.61 6.02L4 28l6.14-1.61a11.96 11.96 0 0 0 5.9 1.55h.01c6.63 0 12.01-5.38 12.01-12.01 0-3.21-1.25-6.22-3.52-8.49A11.93 11.93 0 0 0 16.04 4zm6.98 17.16c-.29.82-1.71 1.57-2.37 1.67-.61.09-1.38.13-2.23-.14-.52-.16-1.18-.38-2.03-.75-3.57-1.54-5.9-5.14-6.08-5.38-.18-.24-1.45-1.93-1.45-3.68 0-1.75.92-2.61 1.24-2.97.33-.36.71-.45.95-.45.24 0 .47 0 .68.01.22.01.51-.08.8.61.29.71 1 2.45 1.09 2.63.09.18.15.39.03.63-.12.24-.18.39-.36.6-.18.21-.38.47-.54.63-.18.18-.37.37-.16.73.21.36.93 1.53 2 2.48 1.37 1.22 2.53 1.6 2.89 1.78.36.18.57.15.78-.09.21-.24.9-1.05 1.14-1.41.24-.36.48-.3.8-.18.33.12 2.08.98 2.43 1.16.36.18.6.27.68.42.09.15.09.87-.2 1.69z" />
+          </svg>
+        </button>
+      </div>
+
+      {/* Interactive Quote Modal */}
+      <QuoteModal
+        isOpen={quoteModalOpen}
+        onClose={() => setQuoteModalOpen(false)}
+        initialProduct={quoteInitialProduct}
+        initialCategory={selectedCategory}
+      />
+    </div>
+  );
