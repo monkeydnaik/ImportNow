@@ -25,6 +25,8 @@ npm run preview
 ## Vercel
 Build command: `npm run build`; output directory: `dist`; install command: `npm install`.
 
+Optional project environment variable: `VITE_WHATSAPP_NUMBER` — set this to the company's verified WhatsApp number in international format with country code, digits only (no `+`, spaces or punctuation). Until it is configured, WhatsApp actions stay disabled and the site will not send enquiries to an invented number. Set it in Vercel Project Settings → Environment Variables, then redeploy.
+
 Hash-based navigation is used so all pages work without server-side router rewrites.
 
 ## Before real business use
