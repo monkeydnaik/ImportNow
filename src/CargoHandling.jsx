@@ -40,7 +40,7 @@ export default function CargoHandling(){
      </div>
      <ol className="j-steps">
       {journeySteps.map(([title,copy],i)=><li className={'j-step'+(i===0?' on':'')} key={title}>
-       <span className="n">{i+1}</span><div><MotionText as="h4">{title}</MotionText><p>{copy}</p></div>
+       <span className="n"><MotionText>{i+1}</MotionText></span><div><MotionText as="h4">{title}</MotionText><p>{copy}</p></div>
       </li>)}
      </ol></div>
      <div className="j-milestones" aria-label="Shipment milestones">
