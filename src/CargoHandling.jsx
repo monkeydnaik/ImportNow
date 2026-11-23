@@ -28,9 +28,9 @@ export default function CargoHandling(){
  return <section className="cargo-journey" id="journey" ref={sectionRef} aria-labelledby="cargo-journey-title">
   <div className="cargo-journey-sticky">
    <canvas ref={canvasRef} className="cargo-sea" aria-hidden="true"/>
-   <div className="cargo-sea-loading" ref={loadingRef}>BUILDING THE PORT ENVIRONMENT…</div>
+   <div className="cargo-sea-loading" ref={loadingRef}><MotionText>BUILDING THE PORT ENVIRONMENT…</MotionText></div>
    <div className="cargo-sea-shade"/>
-   <div className="cargo-sea-badge"><i/> ILLUSTRATIVE SHIPMENT VIEW <span>NOT LIVE TRACKING</span></div>
+   <div className="cargo-sea-badge"><i/><MotionText>ILLUSTRATIVE SHIPMENT VIEW</MotionText><span><MotionText>NOT LIVE TRACKING</MotionText></span></div>
    <div className="cargo-journey-ui">
     <div className="container cargo-journey-wrap">
      <div className="cargo-journey-copy-panel"><BrandLogo className="cargo-brand-lockup"/><div className="cargo-journey-head">
