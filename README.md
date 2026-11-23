@@ -5,10 +5,13 @@ Responsive multi-page React website concept for a China-to-India sourcing and im
 ## Stack
 - React 18 + Vite
 - Lucide React icons
-- Custom responsive CSS and CSS 3D-style port illustration
+- Three.js 3D port and interactive Earth globe scenes
+- Custom responsive CSS and motion-aware interactions
 
 ## Pages
-Home, Services, Industries, How it works, About, Insights, Contact, Landed Cost Planner, Shipment Tracking Demo.
+Home (interactive globe hero), Services, Industries, How it works, About, Insights, Contact, Landed Cost Planner, Shipment Tracking Demo.
+
+The standalone `public/trade-scenes.html` page contains the port and globe scenes. The focused `public/trade-globe.html` scene powers the homepage globe hero. Both use Three.js from a CDN and require an internet connection. The 3D visuals are simulations, not live vessel positions or port feeds.
 
 ## Run locally
 ```bash
