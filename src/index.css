@@ -577,3 +577,21 @@ body:after{
  body:before,body:after,.concept-final-cta:before,.concept-final-cta:after{animation:none!important}
  .service-card:hover,.industry-card:hover,.concept-service-card:hover,.concept-industry-card:hover,.concept-delivery-card:hover{transform:none}
 }
+
+/* Editorial guide cards complete the reference site's resource section */
+.concept-guide-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:28px}
+.concept-guide-card{display:flex;flex-direction:column;min-width:0;padding:0 0 20px;overflow:hidden;border:1px solid #365d72;border-radius:14px;background:linear-gradient(145deg,#17394e,#091c2c);box-shadow:0 20px 50px #0005;transition:transform .35s,border-color .35s,box-shadow .35s}
+.concept-guide-card:hover{transform:perspective(900px) translateY(-8px) rotateX(2deg);border-color:#7bd2e8;box-shadow:0 28px 65px #0008}
+.concept-guide-art{height:130px;position:relative;display:grid;place-items:center;overflow:hidden;background:radial-gradient(ellipse at 50% 30%,#2d6b83,#0c293d 72%)}
+.concept-guide-art:before{content:"";position:absolute;width:180px;height:180px;border:1px solid #8ed9e92b;border-radius:50%;box-shadow:0 0 0 18px #8ed9e90b,0 0 0 40px #8ed9e907;transform:rotateX(64deg) rotateZ(-25deg)}
+.concept-guide-art:after{content:"";position:absolute;inset:0;background:linear-gradient(145deg,#ffffff12,transparent 55%)}
+.concept-guide-art>span{position:absolute;top:12px;left:14px;color:#f1c27a;font:10px var(--mono)}
+.concept-guide-art>svg{position:relative;z-index:1;color:#a9e5f1;filter:drop-shadow(0 7px 16px #0008);width:34px;height:34px}
+.concept-guide-art>i{position:absolute;bottom:-32px;width:190px;height:85px;border:1px solid #ffbd7c45;border-radius:50%;transform:rotateX(68deg)}
+.concept-guide-card>small{margin:18px 18px 0;color:#f1c27a;font:8px var(--mono);letter-spacing:.13em}
+.concept-guide-card h3{margin:9px 18px 7px;color:#f2f8fa;font:600 18px/1.2 var(--display)}
+.concept-guide-card p{margin:0 18px 15px;color:#a8bfca;font-size:10px;line-height:1.7}
+.concept-guide-card>b{display:flex;align-items:center;gap:6px;margin:auto 18px 0;color:#82d5e9;font:700 10px var(--mono)}
+.concept-testimonials-section .concept-quote-grid article{box-shadow:0 20px 50px #0004}
+@media(max-width:900px){.concept-guide-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:680px){.concept-guide-grid{grid-template-columns:1fr}.concept-guide-art{height:112px}.concept-guide-card h3{font-size:17px}}
