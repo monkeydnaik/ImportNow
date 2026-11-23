@@ -6,7 +6,7 @@ import * as THREE from 'three';
 function CargoShip(){
  const boat=useRef();
  useFrame(({clock})=>{
-  const t=clock.getElapsedTime()*0.34;
+  const t=clock.getElapsedTime()*0.42;
   if(boat.current){
    boat.current.position.set(Math.cos(t)*2.05,Math.sin(t*1.2)*0.12,Math.sin(t)*1.12);
    boat.current.rotation.y=-Math.atan2(Math.cos(t)*1.12,-Math.sin(t)*2.05);
@@ -14,10 +14,10 @@ function CargoShip(){
   }
  });
  const colors=['#f2b45f','#3b8da8','#e76d59','#8ab9c9','#d7c18d'];
- return <group ref={boat} scale={1.15}>
-  <mesh position={[0,-.12,0]}><boxGeometry args={[.36,.15,.92]}/><meshStandardMaterial color="#e35f4d" metalness={.3} roughness={.4}/></mesh>
+ return <group ref={boat} scale={1.35}>
+  <mesh position={[0,-.12,0]}><boxGeometry args={[.42,.13,1.08]}/><meshStandardMaterial color="#e35f4d" metalness={.3} roughness={.4}/></mesh>
   <mesh position={[0,-.015,.02]} rotation={[0,0,Math.PI]}><coneGeometry args={[.18,.32,4]}/><meshStandardMaterial color="#f17a5e" metalness={.2}/></mesh>
-  {colors.map((c,i)=><mesh key={i} position={[(i%2?-.09:.09),.015,-.29+Math.floor(i/2)*.18]}><boxGeometry args={[.16,.13,.17]}/><meshStandardMaterial color={c} metalness={.25} roughness={.5}/></mesh>)}
+  {colors.map((c,i)=><mesh key={i} position={[(i%2?-.09:.09),.015,-.29+Math.floor(i/2)*.18]}><boxGeometry args={[.17,.14,.19]}/><meshStandardMaterial color={c} metalness={.25} roughness={.5}/></mesh>)}
   <mesh position={[0,.11,.28]}><boxGeometry args={[.13,.2,.12]}/><meshStandardMaterial color="#e9eef0"/></mesh>
   <mesh position={[0,-.2,-.05]}><boxGeometry args={[.055,.015,1.2]}/><meshBasicMaterial color="#77d8f4" transparent opacity={.55}/></mesh>
   <pointLight position={[0,.2,0]} color="#f2b45f" intensity={1.2} distance={1.8}/>
