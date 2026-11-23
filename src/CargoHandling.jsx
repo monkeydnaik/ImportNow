@@ -178,26 +178,28 @@ function PortScene(){
   const ease=v=>{v=THREE.MathUtils.clamp(v,0,1);return v*v*(3-2*v);};
   // Vessel enters from open water, berths at origin, sails the sea lane, then approaches destination from offshore.
   const approach=ease(t/8);
-  const sailing=ease((t-15)/23);
-  const vesselX=t<8?THREE.MathUtils.lerp(-15.5,-5.1,approach):t<15?-5.1:t<38?THREE.MathUtils.lerp(-5.1,5.1,sailing):5.1;
+  const sailing=ease((t-17)/23);
+  const vesselX=t<8?THREE.MathUtils.lerp(-15.5,-5.1,approach):t<17?-5.1:t<40?THREE.MathUtils.lerp(-5.1,5.1,sailing):5.1;
   if(ship.current){ship.current.position.set(vesselX,.06+Math.sin(clock.elapsedTime*1.15)*.025,0);ship.current.rotation.z=Math.sin(clock.elapsedTime*.7)*.004;}
-  const loadY=t<8?-.18:t<10?THREE.MathUtils.lerp(-.18,-2.1,(t-8)/2):t<12?THREE.MathUtils.lerp(-2.1,-.18,(t-10)/2):-.18;
+  const loadY=t<8?-.18:t<10?THREE.MathUtils.lerp(-.18,-2.1,(t-8)/2):t<12?THREE.MathUtils.lerp(-2.1,-.18,(t-10)/2):t<15?-.18:t<17?THREE.MathUtils.lerp(-.18,-2.1,(t-15)/2):t<19?THREE.MathUtils.lerp(-2.1,-.18,(t-17)/2):-.18;
   if(loadHook.current)loadHook.current.position.y=loadY;
-  if(loadTrolley.current)loadTrolley.current.position.x=t<10?-1.15:t<12?THREE.MathUtils.lerp(-1.15,2.2,(t-10)/2):2.2;
+  if(loadTrolley.current)loadTrolley.current.position.x=t<12?-1.15:t<15?THREE.MathUtils.lerp(-1.15,2.2,(t-12)/3):t<17?2.2:t<19?THREE.MathUtils.lerp(2.2,-1.15,(t-17)/2):-1.15;
   if(lifted.current){
    if(t<10)lifted.current.position.set(-5.1,.55,-4.45);
    else if(t<12)lifted.current.position.set(-5.1,THREE.MathUtils.lerp(.55,2.27,(t-10)/2),-4.45);
    else if(t<15)lifted.current.position.set(-5.1,2.27,THREE.MathUtils.lerp(-4.45,-1.1,(t-12)/3));
+   else if(t<17)lifted.current.position.set(ship.current.position.x+2.0,THREE.MathUtils.lerp(2.27,.58,(t-15)/2),-.45);
    else lifted.current.position.set(ship.current.position.x+2.0,.58,-.45);
   }
-  const unloadY=t<40?-.18:t<42?THREE.MathUtils.lerp(-.18,-2.1,(t-40)/2):t<44?THREE.MathUtils.lerp(-2.1,-.18,(t-42)/2):-.18;
+  const unloadY=t<40?-.18:t<42?THREE.MathUtils.lerp(-.18,-2.1,(t-40)/2):t<44?THREE.MathUtils.lerp(-2.1,-.18,(t-42)/2):t<46?THREE.MathUtils.lerp(-.18,-2.1,(t-44)/2):-2.1;
   if(unloadHook.current)unloadHook.current.position.y=unloadY;
-  if(unloadTrolley.current)unloadTrolley.current.position.x=t<40?2.2:t<42?THREE.MathUtils.lerp(2.2,-1.15,(t-40)/2):t<44?THREE.MathUtils.lerp(-1.15,2.2,(t-42)/2):2.2;
-  const truckZ=t<44?-6.0:t<46?THREE.MathUtils.lerp(-6.0,-4.9,ease((t-44)/2)):t<54?THREE.MathUtils.lerp(-4.9,-2.8,ease((t-46)/8)):-2.8;
+  if(unloadTrolley.current)unloadTrolley.current.position.x=t<42?2.2:t<44?THREE.MathUtils.lerp(2.2,-1.15,(t-42)/2):t<46?-1.15:2.2;
+  const truckZ=t<46?-6.0:t<48?THREE.MathUtils.lerp(-6.0,-4.9,ease((t-46)/2)):t<56?THREE.MathUtils.lerp(-4.9,-2.8,ease((t-48)/8)):-2.8;
   if(delivered.current){
-   if(t<40)delivered.current.position.set(ship.current.position.x-.95,.58,-.45);
-   else if(t<44)delivered.current.position.set(5.1,Math.max(.55,2.45+unloadY),THREE.MathUtils.lerp(-1.1,-4.45,(t-40)/4));
-   else if(t<46)delivered.current.position.set(5.1,THREE.MathUtils.lerp(.55,.82,ease((t-44)/2)),THREE.MathUtils.lerp(-4.45,truckZ-.45,ease((t-44)/2)));
+   if(t<42)delivered.current.position.set(ship.current.position.x-.95,.58,-.45);
+   else if(t<44)delivered.current.position.set(5.1,THREE.MathUtils.lerp(.58,2.27,ease((t-42)/2)),THREE.MathUtils.lerp(-1.1,-4.45,ease((t-42)/2)));
+   else if(t<46)delivered.current.position.set(5.1,THREE.MathUtils.lerp(2.27,.55,ease((t-44)/2)),-4.45);
+   else if(t<48)delivered.current.position.set(5.1,THREE.MathUtils.lerp(.55,.82,ease((t-46)/2)),THREE.MathUtils.lerp(-4.45,truckZ-.45,ease((t-46)/2)));
    else delivered.current.position.set(5.1,.82,truckZ-.45);
   }
   if(truck.current)truck.current.position.set(5.1,.02,truckZ);
