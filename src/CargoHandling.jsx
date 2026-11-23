@@ -21,7 +21,7 @@ function Hull(){
   }
   const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(verts,3));g.setIndex(indices);g.computeVertexNormals();return g;
  },[]);
- return <mesh geometry={geometry} castShadow={true} receiveShadow={true}><meshStandardMaterial color="#19384d" metalness={0.5}5 roughness={0.38} side={THREE.DoubleSide}/></mesh>;
+ return <mesh geometry={geometry} castShadow={true} receiveShadow={true}><meshStandardMaterial color="#19384d" metalness={0.55} roughness={0.38} side={THREE.DoubleSide}/></mesh>;
 }
 function Ship(){
  const colors=['#df7657','#d7a35e','#3d8298','#e6bd79','#669eaa','#bd594c','#d7a15c','#3f7187','#d87550','#e0b66d','#3b849c','#d1d9d7'];
