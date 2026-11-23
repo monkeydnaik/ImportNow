@@ -345,7 +345,7 @@ function frame(){
   let si=0;for(let i=0;i<STEP_AT.length;i++)if(p>=STEP_AT[i])si=i;
   if(si!==lastStep){steps.forEach((el,i)=>{el.classList.toggle('on',i===si);el.classList.toggle('done',i<si)});lastStep=si}
   const day=dayOf(p);
-  if(day!==dayShown){dayEl.textContent='Day '+day;milestones.forEach((el,i)=>el.classList.toggle('on',day>=MS_DAYS[i]));dayShown=day}
+  if(day!==dayShown){dayEl.classList.remove('day-tick');void dayEl.offsetWidth;dayEl.textContent='Day '+day;dayEl.classList.add('day-tick');milestones.forEach((el,i)=>el.classList.toggle('on',day>=MS_DAYS[i]));dayShown=day}
   const rp=sx/SAIL;fill.style.width=(rp*100)+'%';boat.style.left=(rp*100)+'%';
 }
 frame();
