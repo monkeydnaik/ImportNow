@@ -56,7 +56,7 @@ function Pin({location}){
   return <group position={p}>
     <mesh><sphereGeometry args={[0.035,18,14]}/><meshBasicMaterial color={location.color}/></mesh>
     <mesh scale={2.1}><sphereGeometry args={[0.035,18,14]}/><meshBasicMaterial color={location.color} transparent opacity={0.15}/></mesh>
-    <Html position={p.clone().normalize().multiplyScalar(0.12)} center distanceFactor={7} occlude={false}>
+    <Html position={p.clone().normalize().multiplyScalar(0.12)} center distanceFactor={5} occlude={false}>
       <div className="globe-city-label"><b>{location.name}</b><span>{location.role}</span></div>
     </Html>
   </group>;
