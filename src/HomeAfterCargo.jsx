@@ -58,7 +58,7 @@ export default function HomeAfterCargo(){
   </section>
   <section className="concept-how-section">
    <div className="container">
-    <div className="concept-how-top"><div><Tag>YOUR SHIPMENT, STEP BY STEP</Tag><h2>Watch your order travel<br/><em>from China to India.</em></h2><p>From the first supplier conversation to delivery at your business, every stage has a clear next step.</p></div><div className="concept-route-card"><div><small>ORIGIN</small><b>Shanghai / China</b></div><span className="concept-route-track"><i/></span><div><small>DESTINATION</small><b>Chennai / India</b></div><strong>DAY 34 <small>ILLUSTRATIVE SHIPMENT MILESTONE</small></strong></div></div>
+    <div className="concept-how-top"><div><Tag>YOUR SHIPMENT, STEP BY STEP</Tag><h2>Six clear steps from the factory floor<br/><em>to your front door.</em></h2><p>From the first supplier conversation to delivery at your business, every stage has a clear next step.</p></div><div className="concept-route-card"><div><small>ORIGIN</small><b>Shanghai / China</b></div><span className="concept-route-track"><i/></span><div><small>DESTINATION</small><b>Chennai / India</b></div><strong>DAY 34 <small>ILLUSTRATIVE SHIPMENT MILESTONE</small></strong></div></div>
     <div className="concept-timeline">{process.map(([n,title,copy])=><article key={n}><b>{n}</b><div><h3>{title}</h3><p>{copy}</p></div></article>)}</div>
    </div>
   </section>
