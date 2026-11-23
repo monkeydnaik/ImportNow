@@ -612,3 +612,22 @@ body:after{
  .journey-fixed-labels b{font-size:7px}
  .journey-fixed-labels span{font-size:8px}
 }
+
+
+/* Keep journey copy in its own opaque column so the moving vessel never passes behind labels */
+.cargo-journey-copy-panel{
+ width:min(455px,43vw);max-height:calc(100% - 126px);overflow:hidden;
+ padding:17px 18px 14px;border:1px solid rgba(255,255,255,.82);border-radius:16px;
+ background:rgba(246,249,249,.96);box-shadow:0 20px 58px rgba(8,27,39,.22);
+ backdrop-filter:blur(14px);position:relative;z-index:2;pointer-events:none;
+}
+.cargo-journey-copy-panel .cargo-journey-head{max-width:100%}
+.cargo-journey-copy-panel .j-steps{max-width:100%;margin-top:12px}
+.cargo-journey-copy-panel .j-step{background:rgba(255,255,255,.68);border-color:rgba(174,192,199,.38)}
+.cargo-journey-copy-panel .j-step.on{background:#fff;border-color:#d5e0e4}
+.cargo-journey .j-milestones,.cargo-journey .j-route,.cargo-journey-footnote{position:relative;z-index:2}
+@media(max-width:820px){
+ .cargo-journey-copy-panel{width:100%;max-height:none;padding:11px 12px 8px;border-radius:12px}
+ .cargo-journey-copy-panel .cargo-journey-head>p{max-width:100%}
+ .cargo-journey-copy-panel .j-steps{margin-top:8px}
+}
