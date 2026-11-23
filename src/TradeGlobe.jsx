@@ -67,9 +67,9 @@ function Pin({location}){
   return <group position={p}>
     <mesh><sphereGeometry args={[0.026,16,12]}/><meshBasicMaterial color={location.color}/></mesh>
     <mesh scale={2.2}><sphereGeometry args={[0.026,16,12]}/><meshBasicMaterial color={location.color} transparent opacity={0.14}/></mesh>
-    <Html position={offset} center distanceFactor={5} occlude={false}>
+    {(location.name==='Shenzhen'||location.name==='Hyderabad')&&<Html position={offset} center distanceFactor={5} occlude={false}>
       <div className="globe-city-label"><b>{location.name}</b><span>{location.role}</span></div>
-    </Html>
+    </Html>}
   </group>;
 }
 function Scene(){
