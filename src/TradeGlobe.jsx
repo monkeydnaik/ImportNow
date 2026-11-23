@@ -125,7 +125,7 @@ function GlobeScene(){
    <MiniShip route={routeData[0]}/>
    <mesh rotation={[1.15,.35,0]}><torusGeometry args={[2.17,.007,6,128]}/><meshBasicMaterial color="#6bcaf0" transparent opacity={.3}/></mesh>
   </group>
-  <OrbitControls enablePan={false} enableZoom={false} enableDamping dampingFactor={.06} minPolarAngle={Math.PI*.28} maxPolarAngle={Math.PI*.72} rotateSpeed={.42}/>
+  <OrbitControls autoRotate autoRotateSpeed={.55} enablePan={false} enableZoom={false} enableDamping dampingFactor={.06} minPolarAngle={Math.PI*.28} maxPolarAngle={Math.PI*.72} rotateSpeed={.42}/>
  </>;
 }
 export default function TradeGlobe(){
