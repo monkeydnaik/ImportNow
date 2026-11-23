@@ -44,7 +44,7 @@ export default function CargoHandling(){
       </li>)}
      </ol></div>
      <div className="j-milestones" aria-label="Shipment milestones">
-      {milestoneDays.map((day,i)=><span className={'j-ms'+(i===0?' on':'')} key={day}>D{day} · {['Supplier confirmed','Production started','Quality inspection','Cargo ready','Departed Shanghai','In transit','Arrived in India','Delivered'][i]}</span>)}
+      {milestoneDays.map((day,i)=><span className={'j-ms'+(i===0?' on':'')} key={day}><MotionText>D{day} · {['Supplier confirmed','Production started','Quality inspection','Cargo ready','Departed Shanghai','In transit','Arrived in India','Delivered'][i]}</MotionText></span>)}
      </div>
      <div className="j-route">
       <div className="j-port"><span className="cargo-flag">🇨🇳</span><div><span className="pname"><MotionText>Shanghai</MotionText></span><small><MotionText>Origin port · China</MotionText></small></div></div>
