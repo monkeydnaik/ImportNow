@@ -1,7 +1,6 @@
 import React,{useRef} from 'react';
 import {Canvas,useFrame} from '@react-three/fiber';
 import {Stars} from '@react-three/drei';
-import * as THREE from 'three';
 
 function Scene(){
  const globe=useRef();
