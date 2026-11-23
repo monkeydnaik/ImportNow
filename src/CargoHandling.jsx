@@ -194,9 +194,15 @@ function PortScene(){
   if(unloadHook.current)unloadHook.current.position.y=unloadY;
   if(unloadTrolley.current)unloadTrolley.current.position.x=t<40?.42:t<42?THREE.MathUtils.lerp(.42,-.55,(t-40)/2):t<44?THREE.MathUtils.lerp(-.55,.42,(t-42)/2):.42;
   if(delivered.current){
-   if(t<39)delivered.current.position.set(ship.current.position.x-.95,.58,0);
-   else if(t<43)delivered.current.position.set(4.05,Math.max(.55,2.45+unloadY),0);
-   else delivered.current.position.set(4.05,.55,0);
+   if(t<40)delivered.current.position.set(ship.current.position.x-.95,.58,0);
+   else if(t<44)delivered.current.position.set(4.05,Math.max(.55,2.45+unloadY),0);
+   else if(t<46)delivered.current.position.set(4.05,.55,0);
+   else delivered.current.position.set(7.55,.82,THREE.MathUtils.lerp(-6.0,-2.4,ease((t-46)/8)));
+  }
+  if(truck.current)truck.current.position.set(7.55,.02,t<46?-6.0:t<54?THREE.MathUtils.lerp(-6.0,-2.4,ease((t-46)/8)):-2.4);
+  if(tug.current){
+   tug.current.position.set(THREE.MathUtils.lerp(-1.8,2.2,(Math.sin(clock.elapsedTime*.25)+1)/2),.04,3.8);
+   tug.current.rotation.y=Math.sin(clock.elapsedTime*.3)*.12;
   }
  });
  return <>
