@@ -155,3 +155,16 @@ body{background:radial-gradient(ellipse at 75% 4%,#163349 0%,#0a1928 34%,#071321
 @media(max-width:900px){.motion-feature{grid-template-columns:1fr;gap:25px}}
 @media(max-width:680px){.motion-feature{padding-top:58px;padding-bottom:58px;gap:20px}.motion-feature-grid{grid-template-columns:1fr}.motion-card{min-height:145px}.motion-demo{height:42px}}
 @media(prefers-reduced-motion:reduce){.motion-card,.motion-demo i{animation:none!important;transition:none!important}}
+
+
+/* Interactive 3D import journey replacing the static orbit illustration */
+.journey-3d{height:390px;position:relative;overflow:hidden;border:1px solid #31566a;border-radius:12px;background:radial-gradient(ellipse at center,#15384b 0%,#0b1c2b 72%);box-shadow:0 28px 70px #0005,inset 0 0 55px #63c9f21a;isolation:isolate}
+.journey-3d canvas{display:block;width:100%;height:100%}
+.journey-3d-caption{position:absolute;left:16px;right:16px;bottom:13px;display:flex;align-items:center;gap:8px;color:#d9e8ee;font:9px var(--mono);letter-spacing:.12em;pointer-events:none;text-shadow:0 2px 8px #000}
+.journey-3d-caption i{width:7px;height:7px;border-radius:50%;background:#ff765b;box-shadow:0 0 12px #ff765b;animation:journey-pulse 1.6s infinite}
+.journey-3d-caption span{margin-left:auto;color:#8fd8f1}
+.journey-node{display:flex;align-items:center;gap:9px;min-width:112px;padding:10px 12px;border:1px solid color-mix(in srgb,var(--node-accent) 55%,#315166);border-radius:7px;background:rgba(6,20,32,.9);box-shadow:0 8px 22px #0008;backdrop-filter:blur(8px);color:#f3f8fa;white-space:nowrap}
+.journey-node-icon{display:grid;place-items:center;width:25px;height:25px;border-radius:6px;background:#19394b;color:var(--node-accent);font-size:17px}
+.journey-node b,.journey-node small{display:block}.journey-node b{font:10px var(--mono);letter-spacing:.08em}.journey-node small{margin-top:3px;font:8px var(--mono);color:#9fb7c3;letter-spacing:.08em}
+@keyframes journey-pulse{50%{opacity:.45;box-shadow:0 0 3px #ff765b}}
+@media(max-width:680px){.journey-3d{height:320px;margin:0 -4px}.journey-node{min-width:92px;padding:7px 8px;gap:6px}.journey-node-icon{width:21px;height:21px}.journey-node b{font-size:8px}.journey-node small{font-size:7px}.journey-3d-caption{font-size:8px}}
