@@ -214,10 +214,11 @@ function PortScene(){
   <Ocean shipRef={ship}/>
   {/* Distant port terminals, gantries and container stacks */}
   <PortTerminal side={-1} accent="#d99d53"/>
-  <PortTerminal side={1} accent="#6fabbc"/>\n
+  <PortTerminal side={1} accent="#6fabbc"/>
+
   <group ref={tug}><Tugboat/></group>
-  <group position={[-5.1,0,0]}><GantryCrane x={0} hookRef={loadHook} trolleyRef={loadTrolley}/></group>
-  <group position={[5.1,0,0]}><GantryCrane x={0} accent="#6fabbc" hookRef={unloadHook} trolleyRef={unloadTrolley}/></group>
+  <group position={[-5.1,0,-3.3]} rotation={[0,-Math.PI/2,0]}><GantryCrane x={0} hookRef={loadHook} trolleyRef={loadTrolley}/></group>
+  <group position={[5.1,0,-3.3]} rotation={[0,-Math.PI/2,0]}><GantryCrane x={0} accent="#6fabbc" hookRef={unloadHook} trolleyRef={unloadTrolley}/></group>
   <group ref={ship}><VesselFallback fallback={<Ship/>}><Suspense fallback={<Ship/>}><ImportedVessel/></Suspense></VesselFallback></group>
   <group ref={lifted}><Container color="#e6a35b"/></group>
   <group ref={delivered}><Container color="#4e9eb3"/></group>
