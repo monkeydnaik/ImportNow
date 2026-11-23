@@ -176,101 +176,21 @@ body{background:radial-gradient(ellipse at 75% 4%,#163349 0%,#0a1928 34%,#071321
 @media(max-width:680px){.globe-city-label{width:70px;padding:4px 5px;transform:scale(.76)}.globe-city-label b{font-size:8px}.globe-city-label span{font-size:5.5px}}
 
 
-/* Dedicated port operations scene: clean loading and unloading animation */
-.cargo-ops{padding-top:88px;padding-bottom:88px;scroll-margin-top:100px}
-.cargo-ops-heading{display:flex;align-items:end;justify-content:space-between;gap:28px;margin-bottom:26px}
+
+/* Automatic cinematic 3D cargo port scene */
+.cargo-ops{padding:88px 0;scroll-margin-top:100px}
+.cargo-ops-heading{display:flex;align-items:end;justify-content:space-between;gap:28px;margin-bottom:25px}
 .cargo-ops-heading h2{font:600 clamp(34px,4.2vw,52px)/1.05 var(--display);letter-spacing:-.06em;color:#f2f7fa;margin:16px 0 0}
 .cargo-ops-heading h2 em{font-style:normal;color:var(--orange)}
-.cargo-ops-heading>p{max-width:330px;margin:0 0 5px;color:#a8bbc6;font-size:13px;line-height:1.8}
-.cargo-terminal{height:340px;position:relative;overflow:hidden;border:1px solid #315166;border-radius:12px;background:linear-gradient(180deg,#102a3b 0%,#173d50 62%,#0b2637 63%,#071725 100%);box-shadow:0 22px 55px #0004;isolation:isolate}
-.terminal-sky{position:absolute;inset:0 0 38% 0;background:radial-gradient(ellipse at 72% 18%,#f0bd7740,transparent 25%),linear-gradient(180deg,#102a3b,#17394b)}
-.terminal-sun{position:absolute;right:14%;top:14%;width:46px;height:46px;border-radius:50%;background:#efbd70;filter:blur(1px);opacity:.65;box-shadow:0 0 55px 18px #efbd7030}
-.terminal-cloud{position:absolute;height:9px;width:80px;border-radius:99px;background:#9fc4d31b;filter:blur(2px)}
-.cloud-a{top:27%;left:18%}.cloud-b{top:42%;right:22%;transform:scale(.7)}
-.terminal-crane{position:absolute;z-index:4;left:16%;top:8%;width:66%;height:69%;pointer-events:none}
-.crane-tower{position:absolute;left:12%;top:3%;height:96%;width:8px;background:linear-gradient(90deg,#d99b50,#f2c27b 50%,#9c6939);box-shadow:3px 0 8px #0005}
-.crane-top{position:absolute;left:8%;top:2%;height:8px;width:78%;background:#e6ad61;box-shadow:0 2px 6px #0006}
-.crane-arm{position:absolute;left:14%;top:4%;height:5px;width:75%;background:#d89d55;transform-origin:left;transform:rotate(0deg)}
-.crane-cabin{position:absolute;left:74%;top:7%;width:35px;height:25px;border:3px solid #d89d55;background:#173346;border-radius:3px}
-.crane-cable{position:absolute;left:63%;top:9%;height:36%;width:2px;background:#d7e0e2;transform-origin:top;animation:crane-hoist 5.8s ease-in-out infinite,crane-trolley 5.8s ease-in-out infinite}
-.crane-spreader{position:absolute;left:calc(63% - 16px);top:45%;width:34px;height:5px;background:#efbd70;animation:crane-spreader 5.8s ease-in-out infinite,crane-trolley 5.8s ease-in-out infinite}
-.terminal-ship{position:absolute;z-index:3;right:7%;bottom:19%;width:47%;height:34%}
-.ship-hull{position:absolute;left:0;right:0;bottom:0;height:38%;background:linear-gradient(180deg,#d85d4d,#923f3b);clip-path:polygon(0 0,100% 0,89% 100%,10% 100%);border-bottom:3px solid #e9b35c}
-.ship-deck{position:absolute;left:12%;right:12%;bottom:35%;height:48%;display:flex;align-items:end;justify-content:space-evenly;gap:3px}
-.ship-deck i{display:block;width:14%;height:100%;border:1px solid #ffffff25;background:repeating-linear-gradient(90deg,#d97755 0 5px,#b85448 5px 7px);box-shadow:inset 0 0 0 2px #ffffff0b}
-.ship-deck i:nth-child(2n){height:76%;background:repeating-linear-gradient(90deg,#d6a15d 0 5px,#a87943 5px 7px)}
-.ship-bridge{position:absolute;right:7%;bottom:38%;width:28px;height:45px;background:#dce6e8;border:3px solid #a5c2ce;border-bottom:0;border-radius:3px 3px 0 0}
-.terminal-quay{position:absolute;z-index:2;left:0;bottom:24%;height:9%;width:48%;background:linear-gradient(180deg,#738894,#344d5d);border-top:3px solid #c0cdd0;box-shadow:0 8px 16px #0005}
-.terminal-quay>i{position:absolute;top:-16px;width:5px;height:16px;background:#d2a05e}.terminal-quay>i:nth-of-type(1){left:17%}.terminal-quay>i:nth-of-type(2){left:34%}.terminal-quay>i:nth-of-type(3){left:77%}
-.quay-mark{position:absolute;left:18px;top:8px;color:#e2edf0;font:8px var(--mono);letter-spacing:.14em}
-.terminal-water{position:absolute;z-index:1;left:0;right:0;bottom:0;height:24%;background:repeating-linear-gradient(178deg,transparent 0 15px,#7ec6df12 16px 17px),linear-gradient(180deg,#0e354a,#071725)}
-.terminal-water span{position:absolute;height:2px;width:70px;border-radius:100%;background:#8bd5e9;opacity:.45;animation:water-drift 4s linear infinite}
-.terminal-water span:nth-child(1){left:13%;top:35%}.terminal-water span:nth-child(2){left:47%;top:63%;animation-delay:1.2s}.terminal-water span:nth-child(3){right:9%;top:25%;animation-delay:2.1s}
-.cargo-transfer{position:absolute;z-index:5;left:64%;top:47%;width:34px;height:27px;border:1px solid #ffffff45;background:repeating-linear-gradient(90deg,#e8a35a 0 8px,#c47c43 8px 10px);box-shadow:0 6px 15px #0006;transform-origin:center;animation:container-transfer 5.8s cubic-bezier(.45,0,.25,1) infinite}
-.cargo-transfer:before,.cargo-transfer:after{content:'';position:absolute;top:0;bottom:0;width:2px;background:#ffe0a5aa}
-.cargo-transfer:before{left:6px}.cargo-transfer:after{right:6px}
-.cargo-transfer-two{left:29%;top:58%;width:30px;height:23px;background:repeating-linear-gradient(90deg,#5ba9ba 0 7px,#397d91 7px 9px);animation:container-transfer-reverse 5.8s cubic-bezier(.45,0,.25,1) infinite;animation-delay:2.9s}
-.terminal-status{position:absolute;z-index:7;left:18px;right:18px;top:15px;display:flex;align-items:center;justify-content:space-between;color:#dbe8ed;font:8px var(--mono);letter-spacing:.13em}
-.terminal-status b{display:flex;align-items:center;gap:8px;font-weight:500}
-.terminal-status b i{width:7px;height:7px;border-radius:50%;background:#ff785f;box-shadow:0 0 10px #ff785f}
-.terminal-status>span{color:#93c8dc}
-.cargo-ops-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
-.cargo-ops-steps>div{display:grid;grid-template-columns:34px 1fr;column-gap:10px;align-items:center;padding:14px 16px;border:1px solid #29495b;border-radius:7px;background:linear-gradient(145deg,#122e40,#0b1c2b)}
-.cargo-ops-steps b{grid-row:span 2;color:#efbd70;font:12px var(--mono)}
-.cargo-ops-steps span{color:#edf4f7;font:10px var(--mono);letter-spacing:.12em}
-.cargo-ops-steps small{color:#9fb3be;font-size:10px;margin-top:3px}
-@keyframes container-transfer{0%,8%{left:64%;top:48%;transform:translateY(0)}22%{left:64%;top:27%;transform:translateY(0)}48%{left:30%;top:27%}63%,78%{left:30%;top:59%}100%{left:64%;top:48%}}
-@keyframes container-transfer-reverse{0%,8%{left:29%;top:58%}22%{left:29%;top:27%}48%{left:64%;top:27%}63%,78%{left:64%;top:48%}100%{left:29%;top:58%}}
-@keyframes crane-hoist{0%,8%{height:36%}22%,48%{height:16%}63%,78%{height:43%}100%{height:36%}}
-@keyframes crane-spreader{0%,8%{top:45%}22%,48%{top:25%}63%,78%{top:52%}100%{top:45%}}\n@keyframes crane-trolley{0%,22%{left:63%}48%,78%{left:28%}100%{left:63%}}
-@keyframes water-drift{from{transform:translateX(-18px);opacity:.1}50%{opacity:.5}to{transform:translateX(55px);opacity:.1}}
-@media(max-width:680px){
- .cargo-ops{padding-top:58px;padding-bottom:58px;scroll-margin-top:88px}
- .cargo-ops-heading{display:block;margin-bottom:18px}
- .cargo-ops-heading>p{margin-top:14px;max-width:100%}
- .cargo-terminal{height:270px}
- .terminal-crane{left:8%;width:75%;height:65%;top:12%}
- .terminal-ship{right:2%;width:54%;height:30%;bottom:19%}
- .terminal-quay{width:50%}
- .cargo-transfer{width:27px;height:21px}
- .cargo-transfer-two{width:25px;height:19px}
- .terminal-status{left:12px;right:12px;top:13px;font-size:7px;letter-spacing:.08em}
- .quay-mark{font-size:6px;left:8px}
- .cargo-ops-steps{grid-template-columns:1fr;gap:8px}
- .cargo-ops-steps>div{padding:11px 13px}
-}
-@media(prefers-reduced-motion:reduce){.cargo-transfer,.cargo-transfer-two,.crane-cable,.crane-spreader,.terminal-water span{animation:none!important}.cargo-transfer{left:64%;top:48%}.cargo-transfer-two{left:29%;top:58%}}
-/* Avoid sticky navigation covering section headings when users jump or scroll */
-.motion-feature,.section,.dark-band,.process-band,.cta-section,.cargo-ops{scroll-margin-top:100px}
-@media(max-width:680px){.motion-feature{scroll-margin-top:88px}}
-
-
-/* Interactive drag-to-load / sail / drag-to-unload experience */
-.cargo-terminal{touch-action:pan-y;user-select:none}
-.terminal-origin{left:0;width:30%;bottom:24%;z-index:2}
-.terminal-destination{left:auto;right:0;width:28%;bottom:24%;z-index:2;opacity:.82}
-.terminal-ship{left:30%;right:auto;width:43%;transition:transform 2.5s cubic-bezier(.2,.7,.2,1),filter .5s}
-.cargo-phase-sailing .terminal-ship,.cargo-phase-arrived .terminal-ship,.cargo-phase-unloaded .terminal-ship{transform:translateX(47%)}
-.ship-drop-zone,.destination-drop-zone{position:absolute;z-index:6;display:flex;align-items:center;justify-content:center;border:1px dashed #f0bd70a8;border-radius:8px;background:#f0bd7012;color:#f7d59d;font:9px var(--mono);letter-spacing:.14em;transition:background .2s,border-color .2s,opacity .3s}
-.ship-drop-zone{left:43%;top:49%;width:23%;height:22%}
-.destination-drop-zone{right:2%;top:48%;width:23%;height:26%;opacity:.3}
-.cargo-phase-ready .ship-drop-zone{animation:drop-pulse 1.8s ease-in-out infinite}
-.cargo-phase-arrived .destination-drop-zone{opacity:1;animation:drop-pulse 1.8s ease-in-out infinite}
-.cargo-phase-ready .destination-drop-zone{pointer-events:none}
-.cargo-phase-arrived .ship-drop-zone{opacity:.15;pointer-events:none}
-.draggable-container{position:absolute;z-index:9;left:12%;top:63%;width:70px;height:42px;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;border:1px solid #ffe0a5;background:repeating-linear-gradient(90deg,#e8a35a 0 15px,#c47c43 15px 18px);color:#172b36;box-shadow:0 8px 18px #0008;cursor:grab;touch-action:none;transition:box-shadow .2s,filter .2s}
-.draggable-container:before,.draggable-container:after{content:'';position:absolute;top:0;bottom:0;width:3px;background:#ffe0a5aa}
-.draggable-container:before{left:8px}.draggable-container:after{right:8px}
-.draggable-container b{font:700 8px var(--mono);letter-spacing:.1em}
-.draggable-container small{font:6px var(--mono);letter-spacing:.05em}
-.draggable-container .cargo-grip{position:absolute;left:3px;top:2px;font-size:11px;line-height:1;color:#fff7}
-.draggable-container.is-dragging{z-index:15;cursor:grabbing;transform:translate(-50%,-50%) scale(1.12);box-shadow:0 12px 30px #000b,0 0 0 5px #efbd7040;filter:brightness(1.12)}
-.draggable-container.on-ship{left:51%;top:58%}
-.cargo-instruction{position:absolute;z-index:8;left:50%;bottom:9px;transform:translateX(-50%);max-width:calc(100% - 24px);width:max-content;padding:8px 12px;border:1px solid #466477;border-radius:6px;background:#061522eF;color:#dceaf0;text-align:center;font-size:10px;line-height:1.4;box-shadow:0 5px 18px #0004}
-.cargo-complete{position:absolute;z-index:12;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;background:#061522d9;text-align:center}
-.cargo-complete b{color:#9fe0c3;font:12px var(--mono);letter-spacing:.18em}
-.cargo-complete span{color:#dbe9ee;font-size:13px}
-.cargo-complete button{margin-top:7px;padding:10px 16px;border:1px solid #efbd70;border-radius:5px;background:#efbd70;color:#102332;font-weight:700;font-size:11px}
+.cargo-ops-heading>p{max-width:350px;margin:0 0 5px;color:#a8bbc6;font-size:13px;line-height:1.8}
+.cargo-3d-stage{height:430px;position:relative;overflow:hidden;border:1px solid #315166;border-radius:13px;background:radial-gradient(ellipse at 50% 38%,#174257,#071725 75%);box-shadow:0 24px 65px #0005;isolation:isolate}
+.cargo-3d-stage canvas{display:block;width:100%;height:100%}
+.cargo-3d-label{position:absolute;z-index:2;top:19%;display:flex;flex-direction:column;gap:4px;padding:9px 12px;border:1px solid #7195a577;border-radius:6px;background:#071725d9;color:#f1f6f8;font:10px var(--mono);letter-spacing:.1em;backdrop-filter:blur(8px);pointer-events:none}
+.cargo-3d-label small{color:#8fc9dd;font-size:8px}
+.cargo-label-origin{left:4%}.cargo-label-destination{right:4%}
+.cargo-3d-status{position:absolute;z-index:2;left:16px;right:16px;bottom:14px;display:flex;align-items:center;gap:9px;color:#dbe9ee;font:9px var(--mono);letter-spacing:.12em;text-shadow:0 2px 8px #000;pointer-events:none}
+.cargo-3d-status i{width:7px;height:7px;border-radius:50%;background:#72d7b1;box-shadow:0 0 12px #72d7b1;animation:cargo-live-pulse 1.8s infinite}
+.cargo-3d-status span{margin-left:auto;color:#9acfe0}
 .cargo-route-summary{display:grid;grid-template-columns:1fr 1fr 1fr 1.15fr;align-items:center;gap:16px;margin-top:16px;padding:20px;border:1px solid #29495b;border-radius:9px;background:linear-gradient(145deg,#122e40,#0b1c2b)}
 .cargo-route-summary>div:not(.route-summary-line){display:flex;flex-direction:column;gap:6px}
 .cargo-route-summary span{color:#92aab7;font:9px var(--mono);letter-spacing:.12em}
@@ -280,20 +200,17 @@ body{background:radial-gradient(ellipse at 75% 4%,#163349 0%,#0a1928 34%,#071321
 .route-summary-line i{height:1px;flex:1;background:linear-gradient(90deg,#efbd70,#65b9d2)}
 .cargo-eta{padding-left:16px;border-left:1px solid #365467}
 .cargo-eta b{color:#efbd70;font-size:20px}
-.cargo-ops-steps>div.is-active{border-color:#d8a45f;background:linear-gradient(145deg,#1a3a4b,#102536);box-shadow:inset 0 0 0 1px #d8a45f22}
-.cargo-ops-steps>div.is-active b{color:#ffca7a}
-@keyframes drop-pulse{0%,100%{box-shadow:0 0 0 0 #efbd7020;background:#efbd700d}50%{box-shadow:0 0 0 7px #efbd7015;background:#efbd7026}}
+@keyframes cargo-live-pulse{50%{opacity:.4;box-shadow:0 0 3px #72d7b1}}
 @media(max-width:680px){
- .terminal-origin{width:34%}.terminal-destination{width:31%}
- .terminal-ship{left:25%;width:51%}
- .cargo-phase-sailing .terminal-ship,.cargo-phase-arrived .terminal-ship,.cargo-phase-unloaded .terminal-ship{transform:translateX(35%)}
- .ship-drop-zone{left:37%;top:48%;width:25%;height:22%;font-size:7px}
- .destination-drop-zone{right:1%;top:47%;width:25%;height:25%;font-size:7px}
- .draggable-container{width:58px;height:36px;left:13%;top:62%}
- .draggable-container.on-ship{left:53%;top:57%}
- .cargo-instruction{font-size:9px;bottom:8px;padding:7px 9px}
+ .cargo-ops{padding:58px 0;scroll-margin-top:88px}
+ .cargo-ops-heading{display:block;margin-bottom:18px}
+ .cargo-ops-heading>p{margin-top:14px;max-width:100%}
+ .cargo-3d-stage{height:300px;margin:0 -4px}
+ .cargo-3d-label{top:14%;padding:6px 8px;font-size:8px}
+ .cargo-3d-label small{font-size:6px}
+ .cargo-3d-status{left:10px;right:10px;bottom:10px;font-size:7px;letter-spacing:.07em;gap:6px}
  .cargo-route-summary{grid-template-columns:1fr 1fr;gap:14px;padding:15px}
  .route-summary-line{grid-column:1/-1;grid-row:2}
  .cargo-eta{padding-left:0;border-left:0;border-top:1px solid #365467;padding-top:12px}
 }
-@media(prefers-reduced-motion:reduce){.terminal-ship{transition:none}.ship-drop-zone,.destination-drop-zone{animation:none!important}}
+@media(prefers-reduced-motion:reduce){.cargo-3d-status i{animation:none}}
