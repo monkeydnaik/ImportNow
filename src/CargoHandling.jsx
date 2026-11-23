@@ -74,21 +74,21 @@ function PortScene(){
    ship.current.rotation.z=Math.sin(clock.elapsedTime*.65)*.008;
    ship.current.rotation.y=Math.sin(clock.elapsedTime*.4)*.012;
   }
-  const lift=t<4?THREE.MathUtils.lerp(.68,2.25,t/4):t<8?THREE.MathUtils.lerp(2.25,.72,(t-4)/4):2.25;
+  const lift=t<4?THREE.MathUtils.lerp(-.25,-1.8,t/4):t<8?THREE.MathUtils.lerp(-1.8,-.25,(t-4)/4):-.25;
   if(leftHook.current)leftHook.current.position.y=lift;
   if(leftTrolley.current)leftTrolley.current.position.x=t<4?-.35:t<8?THREE.MathUtils.lerp(-.35,.55,(t-4)/4):.55;
   if(loaded.current){
-   if(t<4)loaded.current.position.set(-4.2,Math.max(.5,lift-1.45),0);
-   else if(t<8)loaded.current.position.set(THREE.MathUtils.lerp(-4.2,-2.35,(t-4)/4),lift-1.45,0);
-   else if(t<13)loaded.current.position.set(-2.35,.96,0);
+   if(t<4)loaded.current.position.set(-4.2,Math.max(.5,2.33+lift),0);
+   else if(t<8)loaded.current.position.set(THREE.MathUtils.lerp(-4.2,-2.35,(t-4)/4),2.33+lift,0);
+   else if(t<13)loaded.current.position.set(-2.35,THREE.MathUtils.lerp(2.08,.96,(t-8)/5),0);
    else loaded.current.position.set(-30,-30,0);
   }
-  const down=t<31?2.25:t<35?THREE.MathUtils.lerp(2.25,.72,(t-31)/4):.72;
+  const down=t<31?-.25:t<35?THREE.MathUtils.lerp(-.25,-1.8,(t-31)/4):-1.8;
   if(rightHook.current)rightHook.current.position.y=down;
   if(rightTrolley.current)rightTrolley.current.position.x=t<31?.5:t<35?THREE.MathUtils.lerp(.5,-.35,(t-31)/4):-.35;
   if(unloaded.current){
    if(t<31)unloaded.current.position.set(30,-30,0);
-   else if(t<35)unloaded.current.position.set(4.2,Math.max(.5,down-1.45),0);
+   else if(t<35)unloaded.current.position.set(4.2,Math.max(.5,2.33+down),0);
    else unloaded.current.position.set(4.2,.5,0);
   }
  });
