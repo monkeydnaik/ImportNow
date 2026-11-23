@@ -44,5 +44,5 @@ function Scene(){
  </>;
 }
 export default function ImportJourney3D(){
- return <div className="journey-3d"><Canvas dpr={[1,1.5]} camera={{position:[0,0,6.8],fov:42}} gl={{antialias:true,alpha:false,powerPreference:'low-power'}}><Scene/></Canvas><div className="journey-fixed-labels"><div><b>01 · SOURCE</b><span>Factory network</span></div><div><b>02 · VERIFY</b><span>Quality checks</span></div><div><b>03 · SHIP</b><span>Ocean freight</span></div><div><b>04 · DELIVER</b><span>India delivery</span></div></div><div className="journey-3d-caption"><i/> LIVE IMPORT JOURNEY <span>CHINA → INDIA</span></div></div>;
+ return <div className="journey-3d"><Canvas dpr={[1,1.5]} camera={{position:[0,0,6.8],fov:42}} gl={{antialias:true,alpha:false,powerPreference:'low-power'}}><Scene/></Canvas><div className="journey-fixed-labels"><div><b>01 · FACTORY</b><span>Sourcing & supplier selection</span></div><div><b>02 · QUALITY</b><span>Inspection & sample approval</span></div><div><b>03 · FREIGHT</b><span>Container loading & ocean shipping</span></div><div><b>04 · DELIVERY</b><span>Customs clearance & doorstep delivery</span></div></div><div className="journey-3d-caption"><i/> LIVE IMPORT JOURNEY <span>CHINA → INDIA</span></div></div>;
 }
