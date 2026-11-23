@@ -16,22 +16,34 @@ function Container({position=[0,0,0],color='#d8894d',scale=1}){
 
 function Hull(){
  const geometry=useMemo(()=>{
-  // Bevelled naval hull profile: tapered bow, fuller midship and transom stern.
-  const outline=new THREE.Shape();
-  outline.moveTo(-4.28,-.34);
-  outline.lineTo(3.42,-.34);
-  outline.quadraticCurveTo(4.22,-.32,4.38,.08);
-  outline.lineTo(3.82,.25);
-  outline.lineTo(-3.72,.25);
-  outline.quadraticCurveTo(-4.3,.18,-4.28,-.34);
-  const g=new THREE.ExtrudeGeometry(outline,{depth:1.82,steps:1,bevelEnabled:true,bevelSegments:4,bevelSize:.075,bevelThickness:.075,curveSegments:16});
-  g.translate(0,0,-.91);
-  g.computeVertexNormals();
-  return g;
+  // Purpose-built 3D hull: tapered bow, rounded bilges, broad beam and deep keel.
+  const stations=[
+   [-4.65,.34,-.34,.34],[-4.25,.72,-.52,.42],[-3.65,.92,-.62,.44],
+   [-2.7,1.02,-.68,.45],[-1.2,1.08,-.7,.46],[1.2,1.06,-.68,.46],
+   [2.65,.98,-.61,.45],[3.55,.78,-.48,.43],[4.2,.42,-.24,.35],[4.5,.08,-.08,.2]
+  ];
+  const ring=[
+   [0,1],[.72,1],[1,.55],[.88,-.1],[.58,-.78],[0,-1],
+   [-.58,-.78],[-.88,-.1],[-1,.55],[-.72,1]
+  ];
+  const vertices=[],indices=[];
+  stations.forEach(([x,w,bottom,top])=>ring.forEach(([z,y])=>{
+   vertices.push(x,bottom+(top-bottom)*(y+1)/2,z*w);
+  }));
+  const n=ring.length;
+  for(let i=0;i<stations.length-1;i++)for(let j=0;j<n;j++){
+   const a=i*n+j,b=i*n+(j+1)%n,c=(i+1)*n+(j+1)%n,d=(i+1)*n+j;
+   indices.push(a,b,d,b,c,d);
+  }
+  const g=new THREE.BufferGeometry();
+  g.setAttribute('position',new THREE.Float32BufferAttribute(vertices,3));
+  g.setIndex(indices);g.computeVertexNormals();return g;
  },[]);
- return <mesh geometry={geometry} castShadow receiveShadow><meshStandardMaterial color="#17384d" metalness={.62} roughness={.34} side={THREE.DoubleSide}/></mesh>;
+ return <group>
+  <mesh geometry={geometry} castShadow receiveShadow><meshStandardMaterial color="#17394d" metalness={.68} roughness={.29} side={THREE.DoubleSide}/></mesh>
+  <mesh position={[-.05,-.38,0]}><boxGeometry args={[7.8,.07,1.55]}/>{steel('#bd5146',.42,.4)}</mesh>
+ </group>;
 }
-
 
 const VESSEL_MODEL='https://tevy.dev/models/container-ship/v1/lod0.glb';
 
@@ -59,23 +71,25 @@ class VesselFallback extends React.Component{
 
 function PortTerminal({side=1,accent='#d99d53'}){
  const colors=['#c96b50','#d4a15d','#3e8092','#c7d1ce','#a94e45','#668b9a'];
- return <group position={[side*5.1,0,-4.6]}>
-  <mesh position={[0,-.19,0]} receiveShadow><boxGeometry args={[5.7,.48,4.8]}/>{steel('#7d8989',.12,.9)}</mesh>
-  <mesh position={[0,.055,2.25]}><boxGeometry args={[5.7,.13,.28]}/>{steel('#b5b8ad',.12,.88)}</mesh>
-  {Array.from({length:8},(_,i)=><group key={i} position={[-2.45+(i%4)*1.55,.14,-2.45+Math.floor(i/4)*1.5]}>
-   <mesh castShadow><boxGeometry args={[1.25,.12,.12]}/>{steel('#e5b65f',.35,.55)}</mesh>
-   <mesh position={[0,.12,0]}><cylinderGeometry args={[.07,.07,.22,10]}/>{steel('#344b55',.6,.45)}</mesh>
-  </group>)}
-  {Array.from({length:12},(_,i)=><Container key={i} position={[-2.0+(i%4)*1.28,.14+Math.floor(i/4)*.5,-1.55+Math.floor(i/4)*.05]} color={colors[(i+ (side>0?2:0))%colors.length]} scale={1.18}/>)}
-  <group position={[0,0,-3.05]}>
-   <mesh position={[0,.85,0]} castShadow><boxGeometry args={[4.7,1.7,1.25]}/>{steel('#d5d8d3',.18,.8)}</mesh>
-   <mesh position={[0,1.75,0]}><boxGeometry args={[4.9,.14,1.42]}/>{steel('#334d5a',.45,.55)}</mesh>
-   <mesh position={[0,1.05,.64]}><boxGeometry args={[2.5,.68,.035]}/><meshStandardMaterial color="#6b9cac" metalness={.2} roughness={.3}/></mesh>
-   {[-1.65,1.65].map(x=><mesh key={x} position={[x,.5,.66]}><boxGeometry args={[.48,.6,.04]}/>{steel('#8b9da0',.25,.65)}</mesh>)}
+ return <group position={[side*7.25,0,-4.9]}>
+  {/* Wide concrete quay with painted safety edge */}
+  <mesh position={[0,-.19,0]} receiveShadow><boxGeometry args={[8.4,.5,9.8]}/>{steel('#788687',.18,.88)}</mesh>
+  <mesh position={[0,.075,4.72]}><boxGeometry args={[8.4,.12,.28]}/>{steel('#e5c16d',.28,.55)}</mesh>
+  {/* Four rows of container stacks, with mixed heights and colours */}
+  {Array.from({length:36},(_,i)=><Container key={i}
+   position={[-3.05+(i%6)*1.22,.14+Math.floor(i/18)*.53,-3.25+Math.floor(i/6)%3*1.48]}
+   color={colors[(i+(side>0?2:0))%colors.length]} scale={.96}/>)}
+  {/* Terminal warehouse and office block */}
+  <group position={[0,0,-4.15]}>
+   <mesh position={[0,.92,0]} castShadow><boxGeometry args={[6.6,1.8,1.55]}/>{steel('#d5d8d3',.18,.8)}</mesh>
+   <mesh position={[0,1.88,0]}><boxGeometry args={[6.8,.16,1.72]}/>{steel('#334d5a',.45,.55)}</mesh>
+   <mesh position={[0,1.08,.79]}><boxGeometry args={[3.8,.72,.035]}/><meshStandardMaterial color="#6b9cac" metalness={.2} roughness={.3}/></mesh>
+   {[-2.45,2.45].map(x=><mesh key={x} position={[x,.58,.8]}><boxGeometry args={[.55,.72,.04]}/>{steel('#8b9da0',.25,.65)}</mesh>)}
   </group>
-  {[-2.5,2.5].map(x=><group key={x} position={[x,.1,-.3]}>
-   <mesh position={[0,.85,0]}><cylinderGeometry args={[.035,.035,1.7,8]}/>{steel('#e3e1d4',.45,.5)}</mesh>
-   <mesh position={[0,1.72,0]}><sphereGeometry args={[.1,10,8]}/><meshBasicMaterial color="#f6d28c"/></mesh>
+  {/* Yard light masts */}
+  {[-3.35,3.35].map(x=><group key={x} position={[x,.1,-.25]}>
+   <mesh position={[0,1.3,0]}><cylinderGeometry args={[.04,.055,2.6,8]}/>{steel('#e3e1d4',.45,.5)}</mesh>
+   <mesh position={[0,2.65,0]}><boxGeometry args={[.36,.1,.16]}/><meshBasicMaterial color="#f6d28c"/></mesh>
   </group>)}
  </group>;
 }
@@ -101,73 +115,38 @@ function Tugboat(){
 }
 
 function Ship(){
- const deckContainers=useMemo(()=>Array.from({length:24},(_,i)=>({x:-2.55+(i%6)*.98,z:Math.floor(i/6)%2?-.48:.48,y:.58+Math.floor(i/12)*.51,color:['#d66d4e','#d8a45d','#347d92','#e0bd7b','#668d9c','#bd594d'][(i*5+Math.floor(i/6))%6]})),[]);
- return <group>
+ const deckContainers=useMemo(()=>Array.from({length:42},(_,i)=>({
+  x:-3.75+(i%7)*1.16,z:Math.floor(i/7)%2?-.68:.68,
+  y:.53+Math.floor(i/14)*.55,
+  color:['#d66d4e','#d8a45d','#347d92','#e0bd7b','#668d9c','#bd594d'][(i*5+Math.floor(i/7))%6]
+ })),[]);
+ return <group scale={[1.3,1.22,1.3]}>
   <Hull/>
-  <mesh position={[-.05,.22,0]} castShadow><boxGeometry args={[7.7,.12,1.95]}/>{steel('#344e5c',.48,.5)}</mesh>
-  {/* bow foredeck and stern working deck */}
-  <mesh position={[3.2,.42,0]}><boxGeometry args={[1.1,.16,1.15]}/>{steel('#243f50',.5,.45)}</mesh>
-  {deckContainers.map((c,i)=><Container key={i} position={[c.x,c.y,c.z]} color={c.color}/>)}
-  {/* stern bridge / accommodation block */}
-  <group position={[-3.42,.48,0]}>
-   <mesh position={[0,.45,0]} castShadow><boxGeometry args={[.78,.92,1.08]}/>{steel('#e5e4d9',.12,.72)}</mesh>
-   <mesh position={[0,1.02,0]}><boxGeometry args={[.72,.25,1.0]}/>{steel('#d8e0df',.18,.48)}</mesh>
-   <mesh position={[0,1.17,0]}><boxGeometry args={[.62,.18,.86]}/>{steel('#6ea6b8',.35,.28)}</mesh>
-   {[-.29,0,.29].map((x,i)=><mesh key={i} position={[x,1.17,.445]}><boxGeometry args={[.17,.1,.025]}/><meshBasicMaterial color="#bce7f0"/></mesh>)}
-   <mesh position={[0,1.42,0]}><cylinderGeometry args={[.025,.025,.34,8]}/>{steel('#e8ece8',.3,.4)}</mesh>
-   <mesh position={[0,1.61,0]}><boxGeometry args={[.22,.05,.22]}/>{steel('#e8ece8',.3,.4)}</mesh>
-   <mesh position={[.22,.15,0]}><boxGeometry args={[.08,.25,.08]}/>{steel('#c95e48',.35,.5)}</mesh>
+  <mesh position={[-.05,.39,0]} castShadow><boxGeometry args={[8.35,.18,2.02]}/>{steel('#354f5d',.55,.43)}</mesh>
+  {/* Raised bulwarks and deck walkways */}
+  {[-1,1].map(side=><mesh key={side} position={[0,.53,side*.99]}><boxGeometry args={[8.1,.24,.055]}/>{steel('#b9c5c6',.5,.42)}</mesh>)}
+  {deckContainers.map((c,i)=><Container key={i} position={[c.x,c.y,c.z]} color={c.color} scale={1.08}/>)}
+  {/* Full-height aft accommodation block with bridge glazing */}
+  <group position={[-4.05,.48,0]}>
+   <mesh position={[0,.62,0]} castShadow><boxGeometry args={[1.35,1.25,1.65]}/>{steel('#e4e4dc',.16,.68)}</mesh>
+   <mesh position={[0,1.38,0]} castShadow><boxGeometry args={[1.28,.34,1.58]}/>{steel('#d9e0dc',.18,.5)}</mesh>
+   <mesh position={[0,1.62,0]}><boxGeometry args={[1.18,.22,1.48]}/>{steel('#578da0',.38,.27)}</mesh>
+   {[-.42,-.14,.14,.42].map((x,i)=><mesh key={i} position={[x,1.62,.755]}><boxGeometry args={[.18,.13,.025]}/><meshBasicMaterial color="#c8edf5"/></mesh>)}
+   <mesh position={[0,1.88,0]}><cylinderGeometry args={[.035,.035,.42,10]}/>{steel('#edf0e9',.45,.38)}</mesh>
+   <mesh position={[0,2.1,0]}><boxGeometry args={[.28,.06,.28]}/>{steel('#edf0e9',.4,.4)}</mesh>
+   <mesh position={[.68,.35,0]}><boxGeometry args={[.16,.42,.16]}/>{steel('#c95e48',.35,.5)}</mesh>
   </group>
-  {/* bow anchor gear and deck fittings */}
-  <group position={[3.55,.48,0]}>
-   <mesh position={[0,.1,0]}><cylinderGeometry args={[.07,.07,.18,12]}/>{steel('#9aa7a8',.7,.35)}</mesh>
-   {[-.22,.22].map(z=><mesh key={z} position={[-.15,.04,z]}><boxGeometry args={[.24,.12,.08]}/>{steel('#a9b5b5',.7,.35)}</mesh>)}
+  {/* Forecastle, mast, anchor gear and lifeboats */}
+  <group position={[3.85,.45,0]}>
+   <mesh position={[0,.55,0]}><cylinderGeometry args={[.035,.055,1.1,10]}/>{steel('#dce2df',.5,.4)}</mesh>
+   <mesh position={[0,1.1,0]}><boxGeometry args={[.8,.07,.08]}/>{steel('#e2e5df',.4,.45)}</mesh>
+   <mesh position={[0,.08,0]}><cylinderGeometry args={[.1,.1,.22,12]}/>{steel('#9aa7a8',.7,.35)}</mesh>
   </group>
-  {/* side portholes */}
-  {Array.from({length:14},(_,i)=><mesh key={i} position={[-3.1+i*.47,.02,1.045]}><circleGeometry args={[.035,12]}/><meshBasicMaterial color="#e8c98b"/></mesh>)}
-  {/* bow bulb / waterline stripe */}
-  <mesh position={[3.65,-.22,0]}><sphereGeometry args={[.25,16,10]}/>{steel('#b44f42',.35,.45)}</mesh>
-  <mesh position={[0,-.2,0]}><boxGeometry args={[6.7,.035,1.6]}/><meshBasicMaterial color="#bd5146"/></mesh>
- </group>;
-}
-
-function GantryCrane({x=0,accent='#d99d53',hookRef,trolleyRef}){
- return <group position={[x,0,0]}>
-  {[-1.08,1.08].map(z=><group key={z} position={[0,0,z]}>
-   <mesh position={[-.25,2.15,0]} castShadow><boxGeometry args={[.22,4.2,.25]}/>{steel(accent,.52,.42)}</mesh>
-   <mesh position={[-.25,.14,0]}><boxGeometry args={[.9,.28,.82]}/>{steel('#485f6b',.55,.48)}</mesh>
+  {[-.72,.72].map((z,i)=><group key={i} position={[-2.9,.55,z]}>
+   <mesh><boxGeometry args={[.72,.22,.28]}/>{steel('#e9e1ce',.25,.7)}</mesh>
+   <mesh position={[0,.14,0]}><boxGeometry args={[.54,.05,.24]}/>{steel('#c65a48',.3,.6)}</mesh>
   </group>)}
-  <mesh position={[-.25,4.2,0]} castShadow><boxGeometry args={[.28,.24,2.5]}/>{steel(accent,.55,.4)}</mesh>
-  <mesh position={[1.0,4.2,0]}><boxGeometry args={[4.8,.2,.24]}/>{steel('#b77c40',.55,.42)}</mesh>
-  <mesh position={[-1.45,4.2,0]}><boxGeometry args={[1.35,.18,.2]}/>{steel(accent,.5,.45)}</mesh>
-  <group ref={trolleyRef} position={[.65,3.98,0]}>
-   <mesh castShadow><boxGeometry args={[.72,.32,.74]}/>{steel('#344e5d',.65,.4)}</mesh>
-   <group ref={hookRef} position={[0,-.16,0]}>
-    <mesh position={[0,-.7,0]}><cylinderGeometry args={[.014,.014,1.4,8]}/>{steel('#dce5e8',.8,.3)}</mesh>
-    <mesh position={[0,-1.42,0]}><boxGeometry args={[.98,.07,.72]}/>{steel('#eab96c',.65,.35)}</mesh>
-    {[-.39,.39].map(z=><mesh key={z} position={[0,-1.48,z]}><torusGeometry args={[.08,.018,8,14]}/>{steel('#e1e9e9',.8,.3)}</mesh>)}
-   </group>
-  </group>
- </group>;
-}
-
-function Ocean({shipRef}){
- const water=useRef(),wake=useRef();
- const geo=useMemo(()=>{
-  const g=new THREE.PlaneGeometry(34,17,100,52);g.rotateX(-Math.PI/2);return g;
- },[]);
- useFrame(({clock})=>{
-  const t=clock.elapsedTime, pos=geo.attributes.position;
-  for(let i=0;i<pos.count;i++){const x=pos.getX(i),z=pos.getZ(i);pos.setY(i,Math.sin(x*.7+t*1.2)*.035+Math.cos(z*.9+t*.8)*.025);}
-  pos.needsUpdate=true;geo.computeVertexNormals();
-  if(wake.current&&shipRef.current){wake.current.position.x=shipRef.current.position.x-4.15;wake.current.position.z=.03;wake.current.rotation.y=Math.PI/2;}
- });
- return <group>
-  <mesh ref={water} geometry={geo} receiveShadow><meshStandardMaterial color="#0b526b" metalness={.34} roughness={.27} side={THREE.DoubleSide}/></mesh>
-  <group ref={wake}>
-   {[0,1,2,3].map(i=><mesh key={i} position={[-i*.34,.015,0]} rotation={[-Math.PI/2,0,0]}><ringGeometry args={[.16+i*.12,.2+i*.12,32]}/><meshBasicMaterial color="#d7edf0" transparent opacity={.2-i*.035} side={THREE.DoubleSide}/></mesh>)}
-  </group>
-  {Array.from({length:55},(_,i)=><mesh key={i} rotation={[-Math.PI/2,0,0]} position={[-15+(i%11)*3,.025,-7+Math.floor(i/11)*3.4]}><planeGeometry args={[1.1,.018]}/><meshBasicMaterial color="#82d5e3" transparent opacity={.14}/></mesh>)}
+  {Array.from({length:18},(_,i)=><mesh key={i} position={[-3.55+i*.42,.03,1.035]}><circleGeometry args={[.035,12]}/><meshBasicMaterial color="#e8c98b"/></mesh>)}
  </group>;
 }
 
@@ -220,9 +199,10 @@ function PortScene(){
   <PortTerminal side={1} accent="#6fabbc"/>
 
   <group ref={tug}><Tugboat/></group>
-  <group position={[-5.1,0,-3.3]} rotation={[0,-Math.PI/2,0]}><GantryCrane x={0} hookRef={loadHook} trolleyRef={loadTrolley}/></group>
-  <group position={[5.1,0,-3.3]} rotation={[0,-Math.PI/2,0]}><GantryCrane x={0} accent="#6fabbc" hookRef={unloadHook} trolleyRef={unloadTrolley}/></group>
-  <group ref={ship}><VesselFallback fallback={<Ship/>}><Suspense fallback={<Ship/>}><ImportedVessel/></Suspense></VesselFallback></group>
+  {[-1,1].map((side)=>[-7.1,-4.9,-2.7].map((z,i)=><group key={side+':'+z} position={[side*5.1,0,z]} rotation={[0,-Math.PI/2,0]}>
+   <GantryCrane x={0} accent={side<0?'#d99d53':'#6fabbc'} hookRef={i===1?(side<0?loadHook:unloadHook):undefined} trolleyRef={i===1?(side<0?loadTrolley:unloadTrolley):undefined}/>
+  </group>))}
+  <group ref={ship}><Ship/></group>
   <group ref={lifted}><Container color="#e6a35b"/></group>
   <group ref={delivered}><Container color="#4e9eb3"/></group>
   <YardTruck truckRef={truck}/>
@@ -240,7 +220,7 @@ function GantriesStatic({accent='#d99d53'}){
 export default function CargoHandling(){
  return <section className="cargo-ops container" aria-labelledby="cargo-ops-title">
   <div className="cargo-ops-heading"><div><div className="eyebrow"><i/> 3D PORT LOGISTICS IN 3D</div><h2 id="cargo-ops-title">Watch your order travel<br/><em>from China to India.</em></h2></div><p>A loaded container ship approaches from open water, cranes transfer cargo at the quay, and the vessel sails to the destination terminal for unloading and onward truck delivery. This is an illustrative 3D port operation, not live vessel tracking.</p></div>
-  <div className="cargo-3d-stage"><Canvas shadows dpr={[1,1.25]} camera={{position:[0,10.8,22.5],fov:36}} gl={{antialias:true,powerPreference:'high-performance'}}><PortScene/></Canvas><div className="cargo-3d-label cargo-label-origin">SHANGHAI PORT <small>CHINA · ORIGIN</small></div><div className="cargo-3d-label cargo-label-destination">CHENNAI PORT <small>INDIA · DESTINATION</small></div><div className="cargo-3d-status"><i/> PORT OPERATION SIMULATION <span>BERTH → LOAD → VOYAGE → UNLOAD → DELIVER</span></div></div>
+  <div className="cargo-3d-stage"><Canvas shadows dpr={[1,1.25]} camera={{position:[0,13.6,28.5],fov:38}} gl={{antialias:true,powerPreference:'high-performance'}}><PortScene/></Canvas><div className="cargo-3d-label cargo-label-origin">SHANGHAI PORT <small>CHINA · ORIGIN</small></div><div className="cargo-3d-label cargo-label-destination">CHENNAI PORT <small>INDIA · DESTINATION</small></div><div className="cargo-3d-status"><i/> PORT OPERATION SIMULATION <span>BERTH → LOAD → VOYAGE → UNLOAD → DELIVER</span></div></div>
   <div className="cargo-route-summary"><div><span>STARTING LOCATION</span><b>Shanghai Port, China</b><small>Origin · China</small></div><div className="route-summary-line"><i/><span>SEA FREIGHT</span><i/></div><div><span>ENDING LOCATION</span><b>Chennai Port, India</b><small>Destination · India</small></div><div className="cargo-eta"><span>ESTIMATED SEA FREIGHT</span><b>25–35 days</b><small>Illustrative estimate; route and timing vary.</small></div></div>
  </section>;
 }
