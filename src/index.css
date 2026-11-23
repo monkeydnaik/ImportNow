@@ -424,3 +424,156 @@ body{background:radial-gradient(ellipse at 75% 4%,#163349 0%,#0a1928 34%,#071321
  .cargo-journey .j-step,.cargo-journey .j-ms,.cargo-sea-loading{transition:none}
  .cargo-sea-badge i{animation:none}
 }
+
+
+/* IMMERSIVE 3D BRAND SYSTEM — layered atmosphere, depth and responsive scale */
+:root{
+ --ink:#eef7fb;--navy:#06111e;--muted:#9bb5c2;--line:#29485b;
+ --orange:#ff765b;--gold:#f1c27a;--aqua:#72d8ee;
+}
+html{background:#06111e}
+body{
+ background:
+  radial-gradient(ellipse at 14% 7%,rgba(28,102,130,.28),transparent 34%),
+  radial-gradient(ellipse at 86% 22%,rgba(112,64,116,.17),transparent 30%),
+  linear-gradient(180deg,#071827 0%,#06111e 42%,#091b2b 72%,#06111e 100%);
+ color:#edf6fa;isolation:isolate;overflow-x:hidden;
+}
+body:before{
+ content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.24;
+ background-image:linear-gradient(rgba(103,176,203,.11) 1px,transparent 1px),linear-gradient(90deg,rgba(103,176,203,.11) 1px,transparent 1px);
+ background-size:58px 58px;
+ transform:perspective(900px) rotateX(62deg) scale(1.8) translateY(23%);
+ transform-origin:center bottom;
+ mask-image:linear-gradient(transparent 8%,#000 58%,transparent 100%);
+ animation:trade-grid-drift 24s linear infinite;
+}
+body:after{
+ content:"";position:fixed;z-index:-1;pointer-events:none;width:46vw;height:46vw;min-width:360px;min-height:360px;right:-15vw;top:12vh;border-radius:50%;
+ background:radial-gradient(circle,rgba(34,151,177,.13),rgba(36,100,135,.035) 42%,transparent 70%);
+ filter:blur(18px);animation:ambient-orbit 22s ease-in-out infinite alternate;
+}
+@keyframes trade-grid-drift{to{background-position:0 58px,58px 0}}
+@keyframes ambient-orbit{from{transform:translate3d(0,0,0) scale(.92)}to{transform:translate3d(-8vw,12vh,0) scale(1.12)}}
+.header{background:rgba(5,16,28,.76);border-color:rgba(102,164,188,.2);box-shadow:0 8px 40px #0002}
+.brand-mark{background:linear-gradient(145deg,#1c526b,#0b2336);border:1px solid #4a8297;box-shadow:0 8px 22px #0005, inset 0 1px #ffffff2b}
+.nav-cta,.mobile-contact{border-radius:999px;box-shadow:0 8px 24px #ff765b30}
+.nav-links>a{font-size:11px;letter-spacing:.02em}
+.hero{position:relative;isolation:isolate;min-height:690px}
+.hero:before{content:"";position:absolute;z-index:-1;left:-12%;top:12%;width:46%;height:72%;background:radial-gradient(ellipse,rgba(25,113,147,.16),transparent 68%);filter:blur(15px);pointer-events:none}
+.hero h1{font-size:clamp(56px,7vw,92px);text-shadow:0 16px 48px #0005}
+.hero h1 em{background:linear-gradient(100deg,#ff8062 0%,#ffc37c 50%,#78d8ee 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-lead{max-width:440px;color:#a9bfca}
+.globe-frame{
+ height:520px;border-radius:24px;border:1px solid #4c8297a6;
+ background:radial-gradient(ellipse at 48% 42%,#1c5068 0%,#0b263a 48%,#061421 82%);
+ box-shadow:0 35px 100px #0009,inset 0 0 60px #63c9f21a,0 0 0 1px #ffffff0a;
+ transform:perspective(1100px) rotateY(-3deg) rotateX(1.5deg);
+ transform-style:preserve-3d;
+}
+.globe-frame:after{content:"";position:absolute;inset:8px;border:1px solid #9ed9eb1a;border-radius:18px;pointer-events:none}
+.globe-frame canvas{position:relative;z-index:1}
+.globe-topline,.globe-bottom{z-index:3}
+.globe-location-panel{
+ position:absolute;z-index:4;right:18px;bottom:58px;width:204px;padding:12px 13px;
+ display:grid;grid-template-columns:1fr;gap:9px;border:1px solid #8ac6dc55;border-radius:10px;
+ background:linear-gradient(145deg,rgba(5,20,33,.94),rgba(8,33,49,.86));
+ box-shadow:0 14px 38px #0008;backdrop-filter:blur(14px);pointer-events:none;
+}
+.globe-location-panel>div{display:grid;grid-template-columns:55px 1fr;gap:3px 7px;align-items:center}
+.globe-location-panel>div>b{grid-row:span 2;color:#f4c47e;font:800 9px var(--mono);letter-spacing:.12em}
+.globe-location-panel>div>span{color:#c1d7e1;font:8px/1.45 var(--mono);white-space:nowrap}
+.globe-location-panel>i{height:1px;background:linear-gradient(90deg,transparent,#5d8ea4,transparent)}
+.globe-bottom{opacity:.75}
+.ticker{background:rgba(8,29,44,.82);border-color:#29485b;color:#b4cbd5;backdrop-filter:blur(12px)}
+.proof-strip{position:relative;z-index:2;margin-top:22px;background:linear-gradient(120deg,rgba(20,54,73,.9),rgba(8,25,40,.92));border:1px solid #3b6578;border-radius:16px;box-shadow:0 24px 65px #0005,inset 0 1px #ffffff12;backdrop-filter:blur(14px)}
+.proof-strip>div{border-color:#34596b}
+.proof-strip strong{background:linear-gradient(100deg,#f4c47e,#7ed8ed);background-clip:text;-webkit-background-clip:text;color:transparent}
+.section,.concept-process-section,.concept-industries-section,.concept-trips-section,.concept-faq-section{position:relative}
+.section-title h2,.concept-heading h2,.concept-how-top h2,.concept-china-layout h2,.concept-trips-layout h2,.concept-guides-row h2,.concept-faq-layout h2{font-size:clamp(35px,4.6vw,59px);text-shadow:0 12px 38px #0004}
+.service-card,.industry-card,.plugin-card,.tool-card,.import-path-card,.concept-service-card,.concept-industry-card,.concept-delivery-card,.concept-quote-grid article{
+ position:relative;overflow:hidden;transform-style:preserve-3d;backface-visibility:hidden;
+ border-color:#355b70;border-radius:14px;
+ background:linear-gradient(145deg,rgba(24,59,79,.92),rgba(7,23,37,.96));
+ box-shadow:0 18px 45px #0003,inset 0 1px #ffffff10;
+}
+.service-card:before,.industry-card:before,.concept-service-card:before,.concept-industry-card:before,.concept-delivery-card:before,.concept-quote-grid article:before{
+ content:"";position:absolute;inset:0;pointer-events:none;opacity:.65;
+ background:linear-gradient(135deg,#ffffff0d,transparent 36%,transparent 68%,#6ed5ef0a);
+}
+.service-card:hover,.industry-card:hover,.concept-service-card:hover,.concept-industry-card:hover,.concept-delivery-card:hover{
+ transform:perspective(900px) translateY(-7px) rotateX(2deg) rotateY(-1deg) translateZ(8px);
+ border-color:#75c9df;box-shadow:0 28px 58px #0007,0 0 26px #59c5e51a;
+}
+.service-card h3,.industry-card h3,.concept-service-card h3,.concept-industry-card h3,.concept-delivery-copy h3{color:#f4f9fb}
+.service-card>p,.industry-card>p,.concept-service-card p,.concept-delivery-copy p{color:#a9bfca}
+.dark-band,.concept-how-section,.concept-china-section,.concept-deliveries-section,.concept-testimonials-section{
+ background:linear-gradient(135deg,rgba(13,43,62,.96),rgba(5,19,32,.98) 58%,rgba(13,38,56,.96));
+ border-color:#2e5267;
+}
+.journey-3d,.cargo-journey-sticky,.cargo-3d-stage{border-radius:18px;border-color:#47758b;box-shadow:0 30px 90px #0007,inset 0 0 70px #68cfee12}
+.concept-route-card,.concept-license-card,.concept-trip-art,.concept-departures>div{
+ border-radius:14px;box-shadow:0 24px 65px #0006, inset 0 1px #ffffff20;
+}
+.concept-license-card{
+ transform:perspective(900px) rotateY(-7deg) rotateX(3deg);
+ background:linear-gradient(145deg,#dce9e5,#aebfbe 55%,#e7e4d6);
+ box-shadow:18px 28px 70px #0008, inset 0 1px #fff;
+}
+.concept-license-card .button{margin-top:18px;white-space:normal}
+.concept-trips-section{background:radial-gradient(ellipse at 12% 40%,#16455b66,transparent 46%)}
+.concept-trip-art{transform:perspective(900px) rotateY(5deg);box-shadow:0 30px 75px #0008}
+.concept-guides-section{background:linear-gradient(110deg,#12384d,#081b2b);border-color:#3b6578}
+.concept-faq-list details{border-color:#35566a}
+.concept-faq-list summary{color:#f2f8fa}
+.concept-final-cta{position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 0%,#24566d 0%,#0b263a 45%,#061522 82%);border-color:#3c7188}
+.concept-final-cta:before,.concept-final-cta:after{content:"";position:absolute;width:280px;height:280px;border:1px solid #7ed8ed25;border-radius:50%;pointer-events:none;animation:cta-orbit 18s linear infinite}
+.concept-final-cta:before{left:-90px;top:-170px;box-shadow:0 0 0 24px #7ed8ed08,0 0 0 55px #7ed8ed05}
+.concept-final-cta:after{right:-100px;bottom:-180px;animation-direction:reverse}
+@keyframes cta-orbit{to{transform:rotate(360deg)}}
+.button{border-radius:999px}
+.button.secondary{border-color:#52798c;background:rgba(11,35,51,.58);color:#e8f4f8}
+.button.secondary:hover{border-color:#91d5e8;background:#173e53}
+.page-hero-art{border-radius:18px;transform:perspective(900px) rotateY(-4deg);box-shadow:0 30px 70px #0007}
+.page-hero-art:after{content:"";position:absolute;inset:0;background:linear-gradient(130deg,#ffffff0b,transparent 35%,#6bd3ef12);pointer-events:none}
+.tool-panel{border-radius:16px;background:linear-gradient(145deg,#17394e,#0a1e30);border-color:#355b70;box-shadow:0 22px 55px #0005}
+.tool-field input,.tool-field textarea,.tool-field select,.contact-form input,.contact-form textarea{border-radius:9px}
+.contact-form{border-radius:18px}
+.contact-aside{border-radius:18px;box-shadow:0 24px 60px #0006}
+.footer{background:linear-gradient(180deg,#071725,#030b13)}
+.cargo-journey{background:#071827}
+.cargo-journey .j-step,.cargo-journey .j-route,.cargo-journey .j-ms,.cargo-sea-badge{
+ box-shadow:0 14px 40px #0003;border-color:#6b8d9c66;
+}
+.cargo-journey .j-step.on{box-shadow:0 18px 44px #06121d55,0 0 0 1px #ffffff3a}
+.cargo-sea-badge{border-radius:999px}
+@media(max-width:820px){
+ .globe-frame{height:440px;transform:none;border-radius:18px}
+ .globe-location-panel{right:10px;bottom:48px;width:178px;padding:9px 10px;gap:7px}
+ .globe-location-panel>div{grid-template-columns:47px 1fr;gap:2px 5px}
+ .globe-location-panel>div>b{font-size:8px}
+ .globe-location-panel>div>span{font-size:7px}
+ .hero{min-height:0;padding-top:56px}
+}
+@media(max-width:680px){
+ body:before{background-size:38px 38px;opacity:.16}
+ .header{height:70px}
+ .hero{padding-top:48px}
+ .globe-frame{height:370px;border-radius:16px}
+ .globe-topline{top:12px;left:12px;right:12px;font-size:7px;letter-spacing:.06em}
+ .globe-location-panel{right:8px;bottom:45px;width:164px;padding:8px;border-radius:8px}
+ .globe-location-panel>div{grid-template-columns:43px 1fr}
+ .globe-location-panel>div>b{font-size:7px}
+ .globe-location-panel>div>span{font-size:6.5px}
+ .globe-bottom{left:12px;right:12px;bottom:14px;font-size:8px}
+ .proof-strip{margin-top:12px;border-radius:12px}
+ .service-card,.industry-card,.concept-service-card,.concept-industry-card,.concept-delivery-card{border-radius:12px}
+ .concept-license-card{transform:none}
+ .concept-trip-art,.page-hero-art{transform:none}
+ .concept-final-cta:before,.concept-final-cta:after{width:160px;height:160px}
+ .cargo-journey .j-route{border-radius:10px}
+}
+@media(prefers-reduced-motion:reduce){
+ body:before,body:after,.concept-final-cta:before,.concept-final-cta:after{animation:none!important}
+ .service-card:hover,.industry-card:hover,.concept-service-card:hover,.concept-industry-card:hover,.concept-delivery-card:hover{transform:none}
+}
