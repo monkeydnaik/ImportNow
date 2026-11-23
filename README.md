@@ -1,36 +1,35 @@
-# ImportNow — China to India
+# ImportNow Replica
 
-Responsive multi-page React website concept for a China-to-India sourcing and import-coordination business.
+A responsive China-to-India import services concept website.
 
 ## Stack
 - React 18 + Vite
-- Lucide React icons
-- Three.js 3D port and interactive Earth globe scenes
-- Custom responsive CSS and motion-aware interactions
+- Three.js interactive 3D Earth and trade-route scene
+- Lucide React icon system
+- Responsive CSS, accessible navigation and enquiry form
 
 ## Pages
-Home (interactive globe hero), Services, Industries, How it works, About, Insights, Contact, Landed Cost Planner, Shipment Tracking Demo.
+Home, Services, Industries, How it works, About and Contact.
 
-The standalone `public/trade-scenes.html` page contains the port and globe scenes. The focused `public/trade-globe.html` scene powers the homepage globe hero. Both use Three.js from a CDN and require an internet connection. The 3D visuals are simulations, not live vessel positions or port feeds.
-
-## Run locally
+## Run
 ```bash
 npm install
 npm run dev
 ```
 
-## Build
+## Production build
 ```bash
 npm run build
 npm run preview
 ```
 
 ## Vercel
-Build command: `npm run build`; output directory: `dist`; install command: `npm install`.
+Framework preset: Vite  
+Build command: `npm run build`  
+Output directory: `dist`
 
-Optional project environment variable: `VITE_WHATSAPP_NUMBER` — set this to the company's verified WhatsApp number in international format with country code, digits only (no `+`, spaces or punctuation). Until it is configured, WhatsApp actions stay disabled and the site will not send enquiries to an invented number. Set it in Vercel Project Settings → Environment Variables, then redeploy.
+Optional environment variable: `VITE_WHATSAPP_NUMBER` (verified business WhatsApp number in international digits-only format). If unset, the contact form prepares and copies the enquiry rather than opening an unconfigured number.
 
-Hash-based navigation is used so all pages work without server-side router rewrites.
+The globe uses Three.js from jsDelivr and an Earth texture from threejs.org, so the interactive 3D scene needs an internet connection. It has an offline-style fallback visual base (untextured globe) if the Earth texture cannot load.
 
-## Before real business use
-Verify company details, licences, contact information, service availability, testimonials and operational claims with the business owner. Connect enquiry handling to an approved CRM/backend before collecting customer data. The landed-cost planner is illustrative only and is not a customs quote or tax determination. The shipment page is sample UI only and is not connected to live carrier data. Confirm product-specific import rules with qualified professionals and official authorities.
+All locations, route paths, service descriptions and trade graphics are illustrative. This is not live vessel tracking, customs advice, supplier verification or a promise of logistics service. Confirm real company details and import requirements before business use.
