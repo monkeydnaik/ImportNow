@@ -193,13 +193,14 @@ function PortScene(){
   const unloadY=t<40?-.18:t<42?THREE.MathUtils.lerp(-.18,-2.1,(t-40)/2):t<44?THREE.MathUtils.lerp(-2.1,-.18,(t-42)/2):-.18;
   if(unloadHook.current)unloadHook.current.position.y=unloadY;
   if(unloadTrolley.current)unloadTrolley.current.position.x=t<40?2.2:t<42?THREE.MathUtils.lerp(2.2,-1.15,(t-40)/2):t<44?THREE.MathUtils.lerp(-1.15,2.2,(t-42)/2):2.2;
+  const truckZ=t<44?-6.0:t<46?THREE.MathUtils.lerp(-6.0,-4.9,ease((t-44)/2)):t<54?THREE.MathUtils.lerp(-4.9,-2.8,ease((t-46)/8)):-2.8;
   if(delivered.current){
    if(t<40)delivered.current.position.set(ship.current.position.x-.95,.58,-.45);
    else if(t<44)delivered.current.position.set(5.1,Math.max(.55,2.45+unloadY),THREE.MathUtils.lerp(-1.1,-4.45,(t-40)/4));
-   else if(t<46)delivered.current.position.set(5.1,.55,-4.45);
-   else delivered.current.position.set(5.1,.82,THREE.MathUtils.lerp(-6.0,-3.2,ease((t-46)/8)));
+   else if(t<46)delivered.current.position.set(5.1,THREE.MathUtils.lerp(.55,.82,ease((t-44)/2)),THREE.MathUtils.lerp(-4.45,truckZ-.45,ease((t-44)/2)));
+   else delivered.current.position.set(5.1,.82,truckZ-.45);
   }
-  if(truck.current)truck.current.position.set(5.1,.02,t<46?-6.0:t<54?THREE.MathUtils.lerp(-6.0,-3.2,ease((t-46)/8)):-3.2);
+  if(truck.current)truck.current.position.set(5.1,.02,truckZ);
   if(tug.current){
    tug.current.position.set(THREE.MathUtils.lerp(-1.8,2.2,(Math.sin(clock.elapsedTime*.25)+1)/2),.04,3.8);
    tug.current.rotation.y=Math.sin(clock.elapsedTime*.3)*.12;
