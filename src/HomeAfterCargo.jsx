@@ -1,5 +1,5 @@
-import React from 'react';
-import {ArrowRight,ArrowUpRight,BookOpen,Check,MapPin,Plane,Hotel,Utensils,Languages,Factory,Ship,ShieldCheck,Truck,PackageCheck,Building2,Lightbulb,Car,Store,Wrench,Globe2,Quote,ChevronDown} from 'lucide-react';
+import React, {useState} from 'react';
+import {ArrowRight,ArrowUpRight,BookOpen,Check,MapPin,Plane,Hotel,Utensils,Languages,Factory,Ship,ShieldCheck,Truck,PackageCheck,Building2,Lightbulb,Car,Store,Wrench,Globe2,Quote,ChevronDown,Phone,MessageCircle,Instagram} from 'lucide-react';
 
 const journey = [
  ['01','Product sourcing','We find manufacturers across Yiwu, Guangzhou, Shenzhen and Foshan, then compare options and negotiate on your behalf.'],
@@ -49,6 +49,17 @@ function Tag({children}) { return <div className="concept-tag"><i/>{children}</d
 function Heading({tag,title,copy}) { return <div className="concept-heading"><Tag>{tag}</Tag><h2>{title}</h2>{copy&&<p>{copy}</p>}</div>; }
 
 export default function HomeAfterCargo(){
+ const [quote,setQuote]=useState({name:'',city:'',category:'',quantity:'',budget:'',details:''});
+ const [quoteError,setQuoteError]=useState('');
+ const updateQuote=(key,value)=>setQuote(current=>({...current,[key]:value}));
+ function sendQuote(event){
+  event.preventDefault();
+  if(!quote.name.trim()||!quote.category){setQuoteError('Please add your name and choose what you want to import.');return;}
+  const lines=['Hello ImportNow, I would like a free sourcing quote.','Name: '+quote.name,'City: '+(quote.city||'Not specified'),'Import category: '+quote.category,'Approx. quantity: '+(quote.quantity||'Not specified'),'Budget: '+(quote.budget||'Not specified'),'Details: '+(quote.details||'Not provided')];
+  const message=encodeURIComponent(lines.join('\\n'));
+  window.open('https://wa.me/919989724320?text='+message,'_blank','noopener,noreferrer');
+  setQuoteError('');
+ }
  return <>
   <section className="concept-process-section">
    <div className="container">
@@ -79,6 +90,38 @@ export default function HomeAfterCargo(){
   <section className="concept-testimonials-section"><div className="container"><Heading tag="CLIENT STORIES" title={<>Real sourcing goals.<br/><em>Real conversations.</em></>} copy="Every import is different. Here are examples of the kind of support clients value."/><div className="concept-quote-grid"><article><Quote/><p>“The market visits helped us understand product options and compare suppliers in person. Having local guidance made the trip easier to plan.”</p><b>Business trip client</b><small>China market visit</small></article><article><Quote/><p>“We selected products remotely, reviewed details before confirming and coordinated delivery to our warehouse.”</p><b>Retail sourcing client</b><small>Yiwu · Retail</small></article><article><Quote/><p>“The sourcing and shipment steps were explained clearly, so we knew what approvals were needed before moving ahead.”</p><b>Project import client</b><small>Furniture · Hospitality</small></article></div></div></section>
   <section className="concept-guides-section"><div className="container"><div className="concept-guides-row"><div><Tag>IMPORT GUIDES</Tag><h2>Learn before<br/><em>you import.</em></h2><p>Practical guidance on product sourcing, shipping, customs and building a business around imported products.</p></div><a className="button secondary" href="https://importnow-concept.vercel.app/blog.html" target="_blank" rel="noreferrer">View all articles <ArrowUpRight size={16}/></a></div><div className="concept-guide-grid">{guides.map(([n,tag,title,copy])=><a className="concept-guide-card" key={n} href="https://importnow-concept.vercel.app/blog.html" target="_blank" rel="noreferrer"><div className="concept-guide-art"><span>{n}</span><BookOpen size={28}/><i/></div><small>{tag}</small><h3>{title}</h3><p>{copy}</p><b>Explore guide <ArrowUpRight size={14}/></b></a>)}</div></div></section>
   <section className="concept-faq-section"><div className="container concept-faq-layout"><div><Tag>QUESTIONS</Tag><h2>Before you<br/><em>import.</em></h2><p>Have a product in mind? We can help you identify the next practical questions.</p></div><div className="concept-faq-list">{faqs.map(([q,a])=><details key={q}><summary>{q}<ChevronDown size={18}/></summary><p>{a}</p></details>)}</div></div></section>
-  <section className="concept-final-cta"><Tag>START IMPORTING</Tag><h2>Tell us what you want to import.<br/><em>We’ll help plan the next step.</em></h2><p>Share the product, quantity and destination. We’ll help you understand supplier options, cost inputs and likely timelines before you commit.</p><a className="button primary" href="#/contact">Start your import enquiry <ArrowUpRight size={16}/></a></section>
+  <section className="concept-final-cta concept-quote-cta" id="start-importing">
+   <div className="container concept-quote-layout">
+    <div className="concept-quote-intro">
+     <Tag>START IMPORTING</Tag>
+     <h2>Tell us what you want to import.<br/><em>We'll take it from there.</em></h2>
+     <p>Share the product and quantity. You'll get supplier options, landed cost and timelines, free of charge.</p>
+     <div className="concept-quote-contact">
+      <a href="tel:+919989724320"><Phone size={17}/><span><small>CALL US</small>+91 99897 24320</span></a>
+      <a href="https://wa.me/919989724320" target="_blank" rel="noreferrer"><MessageCircle size={17}/><span><small>WHATSAPP</small>Chat with our team</span></a>
+      <a href="https://www.instagram.com/importnow.in/" target="_blank" rel="noreferrer"><Instagram size={17}/><span><small>INSTAGRAM</small>@importnow.in</span></a>
+     </div>
+     <div className="concept-quote-offices"><span><MapPin size={14}/> Hyderabad, India</span><i/><span>Shanghai, China</span></div>
+    </div>
+    <form className="concept-quote-form" onSubmit={sendQuote}>
+     <div className="concept-quote-form-head"><span>FREE SOURCING · NO OBLIGATION</span><h3>Get a free sourcing quote</h3></div>
+     <div className="concept-quote-fields">
+      <label>Your name *<input required value={quote.name} onChange={e=>updateQuote('name',e.target.value)} placeholder="Your full name"/></label>
+      <label>City<input value={quote.city} onChange={e=>updateQuote('city',e.target.value)} placeholder="e.g. Hyderabad"/></label>
+      <label className="wide">What do you want to import? *
+       <select required value={quote.category} onChange={e=>updateQuote('category',e.target.value)}>
+        <option value="">Choose a category</option><option>Furniture & interiors</option><option>Electronics & tech</option><option>EV & automotive</option><option>Lighting</option><option>Supermarket & general goods</option><option>Machinery</option><option>China business trip / Canton Fair</option><option>Something else</option>
+       </select>
+      </label>
+      <label>Approx. quantity<input value={quote.quantity} onChange={e=>updateQuote('quantity',e.target.value)} placeholder="e.g. 200 pieces / 1 container"/></label>
+      <label>Budget<select value={quote.budget} onChange={e=>updateQuote('budget',e.target.value)}><option value="">Choose a range</option><option>Under ₹1 lakh</option><option>₹1–5 lakh</option><option>₹5–25 lakh</option><option>₹25 lakh+</option></select></label>
+      <label className="wide">Details<textarea rows="3" value={quote.details} onChange={e=>updateQuote('details',e.target.value)} placeholder="Product links, specifications, destination or anything else we should know…"/></label>
+     </div>
+     {quoteError&&<p className="concept-quote-error" role="alert">{quoteError}</p>}
+     <button className="button primary concept-quote-submit" type="submit">Send on WhatsApp <ArrowUpRight size={17}/></button>
+     <small className="concept-quote-note">Opens WhatsApp with your details filled in. We usually reply within a few hours.</small>
+    </form>
+   </div>
+  </section>
  </>;
 }
