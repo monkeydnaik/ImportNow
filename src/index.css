@@ -54,3 +54,20 @@
 @media(prefers-reduced-motion:reduce){.cinematic-port *{animation:none!important}}
 
 .hero-3d-port{height:430px;overflow:hidden;position:relative;border-radius:6px;background:#9dbdc8;box-shadow:0 25px 60px #1c36451c}.hero-3d-port iframe{display:block;width:100%;height:100%;border:0}@media(max-width:600px){.hero-3d-port{height:390px}}
+
+
+/* Interview edition: globe-first China-to-India hero */
+.hero{padding-top:54px;padding-bottom:12px}
+.hero-grid{grid-template-columns:.9fr 1.1fr;gap:18px}
+.hero h1{font-size:clamp(48px,5.6vw,72px);line-height:1.04;letter-spacing:-4px}
+.hero-globe{height:500px;min-width:0;position:relative;isolation:isolate;border-radius:50%;overflow:hidden;background:radial-gradient(circle at 50% 48%,#183e64 0%,#0b1c31 64%,#071321 100%);box-shadow:0 28px 75px #102d4930}
+.hero-globe:before{content:"";position:absolute;inset:1.5%;border-radius:50%;border:1px solid #8dbfff8c;box-shadow:0 0 24px #5da8ff88,inset 0 0 26px #5da8ff44;pointer-events:none;z-index:2}
+.hero-globe iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.globe-caption{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);display:flex;align-items:center;gap:9px;padding:9px 13px;border:1px solid #ffffff2b;border-radius:30px;background:#071321c9;color:#f3f7fb;white-space:nowrap;font:9px var(--mono);letter-spacing:.08em;backdrop-filter:blur(12px);z-index:3}
+.globe-caption i{width:22px;height:1px;background:#ed6256}
+.globe-caption small{color:#a8c5e5;font-size:8px;margin-left:5px}
+.hero .proof{margin-top:28px}
+.hero-foot{margin-top:22px}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr 1fr;gap:12px}.hero-globe{height:410px}.hero h1{font-size:clamp(44px,5.5vw,58px);letter-spacing:-3px}}
+@media(max-width:680px){.hero{padding-top:35px}.hero-grid{grid-template-columns:1fr;gap:24px}.hero h1{font-size:clamp(46px,11vw,62px);letter-spacing:-3.4px;line-height:1.02}.hero-globe{height:min(92vw,410px);width:100%;border-radius:50%;max-width:520px;margin:0 auto}.globe-caption{bottom:12px;gap:7px;padding:8px 10px;font-size:8px}.globe-caption small{font-size:7px}.hero-foot{margin-top:22px}}
+@media(prefers-reduced-motion:reduce){.hero-globe iframe{scroll-behavior:auto}}
