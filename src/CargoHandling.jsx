@@ -44,8 +44,8 @@ function Crane({position,hook,trolley}){
    <mesh position={[-.12,1.95,0]} castShadow={true}><boxGeometry args={[.2,3.8,.22]}/><meshStandardMaterial color="#d69b52" metalness={0.5} roughness={0.42}/></mesh>
    <mesh position={[-.12,.12,0]}><boxGeometry args={[.85,.24,.7]}/><meshStandardMaterial color="#485f6b" metalness={0.5}/></mesh>
   </group>)}
-  <mesh position={[-.12,3.85,0]} castShadow={true}><boxGeometry args={[.25,.24,2.15]}/><meshStandardMaterial color="#e5ad60" metalness={0.5} roughness:.4/></mesh>
-  <mesh position={[.88,3.85,0]}><boxGeometry args={[2.2,.22,.22]}/><meshStandardMaterial color="#bd8748" metalness={0.5}5/></mesh>
+  <mesh position={[-.12,3.85,0]} castShadow={true}><boxGeometry args={[.25,.24,2.15]}/><meshStandardMaterial color="#e5ad60" metalness={0.5} roughness={0.4}/></mesh>
+  <mesh position={[.88,3.85,0]}><boxGeometry args={[2.2,.22,.22]}/><meshStandardMaterial color="#bd8748" metalness={0.55}/></mesh>
   <group ref={trolley} position={[.7,3.62,0]}>
    <mesh><boxGeometry args={[.7,.3,.68]}/><meshStandardMaterial color="#344e5c" metalness={0.5}/></mesh>
    <group ref={hook} position={[0,-.18,0]}>
