@@ -1,6 +1,6 @@
-import React,{useMemo,useRef} from 'react';
+import React,{Suspense,useMemo,useRef} from 'react';
 import {Canvas,useFrame} from '@react-three/fiber';
-import {ContactShadows} from '@react-three/drei';
+import {ContactShadows,useGLTF} from '@react-three/drei';
 import * as THREE from 'three';
 
 const steel=(color,metalness=.35,roughness=.55)=><meshStandardMaterial color={color} metalness={metalness} roughness={roughness}/>;
@@ -30,6 +30,74 @@ function Hull(){
   return g;
  },[]);
  return <mesh geometry={geometry} castShadow receiveShadow><meshStandardMaterial color="#17384d" metalness={.62} roughness={.34} side={THREE.DoubleSide}/></mesh>;
+}
+
+
+const VESSEL_MODEL='https://tevy.dev/models/container-ship/v1/lod0.glb';
+
+function ImportedVessel(){
+ const {scene}=useGLTF(VESSEL_MODEL);
+ const model=useMemo(()=>{
+  const object=scene.clone(true);
+  object.traverse(node=>{if(node.isMesh){node.castShadow=true;node.receiveShadow=true;}});
+  const bounds=new THREE.Box3().setFromObject(object);
+  const size=bounds.getSize(new THREE.Vector3());
+  const center=bounds.getCenter(new THREE.Vector3());
+  return {object,scale:8.2/Math.max(size.z,1),offset:[-center.x,0,-center.z]};
+ },[scene]);
+ return <group rotation={[0,Math.PI/2,0]} scale={model.scale}>
+  <primitive object={model.object} position={model.offset}/>
+ </group>;
+}
+
+class VesselFallback extends React.Component{
+ constructor(props){super(props);this.state={failed:false};}
+ static getDerivedStateFromError(){return {failed:true};}
+ componentDidCatch(error){console.warn('External vessel model unavailable; using the built-in vessel.',error);}
+ render(){return this.state.failed?this.props.fallback:this.props.children;}
+}
+
+function PortTerminal({side=1,accent='#d99d53'}){
+ const colors=['#c96b50','#d4a15d','#3e8092','#c7d1ce','#a94e45','#668b9a'];
+ return <group position={[side*7.55,0,-3.6]}>
+  <mesh position={[0,-.19,0]} receiveShadow><boxGeometry args={[5.7,.48,7.3]}/>{steel('#7d8989',.12,.9)}</mesh>
+  <mesh position={[0,.055,3.45]}><boxGeometry args={[5.7,.13,.28]}/>{steel('#b5b8ad',.12,.88)}</mesh>
+  {Array.from({length:8},(_,i)=><group key={i} position={[-2.45+(i%4)*1.55,.14,-2.45+Math.floor(i/4)*1.5]}>
+   <mesh castShadow><boxGeometry args={[1.25,.12,.12]}/>{steel('#e5b65f',.35,.55)}</mesh>
+   <mesh position={[0,.12,0]}><cylinderGeometry args={[.07,.07,.22,10]}/>{steel('#344b55',.6,.45)}</mesh>
+  </group>)}
+  {Array.from({length:12},(_,i)=><Container key={i} position={[-2.0+(i%4)*1.28,.14+Math.floor(i/4)*.5,-1.55+Math.floor(i/4)*.05]} color={colors[(i+ (side>0?2:0))%colors.length]} scale={1.18}/>)}
+  <group position={[0,0,-3.05]}>
+   <mesh position={[0,.85,0]} castShadow><boxGeometry args={[4.7,1.7,1.25]}/>{steel('#d5d8d3',.18,.8)}</mesh>
+   <mesh position={[0,1.75,0]}><boxGeometry args={[4.9,.14,1.42]}/>{steel('#334d5a',.45,.55)}</mesh>
+   <mesh position={[0,1.05,.64]}><boxGeometry args={[2.5,.68,.035]}/><meshStandardMaterial color="#6b9cac" metalness={.2} roughness={.3}/></mesh>
+   {[-1.65,1.65].map(x=><mesh key={x} position={[x,.5,.66]}><boxGeometry args={[.48,.6,.04]}/>{steel('#8b9da0',.25,.65)}</mesh>)}
+  </group>
+  {[-2.5,2.5].map(x=><group key={x} position={[x,.1,-.3]}>
+   <mesh position={[0,.85,0]}><cylinderGeometry args={[.035,.035,1.7,8]}/>{steel('#e3e1d4',.45,.5)}</mesh>
+   <mesh position={[0,1.72,0]}><sphereGeometry args={[.1,10,8]}/><meshBasicMaterial color="#f6d28c"/></mesh>
+  </group>)}
+ </group>;
+}
+
+function YardTruck({truckRef}){
+ return <group ref={truckRef}>
+  <mesh position={[0,.32,0]} castShadow><boxGeometry args={[1.35,.32,2.5]}/>{steel('#263d4a',.45,.55)}</mesh>
+  <mesh position={[0,.72,.78]} castShadow><boxGeometry args={[1.22,.86,.9]}/>{steel('#e4a64f',.3,.5)}</mesh>
+  <mesh position={[0,1.02,.8]}><boxGeometry args={[.98,.35,.025]}/><meshStandardMaterial color="#83b9c6" metalness={.2} roughness={.25}/></mesh>
+  <mesh position={[0,.54,-.45]}><boxGeometry args={[1.3,.16,1.25]}/>{steel('#879397',.5,.6)}</mesh>
+  {[-.52,.52].flatMap(x=>[-.78,.78].map(z=><mesh key={x+':'+z} position={[x,.22,z]} rotation={[0,0,Math.PI/2]}><cylinderGeometry args={[.22,.22,.13,16]}/>{steel('#202a30',.08,.9)}</mesh>))}
+  <mesh position={[0,.52,-.45]}><boxGeometry args={[1.05,.12,1.18]}/>{steel('#d7d8d1',.25,.7)}</mesh>
+ </group>;
+}
+
+function Tugboat(){
+ return <group position={[0,0,0]}>
+  <mesh position={[0,.16,0]}><boxGeometry args={[1.65,.3,.7]}/>{steel('#e7e2d2',.3,.6)}</mesh>
+  <mesh position={[.1,.45,0]}><boxGeometry args={[.62,.38,.56]}/>{steel('#d85c49',.3,.55)}</mesh>
+  <mesh position={[.1,.48,.29]}><boxGeometry args={[.42,.19,.025]}/><meshBasicMaterial color="#b9dbe2"/></mesh>
+  <mesh position={[-.55,.06,0]}><coneGeometry args={[.25,.45,12]}/>{steel('#263f4c',.35,.55)}</mesh>
+ </group>;
 }
 
 function Ship(){
@@ -104,9 +172,9 @@ function Ocean({shipRef}){
 }
 
 function PortScene(){
- const ship=useRef(),loadHook=useRef(),unloadHook=useRef(),loadTrolley=useRef(),unloadTrolley=useRef(),lifted=useRef(),delivered=useRef();
+ const ship=useRef(),loadHook=useRef(),unloadHook=useRef(),loadTrolley=useRef(),unloadTrolley=useRef(),lifted=useRef(),delivered=useRef(),truck=useRef(),tug=useRef();
  useFrame(({clock})=>{
-  const t=clock.getElapsedTime()%48;
+  const t=clock.getElapsedTime()%60;
   const ease=v=>{v=THREE.MathUtils.clamp(v,0,1);return v*v*(3-2*v);};
   // Vessel enters from open water, berths at origin, sails the sea lane, then approaches destination from offshore.
   const approach=ease(t/7);
@@ -139,7 +207,7 @@ function PortScene(){
   <pointLight position={[-7,5,3]} intensity={35} distance={16} color="#ffd19a"/>
   <Ocean shipRef={ship}/>
   {/* Distant port terminals, gantries and container stacks */}
-  <group position={[-7.3,0,-1.6]}>
+  <PortTerminal side={-1} accent="#d99d53"/>\n  <PortTerminal side={1} accent="#6fabbc"/>\n  <group position={[-7.3,0,-1.6]}>
    <mesh position={[0,-.02,0]}><boxGeometry args={[4,.55,5]}/>{steel('#66777a',.2,.85)}</mesh>
    <GantriesStatic/>
    {Array.from({length:8},(_,i)=><Container key={i} position={[-1.55+(i%4)*.9,.52,1.25+Math.floor(i/4)*.8]} color={['#d47a56','#d9aa64','#3c8295','#d0d3c8'][i%4]} scale={.72}/>)}
@@ -152,9 +220,9 @@ function PortScene(){
   <GantriesStatic/>
   <group position={[-5.1,0,0]}><GantryCrane x={0} hookRef={loadHook} trolleyRef={loadTrolley}/></group>
   <group position={[5.1,0,0]}><GantryCrane x={0} accent="#6fabbc" hookRef={unloadHook} trolleyRef={unloadTrolley}/></group>
-  <group ref={ship}><Ship/></group>
+  <group ref={ship}><VesselFallback fallback={<Ship/>}><Suspense fallback={<Ship/>}><ImportedVessel/></Suspense></VesselFallback></group>
   <group ref={lifted}><Container color="#e6a35b"/></group>
-  <group ref={delivered}><Container color="#4e9eb3"/></group>
+  <group ref={delivered}><Container color="#4e9eb3"/></group>\n  <YardTruck truckRef={truck}/>
   <ContactShadows position={[0,-.04,0]} opacity={.23} scale={28} blur={3} far={6}/>
  </>;
 }
@@ -168,8 +236,8 @@ function GantriesStatic({accent='#d99d53'}){
 
 export default function CargoHandling(){
  return <section className="cargo-ops container" aria-labelledby="cargo-ops-title">
-  <div className="cargo-ops-heading"><div><div className="eyebrow"><i/> 3D SHIPMENT SIMULATION</div><h2 id="cargo-ops-title">Watch your order travel<br/><em>from China to India.</em></h2></div><p>A container vessel approaches from open water, berths for loading, sails across the sea lane and reaches its destination. This is an illustrative 3D journey, not live vessel tracking.</p></div>
-  <div className="cargo-3d-stage"><Canvas shadows dpr={[1,1.5]} camera={{position:[0,9.2,19.5],fov:34}} gl={{antialias:true,powerPreference:'high-performance'}}><PortScene/></Canvas><div className="cargo-3d-label cargo-label-origin">SHANGHAI PORT <small>CHINA · ORIGIN</small></div><div className="cargo-3d-label cargo-label-destination">CHENNAI PORT <small>INDIA · DESTINATION</small></div><div className="cargo-3d-status"><i/> CARGO JOURNEY SIMULATION <span>LOAD → SAIL → UNLOAD</span></div></div>
+  <div className="cargo-ops-heading"><div><div className="eyebrow"><i/> 3D PORT LOGISTICS IN 3D</div><h2 id="cargo-ops-title">Watch your order travel<br/><em>from China to India.</em></h2></div><p>A loaded container ship approaches from open water, cranes transfer cargo at the quay, and the vessel sails to the destination terminal for unloading and onward truck delivery. This is an illustrative 3D port operation, not live vessel tracking.</p></div>
+  <div className="cargo-3d-stage"><Canvas shadows dpr={[1,1.25]} camera={{position:[0,10.8,22.5],fov:36}} gl={{antialias:true,powerPreference:'high-performance'}}><PortScene/></Canvas><div className="cargo-3d-label cargo-label-origin">SHANGHAI PORT <small>CHINA · ORIGIN</small></div><div className="cargo-3d-label cargo-label-destination">CHENNAI PORT <small>INDIA · DESTINATION</small></div><div className="cargo-3d-status"><i/> PORT OPERATION SIMULATION <span>BERTH → LOAD → VOYAGE → UNLOAD → DELIVER</span></div></div>
   <div className="cargo-route-summary"><div><span>STARTING LOCATION</span><b>Shanghai Port, China</b><small>Origin · China</small></div><div className="route-summary-line"><i/><span>SEA FREIGHT</span><i/></div><div><span>ENDING LOCATION</span><b>Chennai Port, India</b><small>Destination · India</small></div><div className="cargo-eta"><span>ESTIMATED SEA FREIGHT</span><b>25–35 days</b><small>Illustrative estimate; route and timing vary.</small></div></div>
  </section>;
 }
