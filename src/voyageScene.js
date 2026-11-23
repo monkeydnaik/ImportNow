@@ -153,21 +153,12 @@ function shipBody(){
 
 const ship=shipBody();scene.add(ship);
 const radar=ship.getObjectByName('radar');
-const nameTex=ctex(1024,128,(g,w,h)=>{g.fillStyle='#fff';g.font='700 72px Sora, Arial Black, sans-serif';g.textAlign='center';g.textBaseline='middle';g.fillText('IMPORTNOW',w/2,h/2+4)});
-const nameMat=new THREE.MeshStandardMaterial({map:nameTex,transparent:true,roughness:.58,metalness:.12,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-2});
-for(const s of [1,-1]){
-  const p=new THREE.Mesh(new THREE.PlaneGeometry(8.4,1.05),nameMat);
-  p.position.set(-1.2,1.25,s*(B/2+.025));
-  if(s<0)p.rotation.y=Math.PI;
-  ship.add(p);
-}
-
 const slots=slotsFor(true);
-const plainSlots=slots.filter(s=>!s.brand),brandSlots=slots.filter(s=>s.brand);
-const plainIM=new THREE.InstancedMesh(contGeo,contMat,plainSlots.length),brandIM=new THREE.InstancedMesh(contGeo,brandMat,brandSlots.length);
-[plainIM,brandIM].forEach(m=>{m.castShadow=m.receiveShadow=true;m.instanceMatrix.setUsage(THREE.DynamicDrawUsage);ship.add(m)});
-plainSlots.forEach((s,i)=>{s.mesh=plainIM;s.i=i;plainIM.setColorAt(i,new THREE.Color(s.col))});
-brandSlots.forEach((s,i)=>{s.mesh=brandIM;s.i=i;brandIM.setColorAt(i,new THREE.Color(0xffffff))});
+const containerIM=new THREE.InstancedMesh(contGeo,contMat,slots.length);
+containerIM.castShadow=containerIM.receiveShadow=true;
+containerIM.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+ship.add(containerIM);
+slots.forEach((s,i)=>{s.mesh=containerIM;s.i=i;containerIM.setColorAt(i,new THREE.Color(s.col))});
 const dummy=new THREE.Object3D();
 function place(s,x,y,z,ry=0,vis=true){dummy.position.set(x,y,z);dummy.rotation.set(0,ry,0);dummy.scale.setScalar(vis?1:0);dummy.updateMatrix();s.mesh.setMatrixAt(s.i,dummy.matrix)}
 slots.forEach(s=>place(s,s.x,s.y,s.z));
@@ -333,7 +324,7 @@ function frame(){
     }
     place(s,x,y,z,0,on);
   }
-  plainIM.instanceMatrix.needsUpdate=brandIM.instanceMatrix.needsUpdate=true;
+  containerIM.instanceMatrix.needsUpdate=true;
   for(const P of [CN,IN])P.cranes.forEach((cr,ci)=>{const a=active[ci];
     if(a&&a.port===P){cr.g.position.x=a.w[0]-P.x0;setCrane(cr,a.w[2],a.w[1]+CH/2+.21)}
   });
