@@ -169,3 +169,8 @@ body{background:radial-gradient(ellipse at 75% 4%,#163349 0%,#0a1928 34%,#071321
 .journey-node b,.journey-node small{display:block}.journey-node b{font:10px var(--mono);letter-spacing:.08em}.journey-node small{margin-top:3px;font:8px var(--mono);color:#9fb7c3;letter-spacing:.08em}
 @keyframes journey-pulse{50%{opacity:.45;box-shadow:0 0 3px #ff765b}}
 @media(max-width:680px){.journey-3d{height:320px;margin:0 -4px}.journey-node{min-width:92px;padding:7px 8px;gap:6px}.journey-node-icon{width:21px;height:21px}.journey-node b{font-size:8px}.journey-node small{font-size:7px}.journey-3d-caption{font-size:8px}}
+
+/* Keep geographic labels legible and separated on the rotating globe */
+.globe-city-label{display:flex;flex-direction:column;gap:1px;min-width:0;width:78px;padding:5px 7px;border:1px solid #6b9bb0a8;border-radius:5px;background:rgba(4,16,28,.96);box-shadow:0 4px 14px #0009;color:#fff;white-space:nowrap;font:8px/1.15 var(--mono);pointer-events:none;transform:scale(.82);transform-origin:center;backdrop-filter:blur(5px)}
+.globe-city-label b{font-size:9px;font-weight:700;color:#fff;letter-spacing:0;line-height:1.15}.globe-city-label span{font-size:6px;color:#8dd8f0;letter-spacing:.06em;line-height:1.2}
+@media(max-width:680px){.globe-city-label{width:70px;padding:4px 5px;transform:scale(.76)}.globe-city-label b{font-size:8px}.globe-city-label span{font-size:5.5px}}
