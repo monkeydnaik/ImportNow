@@ -26,8 +26,8 @@ function Earth(){
 }
 function Route({destination,index}){
   const curve=useMemo(()=>{
-    const a=point(source.lat,source.lon,2.035),b=point(destination.lat,destination.lon,2.035),pts=[];
-    for(let i=0;i<=100;i++){const t=i/100;pts.push(a.clone().lerp(b,t).normalize().multiplyScalar(2.035+Math.sin(Math.PI*t)*0.19));}
+    const a=point(source.lat,source.lon,2.075),b=point(destination.lat,destination.lon,2.075),pts=[];
+    for(let i=0;i<=100;i++){const t=i/100;pts.push(a.clone().lerp(b,t).normalize().multiplyScalar(2.035+Math.sin(Math.PI*t)*0.22));}
     return new THREE.CatmullRomCurve3(pts);
   },[destination]);
   return <group>
@@ -38,25 +38,36 @@ function Route({destination,index}){
 function ShipVessel({curve,delay}){
   const ref=useRef();
   useFrame(({clock})=>{
-    const t=(clock.getElapsedTime()*0.055+delay)%1,p=curve.getPointAt(t),tangent=curve.getTangentAt(t);
-    if(ref.current){ref.current.position.copy(p);ref.current.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),tangent);}
+    const t=(clock.getElapsedTime()*0.095+delay)%1;
+    const p=curve.getPointAt(t),tangent=curve.getTangentAt(t);
+    if(ref.current){
+      ref.current.position.copy(p);
+      ref.current.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),tangent);
+    }
   });
-  const containerColors=['#e5a45a','#3d91a5','#d56a54','#8cb7c8','#d6bd83','#47738c'];
-  return <group ref={ref} scale={2.05}>
-    <mesh position={[0,0,0]}><boxGeometry args={[0.13,0.36,0.052]}/><meshStandardMaterial color="#d94f43" metalness={0.28} roughness={0.42}/></mesh>
-    <mesh position={[0,0.205,0.018]} rotation={[0,0,Math.PI]}><coneGeometry args={[0.066,0.13,4]}/><meshStandardMaterial color="#ed6a51" metalness={0.25} roughness={0.4}/></mesh>
-    {containerColors.map((color,i)=><mesh key={i} position={[i%2===0?-0.037:0.037,-0.105+Math.floor(i/2)*0.09,0.052]}><boxGeometry args={[0.058,0.078,0.048]}/><meshStandardMaterial color={color} metalness={0.22} roughness={0.48}/></mesh>)}
-    <mesh position={[0,-0.12,0.085]}><boxGeometry args={[0.045,0.052,0.045]}/><meshStandardMaterial color="#f2f4f2" roughness={0.65}/></mesh>
-    <mesh position={[0,-0.235,-0.008]}><boxGeometry args={[0.018,0.12,0.008]}/><meshBasicMaterial color="#9bdcf3" transparent opacity={0.5}/></mesh>
-    <pointLight color="#f2b65d" intensity={0.8} distance={0.8}/>
+  const containerColors=['#e5a45a','#3d91a5','#d56a54','#8cb7c8'];
+  return <group ref={ref} scale={0.92}>
+    <mesh position={[0,0,0]}><boxGeometry args={[0.105,0.29,0.075]}/><meshStandardMaterial color="#263d4b" metalness={0.45} roughness={0.38}/></mesh>
+    <mesh position={[0,0.145,0]}><coneGeometry args={[0.052,0.11,4]}/><meshStandardMaterial color="#e86c54" metalness={0.25} roughness={0.4}/></mesh>
+    {containerColors.map((color,i)=><mesh key={i} position={[(i%2===0?-.029:.029),-.045,0.047]}><boxGeometry args={[0.046,0.065,0.035]}/><meshStandardMaterial color={color} metalness={0.2} roughness={0.5}/></mesh>)}
+    <mesh position={[0,-0.13,0.002]}><boxGeometry args={[0.025,0.035,0.078]}/><meshStandardMaterial color="#f2f4f2" roughness={0.65}/></mesh>
+    <mesh position={[0,-0.18,-0.005]}><boxGeometry args={[0.012,0.08,0.008]}/><meshBasicMaterial color="#9bdcf3" transparent opacity={0.7}/></mesh>
+    <pointLight color="#f2b65d" intensity={0.55} distance={0.5}/>
   </group>;
 }
 function Pin({location}){
   const p=useMemo(()=>point(location.lat,location.lon,2.045),[location]);
+  const labelOffsets={
+    Shenzhen:[0.34,0.23,0.08],
+    Hyderabad:[-0.42,0.24,0.08],
+    Mumbai:[-0.48,-0.10,0.08],
+    Chennai:[0.38,-0.30,0.08]
+  };
+  const offset=labelOffsets[location.name]||[0.2,0.2,0.08];
   return <group position={p}>
-    <mesh><sphereGeometry args={[0.035,18,14]}/><meshBasicMaterial color={location.color}/></mesh>
-    <mesh scale={2.1}><sphereGeometry args={[0.035,18,14]}/><meshBasicMaterial color={location.color} transparent opacity={0.15}/></mesh>
-    <Html position={p.clone().normalize().multiplyScalar(0.12)} center distanceFactor={5} occlude={false}>
+    <mesh><sphereGeometry args={[0.026,16,12]}/><meshBasicMaterial color={location.color}/></mesh>
+    <mesh scale={2.2}><sphereGeometry args={[0.026,16,12]}/><meshBasicMaterial color={location.color} transparent opacity={0.14}/></mesh>
+    <Html position={offset} center distanceFactor={5} occlude={false}>
       <div className="globe-city-label"><b>{location.name}</b><span>{location.role}</span></div>
     </Html>
   </group>;
