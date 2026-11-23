@@ -59,9 +59,9 @@ class VesselFallback extends React.Component{
 
 function PortTerminal({side=1,accent='#d99d53'}){
  const colors=['#c96b50','#d4a15d','#3e8092','#c7d1ce','#a94e45','#668b9a'];
- return <group position={[side*7.55,0,-3.6]}>
-  <mesh position={[0,-.19,0]} receiveShadow><boxGeometry args={[5.7,.48,7.3]}/>{steel('#7d8989',.12,.9)}</mesh>
-  <mesh position={[0,.055,3.45]}><boxGeometry args={[5.7,.13,.28]}/>{steel('#b5b8ad',.12,.88)}</mesh>
+ return <group position={[side*5.1,0,-4.6]}>
+  <mesh position={[0,-.19,0]} receiveShadow><boxGeometry args={[5.7,.48,4.8]}/>{steel('#7d8989',.12,.9)}</mesh>
+  <mesh position={[0,.055,2.25]}><boxGeometry args={[5.7,.13,.28]}/>{steel('#b5b8ad',.12,.88)}</mesh>
   {Array.from({length:8},(_,i)=><group key={i} position={[-2.45+(i%4)*1.55,.14,-2.45+Math.floor(i/4)*1.5]}>
    <mesh castShadow><boxGeometry args={[1.25,.12,.12]}/>{steel('#e5b65f',.35,.55)}</mesh>
    <mesh position={[0,.12,0]}><cylinderGeometry args={[.07,.07,.22,10]}/>{steel('#344b55',.6,.45)}</mesh>
@@ -138,7 +138,7 @@ function GantryCrane({x=0,accent='#d99d53',hookRef,trolleyRef}){
    <mesh position={[-.25,.14,0]}><boxGeometry args={[.9,.28,.82]}/>{steel('#485f6b',.55,.48)}</mesh>
   </group>)}
   <mesh position={[-.25,4.2,0]} castShadow><boxGeometry args={[.28,.24,2.5]}/>{steel(accent,.55,.4)}</mesh>
-  <mesh position={[.92,4.2,0]}><boxGeometry args={[2.35,.2,.24]}/>{steel('#b77c40',.55,.42)}</mesh>
+  <mesh position={[1.0,4.2,0]}><boxGeometry args={[4.8,.2,.24]}/>{steel('#b77c40',.55,.42)}</mesh>
   <mesh position={[-1.45,4.2,0]}><boxGeometry args={[1.35,.18,.2]}/>{steel(accent,.5,.45)}</mesh>
   <group ref={trolleyRef} position={[.65,3.98,0]}>
    <mesh castShadow><boxGeometry args={[.72,.32,.74]}/>{steel('#344e5d',.65,.4)}</mesh>
@@ -183,16 +183,16 @@ function PortScene(){
   if(ship.current){ship.current.position.set(vesselX,.06+Math.sin(clock.elapsedTime*1.15)*.025,0);ship.current.rotation.z=Math.sin(clock.elapsedTime*.7)*.004;}
   const loadY=t<8?-.18:t<10?THREE.MathUtils.lerp(-.18,-2.1,(t-8)/2):t<12?THREE.MathUtils.lerp(-2.1,-.18,(t-10)/2):-.18;
   if(loadHook.current)loadHook.current.position.y=loadY;
-  if(loadTrolley.current)loadTrolley.current.position.x=t<10?-.55:t<12?THREE.MathUtils.lerp(-.55,.42,(t-10)/2):.42;
+  if(loadTrolley.current)loadTrolley.current.position.x=t<10?-1.15:t<12?THREE.MathUtils.lerp(-1.15,2.2,(t-10)/2):2.2;
   if(lifted.current){
-   if(t<10)lifted.current.position.set(-4.05,.55,0);
-   else if(t<12)lifted.current.position.set(-4.05,THREE.MathUtils.lerp(.55,2.27,(t-10)/2),0);
-   else if(t<15)lifted.current.position.set(THREE.MathUtils.lerp(-4.05,-3.1,(t-12)/3),2.27,0);
-   else lifted.current.position.set(ship.current.position.x+2.0,1.18,0);
+   if(t<10)lifted.current.position.set(-5.1,.55,-4.45);
+   else if(t<12)lifted.current.position.set(-5.1,THREE.MathUtils.lerp(.55,2.27,(t-10)/2),-4.45);
+   else if(t<15)lifted.current.position.set(-5.1,2.27,THREE.MathUtils.lerp(-4.45,-1.1,(t-12)/3));
+   else lifted.current.position.set(ship.current.position.x+2.0,.58,-.45);
   }
   const unloadY=t<40?-.18:t<42?THREE.MathUtils.lerp(-.18,-2.1,(t-40)/2):t<44?THREE.MathUtils.lerp(-2.1,-.18,(t-42)/2):-.18;
   if(unloadHook.current)unloadHook.current.position.y=unloadY;
-  if(unloadTrolley.current)unloadTrolley.current.position.x=t<40?.42:t<42?THREE.MathUtils.lerp(.42,-.55,(t-40)/2):t<44?THREE.MathUtils.lerp(-.55,.42,(t-42)/2):.42;
+  if(unloadTrolley.current)unloadTrolley.current.position.x=t<40?2.2:t<42?THREE.MathUtils.lerp(2.2,-1.15,(t-40)/2):t<44?THREE.MathUtils.lerp(-1.15,2.2,(t-42)/2):2.2;
   if(delivered.current){
    if(t<40)delivered.current.position.set(ship.current.position.x-.95,.58,0);
    else if(t<44)delivered.current.position.set(4.05,Math.max(.55,2.45+unloadY),0);
