@@ -38,11 +38,11 @@ function Route({destination,index}){
 function ShipVessel({curve,delay}){
   const ref=useRef();
   useFrame(({clock})=>{
-    const t=(clock.getElapsedTime()*0.032+delay)%1,p=curve.getPointAt(t),tangent=curve.getTangentAt(t);
+    const t=(clock.getElapsedTime()*0.055+delay)%1,p=curve.getPointAt(t),tangent=curve.getTangentAt(t);
     if(ref.current){ref.current.position.copy(p);ref.current.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),tangent);}
   });
   const containerColors=['#e5a45a','#3d91a5','#d56a54','#8cb7c8','#d6bd83','#47738c'];
-  return <group ref={ref} scale={1.25}>
+  return <group ref={ref} scale={2.05}>
     <mesh position={[0,0,0]}><boxGeometry args={[0.13,0.36,0.052]}/><meshStandardMaterial color="#d94f43" metalness={0.28} roughness={0.42}/></mesh>
     <mesh position={[0,0.205,0.018]} rotation={[0,0,Math.PI]}><coneGeometry args={[0.066,0.13,4]}/><meshStandardMaterial color="#ed6a51" metalness={0.25} roughness={0.4}/></mesh>
     {containerColors.map((color,i)=><mesh key={i} position={[i%2===0?-0.037:0.037,-0.105+Math.floor(i/2)*0.09,0.052]}><boxGeometry args={[0.058,0.078,0.048]}/><meshStandardMaterial color={color} metalness={0.22} roughness={0.48}/></mesh>)}
