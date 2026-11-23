@@ -944,19 +944,19 @@ body{background:#071521;color:#eaf2f4}
 .concept-industry-image{height:150px;margin:0 -22px 18px}
 .concept-industry-top{position:relative;z-index:1}
 .concept-delivery-art{isolation:isolate}
-.concept-delivery-art img{position:absolute;inset:0;z-index:-1}
+.concept-delivery-art img{position:absolute;inset:0;z-index:0}
 .concept-delivery-art:after{z-index:-1;background:linear-gradient(90deg,rgba(4,17,27,.68),rgba(4,17,27,.12) 70%),linear-gradient(0deg,rgba(4,17,27,.5),transparent)}
 .concept-delivery-art>span{z-index:1;background:rgba(5,20,31,.72);padding:6px 8px}
 .concept-delivery-art>svg{z-index:1;filter:drop-shadow(0 3px 10px #000)}
 .concept-guide-art{isolation:isolate}
-.concept-guide-art img{position:absolute;inset:0;z-index:-1}
+.concept-guide-art img{position:absolute;inset:0;z-index:0}
 .concept-guide-art:before{z-index:0}
 .concept-guide-art:after{z-index:0;background:linear-gradient(135deg,rgba(4,17,27,.12),rgba(4,17,27,.62))}
 .concept-guide-art>span,.concept-guide-art>svg{z-index:1}
 .page-hero-art{isolation:isolate;overflow:hidden}
-.page-hero-art>img{position:absolute;inset:0;z-index:-2;filter:saturate(.72) contrast(1.04)}
-.page-hero-art:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(4,17,27,.68),rgba(4,17,27,.08) 85%),linear-gradient(0deg,rgba(4,17,27,.6),transparent 65%)}
-.page-hero-art-caption{position:absolute;left:22px;right:22px;bottom:18px;display:flex;align-items:end;justify-content:space-between;color:#f3f7f6}
+.page-hero-art>img{position:absolute;inset:0;z-index:0;filter:saturate(.72) contrast(1.04)}
+.page-hero-art:before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(4,17,27,.68),rgba(4,17,27,.08) 85%),linear-gradient(0deg,rgba(4,17,27,.6),transparent 65%)}
+.page-hero-art-caption{position:absolute;z-index:2;left:22px;right:22px;bottom:18px;display:flex;align-items:end;justify-content:space-between;color:#f3f7f6}
 .page-hero-art-caption span{font:8px var(--mono);letter-spacing:.18em;color:#d0dfe4}
 .page-hero-art-caption b{font:700 10px var(--mono);letter-spacing:.14em}
 .page-hero-art-caption i{display:inline-block;width:34px;height:1px;background:#e97852;vertical-align:middle;margin:0 7px}
