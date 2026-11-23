@@ -29,8 +29,10 @@ const pageHeroImages={
  'INDUSTRIES':'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1400&q=88',
  'HOW IT WORKS':'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1400&q=88',
  'IMPORTNOW TOOLKIT':'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1400&q=88',
- 'PLUGINS & INTEGRATIONS':'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=88',
- 'ABOUT IMPORTNOW':'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=88'
+ 'INTEGRATIONS':'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=88',
+ 'ABOUT IMPORTNOW':'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=88',
+ 'CONTACT':'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1400&q=88',
+ 'INTEGRATIONS':'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=88'
 };
 const services=[
  ['01',Search,'Product sourcing','Discover manufacturers, compare supplier options and clarify product specifications.',['Supplier discovery','Quotation comparison','Sample coordination']],
