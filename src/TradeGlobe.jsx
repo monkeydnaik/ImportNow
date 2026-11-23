@@ -1,101 +1,140 @@
 import React,{Suspense,useMemo,useRef} from 'react';
-import {Canvas,useFrame} from '@react-three/fiber';
-import {Float,Html,OrbitControls,Stars,useTexture} from '@react-three/drei';
+import {Canvas,useFrame,useTexture,Html,OrbitControls,Stars} from '@react-three/fiber';
 import * as THREE from 'three';
 
-const locations=[
-  {name:'Shenzhen',lat:22.57,lon:114.06,color:'#ff9b78',role:'CHINA HUB'},
-  {name:'Hyderabad',lat:17.385,lon:78.486,color:'#f2b65d',role:'INDIA'},
-  {name:'Mumbai',lat:19.076,lon:72.878,color:'#74d5ff',role:'INDIA'},
-  {name:'Chennai',lat:13.082,lon:80.271,color:'#74d5ff',role:'INDIA'}
+const R=2;
+const cities=[
+ {name:'Shanghai',lat:31.23,lon:121.47,kind:'cn',role:'CHINA · ORIGIN'},
+ {name:'Yiwu',lat:29.31,lon:120.08,kind:'cn',role:'SOURCING HUB'},
+ {name:'Guangzhou',lat:23.13,lon:113.26,kind:'cn',role:'MANUFACTURING'},
+ {name:'Shenzhen',lat:22.54,lon:114.06,kind:'cn',role:'TECHNOLOGY'},
+ {name:'Nhava Sheva',lat:18.95,lon:72.95,kind:'in',role:'INDIA · WEST'},
+ {name:'Chennai',lat:13.08,lon:80.27,kind:'in',role:'INDIA · PORT'},
+ {name:'Hyderabad',lat:17.39,lon:78.49,kind:'in',role:'INDIA · DELIVERY'},
+ {name:'Vizag',lat:17.69,lon:83.22,kind:'in',role:'INDIA · EAST'}
 ];
-const source=locations[0];
-const destinations=locations.slice(1);
-function point(lat,lon,r=2.025){
-  const phi=(90-lat)*Math.PI/180,theta=(lon+180)*Math.PI/180;
-  return new THREE.Vector3(-r*Math.sin(phi)*Math.cos(theta),r*Math.cos(phi),r*Math.sin(phi)*Math.sin(theta));
+const cityByName=Object.fromEntries(cities.map(c=>[c.name,c]));
+function point(lat,lon,r=R){
+ const phi=(90-lat)*Math.PI/180,theta=(lon+180)*Math.PI/180;
+ return new THREE.Vector3(-r*Math.sin(phi)*Math.cos(theta),r*Math.cos(phi),r*Math.sin(phi)*Math.sin(theta));
 }
+const routeData=[
+ ['Shanghai','Chennai',0xe3241b,0],
+ ['Yiwu','Nhava Sheva',0xff9c52,.3],
+ ['Guangzhou','Vizag',0xffffff,.62],
+ ['Shenzhen','Hyderabad',0xffffff,.15],
+ ['Shanghai','Hyderabad',0xe3241b,.48],
+ ['Guangzhou','Chennai',0xff5548,.82]
+];
+const texBase='https://cdn.jsdelivr.net/gh/mrdoob/three.js@r160/examples/textures/planets/';
 function Earth(){
-  const texture=useTexture('https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg');
-  texture.colorSpace=THREE.SRGBColorSpace;
-  return <group>
-    <mesh><sphereGeometry args={[2,72,64]}/><meshStandardMaterial map={texture} roughness={0.88} metalness={0.04}/></mesh>
-    <mesh scale={1.045}><sphereGeometry args={[2,48,40]}/><meshBasicMaterial color="#57b9ec" transparent opacity={0.075} side={THREE.BackSide}/></mesh>
-    <mesh scale={1.012}><sphereGeometry args={[2,48,40]}/><meshBasicMaterial color="#8edcff" transparent opacity={0.035} wireframe/></mesh>
-  </group>;
+ const [color,normal,specular,night,clouds]=useTexture([
+  texBase+'earth_atmos_2048.jpg',
+  texBase+'earth_normal_2048.jpg',
+  texBase+'earth_specular_2048.jpg',
+  texBase+'earth_lights_2048.png',
+  texBase+'earth_clouds_1024.png'
+ ]);
+ color.colorSpace=THREE.SRGBColorSpace;
+ night.colorSpace=THREE.SRGBColorSpace;
+ clouds.colorSpace=THREE.SRGBColorSpace;
+ const material=useMemo(()=>new THREE.MeshPhongMaterial({
+  map:color,normalMap:normal,normalScale:new THREE.Vector2(.8,-.8),
+  specularMap:specular,specular:new THREE.Color(0x526d91),shininess:26,
+  emissiveMap:night,emissive:new THREE.Color(0xffb86d),emissiveIntensity:1.15
+ }),[color,normal,specular,night]);
+ const cloudRef=useRef();
+ useFrame(({clock})=>{if(cloudRef.current)cloudRef.current.rotation.y=clock.elapsedTime*.009;});
+ return <group>
+  <mesh><sphereGeometry args={[R,128,128]}/><primitive object={material} attach="material"/></mesh>
+  <mesh ref={cloudRef} scale={1.012}><sphereGeometry args={[R,96,96]}/><meshPhongMaterial map={clouds} transparent opacity={.7} depthWrite={false} shininess={4}/></mesh>
+  <mesh scale={1.025}><sphereGeometry args={[R,80,80]}/><meshBasicMaterial color="#68bff0" transparent opacity={.09} side={THREE.BackSide}/></mesh>
+  <mesh scale={1.085}><sphereGeometry args={[R,64,64]}/><meshBasicMaterial color="#4d94d8" transparent opacity={.055} side={THREE.BackSide}/></mesh>
+ </group>;
 }
-function Route({destination,index}){
-  const curve=useMemo(()=>{
-    const a=point(source.lat,source.lon,2.075),b=point(destination.lat,destination.lon,2.075),pts=[];
-    for(let i=0;i<=100;i++){const t=i/100;pts.push(a.clone().lerp(b,t).normalize().multiplyScalar(2.035+Math.sin(Math.PI*t)*0.22));}
-    return new THREE.CatmullRomCurve3(pts);
-  },[destination]);
-  return <group>
-    <mesh><tubeGeometry args={[curve,120,0.007,7,false]}/><meshBasicMaterial color={index===0?'#f2b65d':'#66c8ef'} transparent opacity={index===0?0.95:0.56}/></mesh>
-    <ShipVessel curve={curve} delay={index*0.33}/>
-  </group>;
+function CityPin({city}){
+ const p=useMemo(()=>point(city.lat,city.lon,R*1.006),[city]);
+ const ring=useRef(),dot=useRef();
+ const normal=p.clone().normalize();
+ const quaternion=new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0,0,1),normal);
+ const color=city.kind==='cn'?'#ef5543':'#f5c06d';
+ useFrame(({clock})=>{
+  const t=(clock.elapsedTime*.55+(city.lat%7)*.13)%1;
+  if(ring.current){ring.current.scale.setScalar(1+t*2.2);ring.current.material.opacity=(1-t)*.8;}
+  if(dot.current)dot.current.scale.setScalar(1+Math.sin(clock.elapsedTime*2.5+city.lon)*.12);
+ });
+ const showLabel=['Shanghai','Guangzhou','Shenzhen','Hyderabad','Chennai','Nhava Sheva'].includes(city.name);
+ return <group position={p}>
+  <mesh ref={dot}><sphereGeometry args={[.024,16,16]}/><meshBasicMaterial color={color}/></mesh>
+  <mesh ref={ring} quaternion={quaternion}><ringGeometry args={[.035,.047,36]}/><meshBasicMaterial color={color} transparent opacity={.7} side={THREE.DoubleSide} depthWrite={false}/></mesh>
+  {showLabel&&<Html position={[city.name==='Nhava Sheva'||city.name==='Hyderabad'?-.34:.28,city.name==='Chennai'?-.12:.17,.04]} center distanceFactor={5.6} occlude={false}>
+   <div className="globe-city-label"><b>{city.name}</b><span>{city.role}</span></div>
+  </Html>}
+ </group>;
 }
-function ShipVessel({curve,delay}){
-  const ref=useRef();
-  useFrame(({clock})=>{
-    const t=(clock.getElapsedTime()*0.095+delay)%1;
-    const p=curve.getPointAt(t),tangent=curve.getTangentAt(t);
-    if(ref.current){
-      ref.current.position.copy(p);
-      ref.current.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),tangent);
-    }
-  });
-  const containerColors=['#e5a45a','#3d91a5','#d56a54','#8cb7c8'];
-  return <group ref={ref} scale={0.92}>
-    <mesh position={[0,0,0]}><boxGeometry args={[0.105,0.29,0.075]}/><meshStandardMaterial color="#263d4b" metalness={0.45} roughness={0.38}/></mesh>
-    <mesh position={[0,0.145,0]}><coneGeometry args={[0.052,0.11,4]}/><meshStandardMaterial color="#e86c54" metalness={0.25} roughness={0.4}/></mesh>
-    {containerColors.map((color,i)=><mesh key={i} position={[(i%2===0?-.029:.029),-.045,0.047]}><boxGeometry args={[0.046,0.065,0.035]}/><meshStandardMaterial color={color} metalness={0.2} roughness={0.5}/></mesh>)}
-    <mesh position={[0,-0.13,0.002]}><boxGeometry args={[0.025,0.035,0.078]}/><meshStandardMaterial color="#f2f4f2" roughness={0.65}/></mesh>
-    <mesh position={[0,-0.18,-0.005]}><boxGeometry args={[0.012,0.08,0.008]}/><meshBasicMaterial color="#9bdcf3" transparent opacity={0.7}/></mesh>
-    <pointLight color="#f2b65d" intensity={0.55} distance={0.5}/>
-  </group>;
+function TradeRoute({route,index}){
+ const [from,to,color,offset]=route;
+ const curve=useMemo(()=>{
+  const a=point(cityByName[from].lat,cityByName[from].lon,R*1.025);
+  const b=point(cityByName[to].lat,cityByName[to].lon,R*1.025);
+  const control=a.clone().add(b).normalize().multiplyScalar(R+a.distanceTo(b)*.48);
+  return new THREE.QuadraticBezierCurve3(a,control,b);
+ },[from,to]);
+ const pulse=useRef();
+ const geometry=useMemo(()=>new THREE.TubeGeometry(curve,96,.0065,7,false),[curve]);
+ useFrame(({clock})=>{
+  if(!pulse.current)return;
+  const t=(clock.elapsedTime*.085+offset)%1;
+  pulse.current.position.copy(curve.getPoint(t));
+  pulse.current.scale.setScalar(.75+Math.sin(clock.elapsedTime*5+index)*.2);
+ });
+ return <group>
+  <mesh geometry={geometry}><meshBasicMaterial color={color} transparent opacity={index===0?.88:.4} depthWrite={false}/></mesh>
+  <mesh ref={pulse}><sphereGeometry args={[.022,12,12]}/><meshBasicMaterial color={index===0?'#fff0c7':'#b5eaff'} toneMapped={false}/></mesh>
+ </group>;
 }
-function Pin({location}){
-  const p=useMemo(()=>point(location.lat,location.lon,2.045),[location]);
-  const labelOffsets={
-    Shenzhen:[0.34,0.23,0.08],
-    Hyderabad:[-0.42,0.24,0.08],
-    Mumbai:[-0.48,-0.10,0.08],
-    Chennai:[0.38,-0.30,0.08]
-  };
-  const offset=labelOffsets[location.name]||[0.2,0.2,0.08];
-  return <group position={p}>
-    <mesh><sphereGeometry args={[0.026,16,12]}/><meshBasicMaterial color={location.color}/></mesh>
-    <mesh scale={2.2}><sphereGeometry args={[0.026,16,12]}/><meshBasicMaterial color={location.color} transparent opacity={0.14}/></mesh>
-    {(location.name==='Shenzhen'||location.name==='Hyderabad')&&<Html position={offset} center distanceFactor={5} occlude={false}>
-      <div className="globe-city-label"><b>{location.name}</b><span>{location.role}</span></div>
-    </Html>}
-  </group>;
+function MiniShip({route}){
+ const ref=useRef();
+ const curve=useMemo(()=>{
+  const a=point(cityByName[route[0]].lat,cityByName[route[0]].lon,R*1.035);
+  const b=point(cityByName[route[1]].lat,cityByName[route[1]].lon,R*1.035);
+  return new THREE.QuadraticBezierCurve3(a,a.clone().add(b).normalize().multiplyScalar(R+a.distanceTo(b)*.5),b);
+ },[route]);
+ useFrame(({clock})=>{
+  const t=(clock.elapsedTime*.055+.24)%1,p=curve.getPoint(t),tan=curve.getTangent(t);
+  if(ref.current){ref.current.position.copy(p);ref.current.quaternion.setFromUnitVectors(new THREE.Vector3(1,0,0),tan);}
+ });
+ return <group ref={ref} scale={.65}>
+  <mesh position={[0,0,0]}><boxGeometry args={[.16,.025,.055]}/><meshStandardMaterial color="#e7a45c" metalness={.35} roughness={.45}/></mesh>
+  <mesh position={[-.025,.035,0]}><boxGeometry args={[.07,.05,.05]}/><meshStandardMaterial color="#2c718d"/></mesh>
+  <mesh position={[.035,.035,0]}><boxGeometry args={[.055,.05,.05]}/><meshStandardMaterial color="#df6551"/></mesh>
+  <mesh position={[-.055,.025,0]}><boxGeometry args={[.025,.04,.045]}/><meshStandardMaterial color="#e7e8e2"/></mesh>
+ </group>;
 }
-function Scene(){
-  const globe=useRef();
-  useFrame(()=>{if(globe.current)globe.current.rotation.y+=0.00022;});
-  return <>
-    <color attach="background" args={['#071321']}/>
-    <ambientLight intensity={1.25}/>
-    <directionalLight position={[4,4,5]} intensity={2.2} color="#ffe5c5"/>
-    <directionalLight position={[-4,-2,-4]} intensity={1.3} color="#3c9fd4"/>
-    <pointLight position={[0,0,5]} intensity={0.6} color="#69c9ef"/>
-    <Stars radius={90} depth={45} count={1100} factor={2.2} saturation={0} fade speed={0.35}/>
-    <group ref={globe} rotation={[0.12,-0.72,0]}>
-      <Suspense fallback={<mesh><sphereGeometry args={[2,48,48]}/><meshStandardMaterial color="#24617d" roughness={0.8}/></mesh>}>
-        <Earth/>
-      </Suspense>
-      {locations.map(location=><Pin key={location.name} location={location}/>)}
-      {destinations.map((destination,i)=><Route key={destination.name} destination={destination} index={i}/>)}
-      <mesh rotation={[1.1,0.35,0]}><torusGeometry args={[2.17,0.007,6,120]}/><meshBasicMaterial color="#64c9f1" transparent opacity={0.32}/></mesh>
-    </group>
-    <Float speed={1.1} rotationIntensity={0.08} floatIntensity={0.08}><mesh position={[0,0,0]}><sphereGeometry args={[0.001,8,8]}/><meshBasicMaterial color="#fff"/></mesh></Float>
-    <OrbitControls enablePan={false} enableZoom={false} minPolarAngle={Math.PI*0.28} maxPolarAngle={Math.PI*0.72} rotateSpeed={0.55} autoRotate autoRotateSpeed={0.18}/>
-  </>;
+function GlobeScene(){
+ const focus=useMemo(()=>point(22,96,1),[]);
+ const baseY=-Math.atan2(focus.x,focus.z),baseX=Math.asin(focus.y);
+ return <>
+  <color attach="background" args={['#071522']}/>
+  <ambientLight intensity={.38}/>
+  <hemisphereLight args={['#c9e5f4','#142a3a',.72]}/>
+  <directionalLight position={[-5,3,6]} intensity={2.6} color="#fff0d8"/>
+  <directionalLight position={[5,-2,-5]} intensity={.7} color="#398bc4"/>
+  <Stars radius={90} depth={45} count={1200} factor={2.1} saturation={0} fade speed={.25}/>
+  <group rotation={[baseX,baseY,0]}>
+   <Suspense fallback={<mesh><sphereGeometry args={[R,48,48]}/><meshStandardMaterial color="#1d5671"/></mesh>}>
+    <Earth/>
+   </Suspense>
+   {cities.map(city=><CityPin key={city.name} city={city}/>)}
+   {routeData.map((route,i)=><TradeRoute key={route[0]+route[1]} route={route} index={i}/>)}
+   <MiniShip route={routeData[0]}/>
+   <mesh rotation={[1.15,.35,0]}><torusGeometry args={[2.17,.007,6,128]}/><meshBasicMaterial color="#6bcaf0" transparent opacity={.3}/></mesh>
+  </group>
+  <OrbitControls enablePan={false} enableZoom={false} minPolarAngle={Math.PI*.28} maxPolarAngle={Math.PI*.72} rotateSpeed={.48} autoRotate autoRotateSpeed={.16}/>
+ </>;
 }
 export default function TradeGlobe(){
-  return <Canvas dpr={[1,1.5]} camera={{position:[0,0,6.5],fov:38}} gl={{antialias:true,alpha:false,powerPreference:'low-power'}} onCreated={({gl})=>{gl.outputColorSpace=THREE.SRGBColorSpace;}}>
-    <Scene/>
-  </Canvas>;
+ return <Canvas dpr={[1,1.5]} camera={{position:[0,0,6.65],fov:38}} gl={{antialias:true,alpha:false,powerPreference:'high-performance'}} onCreated={({gl})=>{gl.outputColorSpace=THREE.SRGBColorSpace;gl.toneMapping=THREE.ACESFilmicToneMapping;gl.toneMappingExposure=1.08;}}>
+  <GlobeScene/>
+ </Canvas>;
 }
