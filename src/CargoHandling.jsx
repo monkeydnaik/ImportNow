@@ -31,7 +31,7 @@ export default function CargoHandling(){
    <div className="cargo-sea-badge"><i/> ILLUSTRATIVE SHIPMENT VIEW <span>NOT LIVE TRACKING</span></div>
    <div className="cargo-journey-ui">
     <div className="container cargo-journey-wrap">
-     <div className="cargo-journey-head">
+     <div className="cargo-journey-copy-panel"><div className="cargo-journey-head">
       <div className="eyebrow"><i/> FROM FACTORY FLOOR TO FRONT DOOR</div>
       <h2 id="cargo-journey-title">Watch your order travel<br/><em>from China to India.</em></h2>
       <p>A detailed port-to-port simulation, driven by your scroll. Follow the ship, container handling and delivery sequence across an illustrative 35-day journey.</p>
@@ -40,7 +40,7 @@ export default function CargoHandling(){
       {journeySteps.map(([title,copy],i)=><li className={'j-step'+(i===0?' on':'')} key={title}>
        <span className="n">{i+1}</span><div><h4>{title}</h4><p>{copy}</p></div>
       </li>)}
-     </ol>
+     </ol></div>
      <div className="j-milestones" aria-label="Shipment milestones">
       {milestoneDays.map((day,i)=><span className={'j-ms'+(i===0?' on':'')} key={day}>D{day} · {['Supplier confirmed','Production started','Quality inspection','Cargo ready','Departed Shanghai','In transit','Arrived in India','Delivered'][i]}</span>)}
      </div>
