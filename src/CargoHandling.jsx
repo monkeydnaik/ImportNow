@@ -16,16 +16,18 @@ function Container({position=[0,0,0],color='#d8894d',scale=1}){
 
 function Hull(){
  const geometry=useMemo(()=>{
-  // Longitudinal stations: stern is left, flared bow is right.
-  const sections=[[-4.25,.12,.42],[-3.8,.72,.82],[-3.1,1.03,1.02],[-1.8,1.08,1.08],[1.8,1.08,1.08],[3.0,.96,.98],[3.7,.62,.78],[4.12,.06,.38]];
-  const p=[],idx=[];
-  sections.forEach(([x,w,top])=>p.push(x,.24,-w,x,.24,w,x,-.38,-w*.48,x,-.38,w*.48,x,.24,-top,x,.24,top));
-  for(let i=0;i<sections.length-1;i++){
-   const a=i*6,b=(i+1)*6;
-   // port and starboard sides, bottom and upper flare
-   idx.push(a,a+1,b+1,a,b+1,b,a+2,b+2,b+3,a+2,b+3,a+3,a,a+4,b+4,a,b+4,b,a+1,b+1,b+5,a+1,b+5,a+5);
-  }
-  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(p,3));g.setIndex(idx);g.computeVertexNormals();return g;
+  // Bevelled naval hull profile: tapered bow, fuller midship and transom stern.
+  const outline=new THREE.Shape();
+  outline.moveTo(-4.28,-.34);
+  outline.lineTo(3.42,-.34);
+  outline.quadraticCurveTo(4.22,-.32,4.38,.08);
+  outline.lineTo(3.82,.25);
+  outline.lineTo(-3.72,.25);
+  outline.quadraticCurveTo(-4.3,.18,-4.28,-.34);
+  const g=new THREE.ExtrudeGeometry(outline,{depth:1.82,steps:1,bevelEnabled:true,bevelSegments:4,bevelSize:.075,bevelThickness:.075,curveSegments:16});
+  g.translate(0,0,-.91);
+  g.computeVertexNormals();
+  return g;
  },[]);
  return <mesh geometry={geometry} castShadow receiveShadow><meshStandardMaterial color="#17384d" metalness={.62} roughness={.34} side={THREE.DoubleSide}/></mesh>;
 }
@@ -106,16 +108,18 @@ function PortScene(){
  useFrame(({clock})=>{
   const t=clock.getElapsedTime()%48;
   const ease=v=>{v=THREE.MathUtils.clamp(v,0,1);return v*v*(3-2*v);};
-  // Ship waits at China berth, departs after loading, crosses sea, then berths in India.
-  const sailing=ease((t-15)/19);
-  if(ship.current){ship.current.position.set(THREE.MathUtils.lerp(-5.1,5.0,sailing),.06+Math.sin(clock.elapsedTime*1.15)*.025,0);ship.current.rotation.z=Math.sin(clock.elapsedTime*.7)*.004;}
-  const loadY=t<4?THREE.MathUtils.lerp(-.18,-2.1,t/4):t<8?THREE.MathUtils.lerp(-2.1,-.18,(t-4)/4):-.18;
+  // Vessel enters from open water, berths at origin, sails the sea lane, then approaches destination from offshore.
+  const approach=ease(t/7);
+  const sailing=ease((t-15)/20);
+  const vesselX=t<7?THREE.MathUtils.lerp(-15.2,-5.1,approach):t<15?-5.1:THREE.MathUtils.lerp(-5.1,5.1,sailing);
+  if(ship.current){ship.current.position.set(vesselX,.06+Math.sin(clock.elapsedTime*1.15)*.025,0);ship.current.rotation.z=Math.sin(clock.elapsedTime*.7)*.004;}
+  const loadY=t<8?-.18:t<10?THREE.MathUtils.lerp(-.18,-2.1,(t-8)/2):t<12?THREE.MathUtils.lerp(-2.1,-.18,(t-10)/2):-.18;
   if(loadHook.current)loadHook.current.position.y=loadY;
-  if(loadTrolley.current)loadTrolley.current.position.x=t<4?-.55:t<8?THREE.MathUtils.lerp(-.55,.42,(t-4)/4):.42;
+  if(loadTrolley.current)loadTrolley.current.position.x=t<10?-.55:t<12?THREE.MathUtils.lerp(-.55,.42,(t-10)/2):.42;
   if(lifted.current){
-   if(t<4)lifted.current.position.set(-4.05,Math.max(.55,2.45+loadY),0);
-   else if(t<8)lifted.current.position.set(THREE.MathUtils.lerp(-4.05,-3.1,(t-4)/4),2.45+loadY,0);
-   else if(t<15)lifted.current.position.set(-3.1,THREE.MathUtils.lerp(2.27,1.18,(t-8)/7),0);
+   if(t<10)lifted.current.position.set(-4.05,.55,0);
+   else if(t<12)lifted.current.position.set(-4.05,THREE.MathUtils.lerp(.55,2.27,(t-10)/2),0);
+   else if(t<15)lifted.current.position.set(THREE.MathUtils.lerp(-4.05,-3.1,(t-12)/3),2.27,0);
    else lifted.current.position.set(ship.current.position.x+2.0,1.18,0);
   }
   const unloadY=t<39?-.18:t<43?THREE.MathUtils.lerp(-.18,-2.1,(t-39)/4):-2.1;
