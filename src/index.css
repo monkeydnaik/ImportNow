@@ -595,3 +595,20 @@ body:after{
 .concept-testimonials-section .concept-quote-grid article{box-shadow:0 20px 50px #0004}
 @media(max-width:900px){.concept-guide-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:680px){.concept-guide-grid{grid-template-columns:1fr}.concept-guide-art{height:112px}.concept-guide-card h3{font-size:17px}}
+
+
+/* Fixed process labels: keep the trade steps readable and still while the globe turns */
+.journey-3d{position:relative;isolation:isolate;overflow:hidden}
+.journey-fixed-labels{position:absolute;z-index:3;inset:16px 16px 54px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;align-items:start;justify-items:start;gap:10px;pointer-events:none}
+.journey-fixed-labels>div{display:flex;flex-direction:column;gap:4px;min-width:112px;padding:9px 11px;border:1px solid #83c7dd55;border-radius:9px;background:rgba(5,20,32,.78);box-shadow:0 8px 24px #0005;backdrop-filter:blur(8px)}
+.journey-fixed-labels>div:nth-child(even){justify-self:end;text-align:right}
+.journey-fixed-labels>div:nth-child(n+3){align-self:end}
+.journey-fixed-labels b{color:#f1c27a;font:700 8px var(--mono);letter-spacing:.1em}
+.journey-fixed-labels span{color:#d2e4ec;font:10px var(--display)}
+.journey-3d-caption{z-index:4}
+@media(max-width:680px){
+ .journey-fixed-labels{inset:10px 9px 48px;gap:7px}
+ .journey-fixed-labels>div{min-width:94px;padding:7px 8px}
+ .journey-fixed-labels b{font-size:7px}
+ .journey-fixed-labels span{font-size:8px}
+}
