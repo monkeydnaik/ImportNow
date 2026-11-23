@@ -38,15 +38,17 @@ function Route({destination,index}){
 function ShipVessel({curve,delay}){
   const ref=useRef();
   useFrame(({clock})=>{
-    const t=(clock.getElapsedTime()*0.045+delay)%1,p=curve.getPointAt(t),tangent=curve.getTangentAt(t);
+    const t=(clock.getElapsedTime()*0.032+delay)%1,p=curve.getPointAt(t),tangent=curve.getTangentAt(t);
     if(ref.current){ref.current.position.copy(p);ref.current.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),tangent);}
   });
-  return <group ref={ref}>
-    <mesh position={[0,0,0]}><boxGeometry args={[0.105,0.29,0.045]}/><meshStandardMaterial color="#e85f4a" metalness={0.35} roughness={0.42}/></mesh>
-    <mesh position={[0,0.015,0.032]}><boxGeometry args={[0.085,0.235,0.035]}/><meshStandardMaterial color="#172d3d" metalness={0.45} roughness={0.4}/></mesh>
-    {[-0.065,0,0.065].map((y,i)=><mesh key={y} position={[0,y,0.063]}><boxGeometry args={[0.073,0.061,0.045]}/><meshStandardMaterial color={i===1?'#e9b35c':'#64b9d6'} metalness={0.28} roughness={0.5}/></mesh>)}
-    <mesh position={[0,-0.105,0.095]}><boxGeometry args={[0.038,0.035,0.028]}/><meshStandardMaterial color="#f2f4f2"/></mesh>
-    <pointLight color="#f2b65d" intensity={0.5} distance={0.55}/>
+  const containerColors=['#e5a45a','#3d91a5','#d56a54','#8cb7c8','#d6bd83','#47738c'];
+  return <group ref={ref} scale={1.25}>
+    <mesh position={[0,0,0]}><boxGeometry args={[0.13,0.36,0.052]}/><meshStandardMaterial color="#d94f43" metalness={0.28} roughness={0.42}/></mesh>
+    <mesh position={[0,0.205,0.018]} rotation={[0,0,Math.PI]}><coneGeometry args={[0.066,0.13,4]}/><meshStandardMaterial color="#ed6a51" metalness={0.25} roughness={0.4}/></mesh>
+    {containerColors.map((color,i)=><mesh key={i} position={[i%2===0?-0.037:0.037,-0.105+Math.floor(i/2)*0.09,0.052]}><boxGeometry args={[0.058,0.078,0.048]}/><meshStandardMaterial color={color} metalness={0.22} roughness={0.48}/></mesh>)}
+    <mesh position={[0,-0.12,0.085]}><boxGeometry args={[0.045,0.052,0.045]}/><meshStandardMaterial color="#f2f4f2" roughness={0.65}/></mesh>
+    <mesh position={[0,-0.235,-0.008]}><boxGeometry args={[0.018,0.12,0.008]}/><meshBasicMaterial color="#9bdcf3" transparent opacity={0.5}/></mesh>
+    <pointLight color="#f2b65d" intensity={0.8} distance={0.8}/>
   </group>;
 }
 function Pin({location}){
@@ -54,7 +56,7 @@ function Pin({location}){
   return <group position={p}>
     <mesh><sphereGeometry args={[0.035,18,14]}/><meshBasicMaterial color={location.color}/></mesh>
     <mesh scale={2.1}><sphereGeometry args={[0.035,18,14]}/><meshBasicMaterial color={location.color} transparent opacity={0.15}/></mesh>
-    <Html position={p.clone().normalize().multiplyScalar(0.09)} center distanceFactor={8} occlude>
+    <Html position={p.clone().normalize().multiplyScalar(0.12)} center distanceFactor={7} occlude={false}>
       <div className="globe-city-label"><b>{location.name}</b><span>{location.role}</span></div>
     </Html>
   </group>;
