@@ -1,22 +1,7 @@
 import React from 'react';
+import MotionText from './MotionText.jsx';
 import {ArrowRight,ArrowUpRight,BookOpen,Check,MapPin,Plane,Hotel,Utensils,Languages,Factory,Ship,ShieldCheck,Truck,PackageCheck,Building2,Lightbulb,Car,Store,Wrench,Globe2,ChevronDown} from 'lucide-react';
 
-const journey = [
- ['01','Product sourcing','We find manufacturers across Yiwu, Guangzhou, Shenzhen and Foshan, then compare options and negotiate on your behalf.'],
- ['02','Factory inspection','Our China-side team can visit the factory to review business credentials, samples and production capability.'],
- ['03','Quality control','Arrange pre-shipment checks with photo and video updates before cargo is sealed.'],
- ['04','Shipping & logistics','Coordinate full-container and shared-container sea freight, plus air cargo options for urgent orders.'],
- ['05','Customs coordination','Prepare import documents and coordinate duties, GST and clearance with the relevant customs professionals.'],
- ['06','Doorstep delivery','Plan the final movement from the Indian port to your shop, warehouse, villa or project site.']
-];
-const process = [
- ['01','Source the right factory','Share the product and specifications. We shortlist manufacturers and request clear quotations.'],
- ['02','Inspect & approve samples','Review samples and supplier details before confirming production. Factory visits can be arranged where suitable.'],
- ['03','Quality check & loading','Agree on inspection points, count cartons and coordinate container loading.'],
- ['04','Ocean freight','Your cargo sails to India. We share shipment milestones and status updates.'],
- ['05','Customs clearance','Coordinate documents, duties and GST with the customs broker for the shipment.'],
- ['06','Delivered to your door','Arrange port release, inland transport and delivery to your business address.']
-];
 const industries = [
  {hub:'FOSHAN HUB',title:'Furniture & interiors',items:['Home and villa furniture','Office desks and executive chairs','Hotel and banquet fit-outs'],note:'Project sourcing · MOQ varies',Icon:Building2},
  {hub:'SHENZHEN HUB',title:'Electronics & tech',items:['LED screens and digital signage','Mobile accessories in bulk','Power and smart-device products'],note:'Product compliance checks matter',Icon:Lightbulb},
@@ -45,33 +30,21 @@ const faqs = [
  ['What is a good business to start by importing from China?','That depends on your budget, customer demand, competition, compliance and after-sales needs. Start with a product shortlist and validate landed cost before investing.']
 ];
 
-function Tag({children}) { return <div className="concept-tag"><i/>{children}</div>; }
-function Heading({tag,title,copy}) { return <div className="concept-heading"><Tag>{tag}</Tag><h2>{title}</h2>{copy&&<p>{copy}</p>}</div>; }
+function Tag({children}) { return <div className="concept-tag"><i/><MotionText>{children}</MotionText></div>; }
+function Heading({tag,title,copy}) { return <div className="concept-heading"><Tag>{tag}</Tag><MotionText as="h2">{title}</MotionText>{copy&&<p>{copy}</p>}</div>; }
 
 export default function HomeAfterCargo(){
  return <>
-  <section className="concept-process-section">
-   <div className="container">
-    <div className="concept-intro-row"><Heading tag="HOW IT WORKS" title={<>One team from the factory floor<br/><em>to your front door.</em></>} copy="A smooth import needs clear communication, sensible checks and a shipment plan that everyone understands."/></div>
-    <div className="concept-service-grid">{journey.map(([n,title,copy])=><article className="concept-service-card" key={n}><span>{n}</span><h3>{title}</h3><p>{copy}</p><div className="concept-card-rule"/></article>)}</div>
-   </div>
-  </section>
-  <section className="concept-how-section">
-   <div className="container">
-    <div className="concept-how-top"><div><Tag>YOUR SHIPMENT, STEP BY STEP</Tag><h2>Six clear steps from the factory floor<br/><em>to your front door.</em></h2><p>From the first supplier conversation to delivery at your business, every stage has a clear next step.</p></div><div className="concept-route-card"><div><small>ORIGIN</small><b>Shanghai / China</b></div><span className="concept-route-track"><i/></span><div><small>DESTINATION</small><b>Chennai / India</b></div><strong>DAY 34 <small>ILLUSTRATIVE SHIPMENT MILESTONE</small></strong></div></div>
-    <div className="concept-timeline">{process.map(([n,title,copy])=><article key={n}><b>{n}</b><div><h3>{title}</h3><p>{copy}</p></div></article>)}</div>
-   </div>
-  </section>
   <section className="concept-industries-section">
    <div className="container"><Heading tag="WHAT WE IMPORT" title={<>China has a market for every industry.<br/><em>We know where to look.</em></>} copy="Different products have different manufacturing hubs. We help you identify the right region, supplier questions and import considerations."/>
-    <div className="concept-industry-grid">{industries.map(({hub,title,items,note,Icon})=><article key={title} className="concept-industry-card"><div className="concept-industry-top"><span>{hub}</span><Icon size={22}/></div><h3>{title}</h3><ul>{items.map(x=><li key={x}><Check size={14}/>{x}</li>)}</ul><small>{note}</small></article>)}</div>
+    <div className="concept-industry-grid">{industries.map(({hub,title,items,note,Icon})=><article key={title} className="concept-industry-card"><div className="concept-industry-top"><span>{hub}</span><Icon size={22}/></div><MotionText as="h3">{title}</MotionText><ul>{items.map(x=><li key={x}><Check size={14}/>{x}</li>)}</ul><small>{note}</small></article>)}</div>
    </div>
   </section>
   <section className="concept-china-section concept-shanghai-section" id="shanghai">
    <div className="container concept-shanghai-grid">
     <div className="concept-shanghai-copy">
      <Tag>OFFICIALLY IN CHINA</Tag>
-     <h2>Many claim an office in China. <em>We have the licence.</em></h2>
+     <MotionText as="h2">Many claim an office in China. <em>We have the licence.</em></MotionText>
      <p>ImportNow operates through its own registered company in Shanghai, <b>Shanghai Shengqiao Chain Trading Co., Ltd.</b> That means we can sign contracts with factories, pay suppliers locally and stand behind every order.</p>
      <ul className="concept-shanghai-checks">
       <li><span><Check size={16}/></span><div><b>Registered business licence</b><small>Issued in Shanghai, China</small></div></li>
@@ -99,15 +72,15 @@ export default function HomeAfterCargo(){
   </section>
   <section className="concept-trips-section"><div className="container concept-trips-layout">
    <div className="concept-trip-art"><div className="concept-trip-sun"/><div className="concept-trip-label">CANTON FAIR · GUANGZHOU</div><div className="concept-trip-building"><span/><span/><span/><span/></div><div className="concept-trip-city">GUANGZHOU <i/> SHENZHEN <i/> YIWU <i/> FOSHAN</div></div>
-   <div><Tag>BUSINESS TRIPS TO CHINA</Tag><h2>Your China business trip<br/><em>with the details taken care of.</em></h2><p>Plan visits to trade fairs, wholesale markets and shortlisted factories with practical on-ground guidance. The itinerary is shaped around your sourcing goals.</p><div className="concept-includes"><span><Check/>Visa guidance & invitation letter</span><span><Check/>Hotel planning near key markets</span><span><Check/>Food and local travel guidance</span><span><Check/>Guides and translators</span><span><Check/>Factory visits you choose</span><span><Check/>Sightseeing between market visits</span></div><div className="concept-departures"><div><small>SPRING</small><b>Canton Fair · April–May</b></div><div><small>AUTUMN</small><b>Canton Fair · October–November</b></div></div><a className="button primary" href="#/contact">Plan a China business trip <ArrowUpRight size={16}/></a></div>
+   <div><Tag>BUSINESS TRIPS TO CHINA</Tag><MotionText as="h2">Your China business trip<br/><em>with the details taken care of.</em></MotionText><p>Plan visits to trade fairs, wholesale markets and shortlisted factories with practical on-ground guidance. The itinerary is shaped around your sourcing goals.</p><div className="concept-includes"><span><Check/>Visa guidance & invitation letter</span><span><Check/>Hotel planning near key markets</span><span><Check/>Food and local travel guidance</span><span><Check/>Guides and translators</span><span><Check/>Factory visits you choose</span><span><Check/>Sightseeing between market visits</span></div><div className="concept-departures"><div><small>SPRING</small><b>Canton Fair · April–May</b></div><div><small>AUTUMN</small><b>Canton Fair · October–November</b></div></div><a className="button primary" href="#/contact">Plan a China business trip <ArrowUpRight size={16}/></a></div>
   </div></section>
   <section className="concept-deliveries-section"><div className="container"><Heading tag="RECENTLY DELIVERED" title={<>Another shipment coordinated.<br/><em>Another business moving forward.</em></>} copy="Examples of sourcing and delivery requirements across different business types."/><div className="concept-delivery-grid">{deliveries.map(([route,title,copy,a,b])=><article className="concept-delivery-card" key={title}><div className="concept-delivery-art"><span>{route}</span><div className="concept-delivery-boxes"><i/><i/><i/><i/></div><Truck size={32}/></div><div className="concept-delivery-copy"><h3>{title}</h3><p>{copy}</p><div><small>{a}</small><small>{b}</small></div></div></article>)}</div></div></section>
-  <section className="concept-testimonials-section"><div className="container"><Heading tag="THE IMPORTNOW STANDARD" title={<>Clear checks.<br/><em>Fewer surprises.</em></>} copy="A practical shipment plan makes responsibilities visible before cargo moves. These are the checkpoints we help customers work through."/><div className="concept-quote-grid"><article><ShieldCheck/><small>01 · BEFORE YOU ORDER</small><h3>Make the supplier decision carefully.</h3><p>Review the supplier profile, product specifications, minimum order quantity, quotation and sample requirements before committing.</p></article><article><PackageCheck/><small>02 · BEFORE DISPATCH</small><h3>Agree what is being shipped.</h3><p>Confirm approved samples, inspection scope, carton count, packing details and the documents needed for export and import coordination.</p></article><article><Ship/><small>03 · BEFORE ARRIVAL</small><h3>Prepare the hand-off to India.</h3><p>Track freight milestones, organise import paperwork with the relevant professionals and plan port release and inland delivery.</p></article></div><p className="fine-print">The exact checks, service responsibilities and third-party arrangements are agreed for each shipment.</p></div></section>
-  <section className="concept-guides-section"><div className="container"><div className="concept-guides-row"><div><Tag>IMPORT GUIDES</Tag><h2>Learn before<br/><em>you import.</em></h2><p>Practical guidance on product sourcing, shipping, customs and building a business around imported products.</p></div><a className="button secondary" href="https://importnow-concept.vercel.app/blog.html" target="_blank" rel="noreferrer">View all articles <ArrowUpRight size={16}/></a></div><div className="concept-guide-grid">{guides.map(([n,tag,title,copy])=><a className="concept-guide-card" key={n} href="https://importnow-concept.vercel.app/blog.html" target="_blank" rel="noreferrer"><div className="concept-guide-art"><span>{n}</span><BookOpen size={28}/><i/></div><small>{tag}</small><h3>{title}</h3><p>{copy}</p><b>Explore guide <ArrowUpRight size={14}/></b></a>)}</div></div></section>
-  <section className="concept-faq-section"><div className="container concept-faq-layout"><div><Tag>QUESTIONS</Tag><h2>Before you<br/><em>import.</em></h2><p>Have a product in mind? We can help you identify the next practical questions.</p></div><div className="concept-faq-list">{faqs.map(([q,a])=><details key={q}><summary>{q}<ChevronDown size={18}/></summary><p>{a}</p></details>)}</div></div></section>
+  <section className="concept-testimonials-section"><div className="container"><Heading tag="THE IMPORTNOW STANDARD" title={<>Clear checks.<br/><em>Fewer surprises.</em></>} copy="A practical shipment plan makes responsibilities visible before cargo moves. These are the checkpoints we help customers work through."/><div className="concept-quote-grid"><article><ShieldCheck/><small>01 · BEFORE YOU ORDER</small><MotionText as="h3">Make the supplier decision carefully.</MotionText><p>Review the supplier profile, product specifications, minimum order quantity, quotation and sample requirements before committing.</p></article><article><PackageCheck/><small>02 · BEFORE DISPATCH</small><MotionText as="h3">Agree what is being shipped.</MotionText><p>Confirm approved samples, inspection scope, carton count, packing details and the documents needed for export and import coordination.</p></article><article><Ship/><small>03 · BEFORE ARRIVAL</small><MotionText as="h3">Prepare the hand-off to India.</MotionText><p>Track freight milestones, organise import paperwork with the relevant professionals and plan port release and inland delivery.</p></article></div><p className="fine-print">The exact checks, service responsibilities and third-party arrangements are agreed for each shipment.</p></div></section>
+  <section className="concept-guides-section"><div className="container"><div className="concept-guides-row"><div><Tag>IMPORT GUIDES</Tag><MotionText as="h2">Learn before<br/><em>you import.</em></MotionText><p>Practical guidance on product sourcing, shipping, customs and building a business around imported products.</p></div><a className="button secondary" href="https://importnow-concept.vercel.app/blog.html" target="_blank" rel="noreferrer">View all articles <ArrowUpRight size={16}/></a></div><div className="concept-guide-grid">{guides.map(([n,tag,title,copy])=><a className="concept-guide-card" key={n} href="https://importnow-concept.vercel.app/blog.html" target="_blank" rel="noreferrer"><div className="concept-guide-art"><span>{n}</span><BookOpen size={28}/><i/></div><small>{tag}</small><h3>{title}</h3><p>{copy}</p><b>Explore guide <ArrowUpRight size={14}/></b></a>)}</div></div></section>
+  <section className="concept-faq-section"><div className="container concept-faq-layout"><div><Tag>QUESTIONS</Tag><MotionText as="h2">Before you<br/><em>import.</em></MotionText><p>Have a product in mind? We can help you identify the next practical questions.</p></div><div className="concept-faq-list">{faqs.map(([q,a])=><details key={q}><summary>{q}<ChevronDown size={18}/></summary><p>{a}</p></details>)}</div></div></section>
   <section className="concept-final-cta concept-quote-section" id="start-importing">
    <div className="concept-quote-shell">
-    <div className="concept-quote-intro"><Tag>START IMPORTING</Tag><h2>Tell us what you want to import.<br/><em>We’ll take it from there.</em></h2><p>Share the product and quantity. You’ll get supplier options, landed-cost inputs and timelines to help plan your next step — free of charge.</p>
+    <div className="concept-quote-intro"><Tag>START IMPORTING</Tag><MotionText as="h2">Tell us what you want to import.<br/><em>We’ll take it from there.</em></MotionText><p>Share the product and quantity. You’ll get supplier options, landed-cost inputs and timelines to help plan your next step — free of charge.</p>
      <div className="concept-quote-contact"><a href="https://wa.me/919989724320" target="_blank" rel="noreferrer"><span>WHATSAPP / CALL</span><b>+91 99897 24320</b></a><a href="https://www.instagram.com/importnow.in/" target="_blank" rel="noreferrer"><span>INSTAGRAM</span><b>@importnow.in</b></a><div><span>OFFICES</span><b>Hyderabad, India · Shanghai, China</b></div></div>
     </div>
     <form className="concept-quote-form" onSubmit={(event)=>{event.preventDefault();const data=new FormData(event.currentTarget);const lines=['Hello ImportNow, I would like a free sourcing quote.','Name: '+data.get('name'),'City: '+(data.get('city')||'Not provided'),'Product: '+data.get('product'),'Quantity: '+(data.get('quantity')||'Not provided'),'Budget: '+(data.get('budget')||'Not specified'),'Details: '+(data.get('details')||'Not provided')];window.open('https://wa.me/919989724320?text='+encodeURIComponent(lines.join('\n')),'_blank','noopener,noreferrer');}}>
