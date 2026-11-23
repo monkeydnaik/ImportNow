@@ -116,13 +116,13 @@ function PortScene(){
    if(t<4)lifted.current.position.set(-4.05,Math.max(.55,2.45+loadY),0);
    else if(t<8)lifted.current.position.set(THREE.MathUtils.lerp(-4.05,-3.1,(t-4)/4),2.45+loadY,0);
    else if(t<15)lifted.current.position.set(-3.1,THREE.MathUtils.lerp(2.27,1.18,(t-8)/7),0);
-   else lifted.current.position.set(-40,-40,0);
+   else lifted.current.position.set(ship.current.position.x+2.0,1.18,0);
   }
   const unloadY=t<39?-.18:t<43?THREE.MathUtils.lerp(-.18,-2.1,(t-39)/4):-2.1;
   if(unloadHook.current)unloadHook.current.position.y=unloadY;
   if(unloadTrolley.current)unloadTrolley.current.position.x=t<39?.42:t<43?THREE.MathUtils.lerp(.42,-.55,(t-39)/4):-.55;
   if(delivered.current){
-   if(t<39)delivered.current.position.set(40,-40,0);
+   if(t<39)delivered.current.position.set(ship.current.position.x-.95,.58,0);
    else if(t<43)delivered.current.position.set(4.05,Math.max(.55,2.45+unloadY),0);
    else delivered.current.position.set(4.05,.55,0);
   }
