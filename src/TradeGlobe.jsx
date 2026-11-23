@@ -1,5 +1,6 @@
 import React,{Suspense,useMemo,useRef} from 'react';
-import {Canvas,useFrame,useTexture,Html,OrbitControls,Stars} from '@react-three/fiber';
+import {Canvas,useFrame} from '@react-three/fiber';
+import {useTexture,Html,OrbitControls,Stars} from '@react-three/drei';
 import * as THREE from 'three';
 
 const R=2;
