@@ -1,6 +1,6 @@
 import React,{useRef} from 'react';
 import {Canvas,useFrame} from '@react-three/fiber';
-import {Float,Html,Stars} from '@react-three/drei';
+import {Stars} from '@react-three/drei';
 import * as THREE from 'three';
 
 function CargoShip(){
@@ -23,13 +23,6 @@ function CargoShip(){
   <pointLight position={[0,.2,0]} color="#f2b45f" intensity={1.2} distance={1.8}/>
  </group>;
 }
-function OrbitNode({position,icon,title,sub,color}){
- return <Html position={position} center distanceFactor={7} transform={false}>
-  <div className="journey-node" style={{'--node-accent':color}}>
-   <span className="journey-node-icon">{icon}</span><span><b>{title}</b><small>{sub}</small></span>
-  </div>
- </Html>;
-}
 function Scene(){
  const globe=useRef();
  useFrame(({clock})=>{if(globe.current)globe.current.rotation.y=clock.getElapsedTime()*.075;});
@@ -47,12 +40,9 @@ function Scene(){
   </group>
   <mesh rotation={[-Math.PI/2,0,0]} position={[0,-1.15,0]}><circleGeometry args={[2.4,64]}/><meshBasicMaterial color="#12394c" transparent opacity={.22}/></mesh>
   <CargoShip/>
-  <Float speed={1.2} floatIntensity={.1}><OrbitNode position={[-2.05,.8,0]} icon="⌂" title="FACTORY" sub="SOURCING" color="#f2b45f"/></Float>
-  <Float speed={1.4} floatIntensity={.12}><OrbitNode position={[2.05,.65,0]} icon="◇" title="QUALITY" sub="INSPECTION" color="#74d5ff"/></Float>
-  <Float speed={1.1} floatIntensity={.1}><OrbitNode position={[1.55,-1.05,0]} icon="↗" title="FREIGHT" sub="SHIPMENT" color="#f2b45f"/></Float>
-  <Float speed={1.3} floatIntensity={.1}><OrbitNode position={[-1.65,-1.05,0]} icon="▣" title="DELIVERY" sub="INDIA" color="#74d5ff"/></Float>
+
  </>;
 }
 export default function ImportJourney3D(){
- return <div className="journey-3d"><Canvas dpr={[1,1.5]} camera={{position:[0,0,6.8],fov:42}} gl={{antialias:true,alpha:false,powerPreference:'low-power'}}><Scene/></Canvas><div className="journey-3d-caption"><i/> LIVE IMPORT JOURNEY <span>CHINA → INDIA</span></div></div>;
+ return <div className="journey-3d"><Canvas dpr={[1,1.5]} camera={{position:[0,0,6.8],fov:42}} gl={{antialias:true,alpha:false,powerPreference:'low-power'}}><Scene/></Canvas><div className="journey-fixed-labels"><div><b>01 · SOURCE</b><span>Factory network</span></div><div><b>02 · VERIFY</b><span>Quality checks</span></div><div><b>03 · SHIP</b><span>Ocean freight</span></div><div><b>04 · DELIVER</b><span>India delivery</span></div></div><div className="journey-3d-caption"><i/> LIVE IMPORT JOURNEY <span>CHINA → INDIA</span></div></div>;
 }
