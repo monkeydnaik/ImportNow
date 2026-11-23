@@ -332,3 +332,28 @@ body{background:radial-gradient(ellipse at 75% 4%,#163349 0%,#0a1928 34%,#071321
 @media(max-width:900px){.concept-delivery-grid{grid-template-columns:repeat(2,1fr)}.concept-how-top,.concept-china-layout,.concept-trips-layout,.concept-faq-layout{grid-template-columns:1fr;gap:30px}.concept-license-card{justify-self:start}.concept-trip-art{height:320px}}
 @media(max-width:680px){.concept-process-section,.concept-industries-section,.concept-deliveries-section,.concept-testimonials-section,.concept-how-section,.concept-china-section,.concept-trips-section,.concept-faq-section{padding:58px 0}.concept-service-grid,.concept-industry-grid,.concept-timeline,.concept-quote-grid{grid-template-columns:1fr}.concept-service-card{min-height:0;padding:20px}.concept-how-top{gap:20px}.concept-route-card{padding:14px;gap:7px}.concept-route-track{width:38px}.concept-route-card b{font-size:10px}.concept-timeline article{padding:16px 0}.concept-industry-card{min-height:0}.concept-china-layout{gap:28px}.concept-license-card{padding:23px}.concept-trips-layout{gap:28px}.concept-trip-art{height:275px}.concept-includes{gap:10px}.concept-includes span{font-size:9px}.concept-departures{gap:8px}.concept-departures b{font-size:10px}.concept-delivery-grid{grid-template-columns:1fr}.concept-delivery-art{height:135px}.concept-delivery-copy p{min-height:0}.concept-quote-grid p{min-height:0}.concept-guides-section{padding:48px 0}.concept-guides-row{align-items:flex-start;flex-direction:column}.concept-faq-layout{gap:22px}.concept-faq-list summary{font-size:14px}.concept-final-cta{padding:62px 18px}}
 @media(prefers-reduced-motion:reduce){.concept-route-track i{animation:none}.concept-service-card,.concept-industry-card,.concept-delivery-card{transition:none}}
+
+/* Scroll-controlled shipment timeline */
+.cargo-voyage-hud{display:grid;grid-template-columns:170px 1fr;gap:8px 22px;align-items:center;margin:0 0 14px;padding:15px 18px;border:1px solid #29495b;border-radius:9px;background:linear-gradient(115deg,#142f40,#0b1c2b)}
+.cargo-voyage-hud>div:first-child,.cargo-voyage-current{display:flex;flex-direction:column;gap:4px}
+.cargo-voyage-hud small{font:9px var(--mono);letter-spacing:.13em;color:#88a5b4}
+.cargo-voyage-hud b{font:700 15px var(--display);color:#f4f7f8}
+.cargo-voyage-hud b span{font-size:10px;color:#8fa9b5}
+.cargo-voyage-current b{font-size:13px;color:#f1bb70}
+.cargo-voyage-line{grid-column:1/-1;height:3px;background:#29495b;border-radius:9px;overflow:hidden}
+.cargo-voyage-line i{display:block;width:100%;height:100%;background:linear-gradient(90deg,#e45540,#f0bd70,#77c6df);transform:scaleX(0);transform-origin:left center;will-change:transform}
+.cargo-voyage-milestones{display:flex;justify-content:space-between;gap:12px;margin:13px 2px 0}
+.cargo-voyage-milestones span{display:flex;align-items:center;gap:7px;color:#68818e;font:9px var(--mono);letter-spacing:.04em;white-space:nowrap;transition:color .2s}
+.cargo-voyage-milestones i{width:7px;height:7px;border:1px solid #567181;border-radius:50%;background:#0b1c2b;flex:none}
+.cargo-voyage-milestones span.active{color:#d9e8ed}
+.cargo-voyage-milestones span.active i{background:#e8b36a;border-color:#e8b36a;box-shadow:0 0 10px #e8b36a88}
+@media(max-width:680px){
+ .cargo-voyage-hud{grid-template-columns:105px 1fr;gap:8px 12px;padding:12px}
+ .cargo-voyage-hud small{font-size:7px;letter-spacing:.08em}
+ .cargo-voyage-hud b{font-size:12px}
+ .cargo-voyage-current b{font-size:10px}
+ .cargo-voyage-milestones{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:12px 0}
+ .cargo-voyage-milestones span{font-size:8px}
+ .cargo-voyage-milestones span:last-child{grid-column:1/-1}
+}
+@media(prefers-reduced-motion:reduce){.cargo-voyage-milestones span,.cargo-voyage-line i{transition:none}}
