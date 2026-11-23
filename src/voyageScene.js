@@ -153,9 +153,14 @@ function shipBody(){
 
 const ship=shipBody();scene.add(ship);
 const radar=ship.getObjectByName('radar');
-const nameTex=ctex(1024,128,(g,w,h)=>{g.fillStyle='#fff';g.font='800 96px Sora, Arial Black, sans-serif';g.textAlign='center';g.textBaseline='middle';g.fillText('IMPORTNOW',w/2,h/2+6)});
-const nameMat=new THREE.MeshStandardMaterial({map:nameTex,transparent:true,roughness:.5,metalness:.2,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-2});
-for(const s of [1,-1]){const p=new THREE.Mesh(new THREE.PlaneGeometry(15,1.9),nameMat);p.position.set(-2,1.45,s*(B/2+.03));if(s<0)p.rotation.y=Math.PI;ship.add(p)}
+const nameTex=ctex(1024,128,(g,w,h)=>{g.fillStyle='#fff';g.font='700 72px Sora, Arial Black, sans-serif';g.textAlign='center';g.textBaseline='middle';g.fillText('IMPORTNOW',w/2,h/2+4)});
+const nameMat=new THREE.MeshStandardMaterial({map:nameTex,transparent:true,roughness:.58,metalness:.12,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-2});
+for(const s of [1,-1]){
+  const p=new THREE.Mesh(new THREE.PlaneGeometry(8.4,1.05),nameMat);
+  p.position.set(-1.2,1.25,s*(B/2+.025));
+  if(s<0)p.rotation.y=Math.PI;
+  ship.add(p);
+}
 
 const slots=slotsFor(true);
 const plainSlots=slots.filter(s=>!s.brand),brandSlots=slots.filter(s=>s.brand);
