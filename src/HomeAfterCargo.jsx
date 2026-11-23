@@ -67,10 +67,36 @@ export default function HomeAfterCargo(){
     <div className="concept-industry-grid">{industries.map(({hub,title,items,note,Icon})=><article key={title} className="concept-industry-card"><div className="concept-industry-top"><span>{hub}</span><Icon size={22}/></div><h3>{title}</h3><ul>{items.map(x=><li key={x}><Check size={14}/>{x}</li>)}</ul><small>{note}</small></article>)}</div>
    </div>
   </section>
-  <section className="concept-china-section"><div className="container concept-china-layout">
-   <div><Tag>OFFICIALLY IN CHINA</Tag><h2>Local presence.<br/><em>Closer to the source.</em></h2><p>ImportNow operates through its China-side company, Shanghai Shengqiao Chain Trading Co., Ltd., to coordinate supplier conversations, factory visits and quality checks. Confirm the contracting entity and payment arrangements for your specific order before proceeding.</p><ul className="concept-check-list"><li><Check/>Supplier and factory coordination on the ground</li><li><Check/>Local communication for sourcing and inspections</li><li><Check/>Support for factory visits and market trips</li><li><Check/>Speak with our team in Telugu, Hindi or English</li></ul></div>
-   <div className="concept-license-card"><div className="concept-license-seal"><Globe2 size={28}/></div><small>CHINA OPERATIONS · COMPANY PROFILE</small><h3>SHANGHAI<br/>SHENGQIAO<br/>TRADING</h3><div className="concept-license-line"/><span>COMPANY NAME</span><b>Shanghai Shengqiao Chain Trading Co., Ltd.</b><span>LOCATION</span><b>Shanghai, China</b><span>BUSINESS FOCUS</span><b>Sourcing · Supplier coordination · Trade support</b><span>DOCUMENT VERIFICATION</span><b>Company registration details can be requested from our team.</b><em>THIS PROFILE IS NOT A BUSINESS LICENCE OR CERTIFICATE</em><a className="button secondary" href="#/contact">Request company documents <ArrowUpRight size={15}/></a></div>
-  </div></section>
+  <section className="concept-china-section concept-shanghai-section" id="shanghai">
+   <div className="container concept-shanghai-grid">
+    <div className="concept-shanghai-copy">
+     <Tag>OFFICIALLY IN CHINA</Tag>
+     <h2>Many claim an office in China. <em>We have the licence.</em></h2>
+     <p>ImportNow operates through its own registered company in Shanghai, <b>Shanghai Shengqiao Chain Trading Co., Ltd.</b> That means we can sign contracts with factories, pay suppliers locally and stand behind every order.</p>
+     <ul className="concept-shanghai-checks">
+      <li><span><Check size={16}/></span><div><b>Registered business licence</b><small>Issued in Shanghai, China</small></div></li>
+      <li><span><Check size={16}/></span><div><b>Chinese company bank account</b><small>So payments to factories are safe and traceable</small></div></li>
+      <li><span><Check size={16}/></span><div><b>Team on the ground</b><small>For factory visits, quality checks and market trips</small></div></li>
+      <li><span><Check size={16}/></span><div><b>Indian founder on both sides</b><small>Talk to us in Telugu, Hindi or English</small></div></li>
+     </ul>
+    </div>
+    <div className="concept-shanghai-stage">
+     <div className="concept-shanghai-document">
+      <div className="concept-shanghai-doc-head"><span>营业执照</span><small>BUSINESS LICENCE</small></div>
+      <div className="concept-shanghai-emblem"><Globe2 size={31}/></div>
+      <div className="concept-shanghai-doc-fields">
+       <span>COMPANY</span><b>Shanghai Shengqiao Chain Trading Co., Ltd.</b>
+       <span>LOCATION</span><b>Shanghai, People's Republic of China</b>
+       <span>SCOPE</span><b>Supply chain, sourcing &amp; international trade</b>
+       <span>SERVING</span><b>Importers across India</b>
+      </div>
+      <div className="concept-shanghai-doc-foot"><div className="concept-shanghai-qr" aria-hidden="true"><i/><i/><i/><i/></div><div className="concept-shanghai-stamp">SHANGHAI<br/>SHENGQIAO<br/>TRADING</div></div>
+      <div className="concept-shanghai-disclaimer">ILLUSTRATIVE COMPANY PROFILE · NOT THE ORIGINAL GOVERNMENT-ISSUED LICENCE</div>
+     </div>
+     <a className="concept-shanghai-request" href="#/contact">Request original company documents <ArrowUpRight size={15}/></a>
+    </div>
+   </div>
+  </section>
   <section className="concept-trips-section"><div className="container concept-trips-layout">
    <div className="concept-trip-art"><div className="concept-trip-sun"/><div className="concept-trip-label">CANTON FAIR · GUANGZHOU</div><div className="concept-trip-building"><span/><span/><span/><span/></div><div className="concept-trip-city">GUANGZHOU <i/> SHENZHEN <i/> YIWU <i/> FOSHAN</div></div>
    <div><Tag>BUSINESS TRIPS TO CHINA</Tag><h2>Your China business trip<br/><em>with the details taken care of.</em></h2><p>Plan visits to trade fairs, wholesale markets and shortlisted factories with practical on-ground guidance. The itinerary is shaped around your sourcing goals.</p><div className="concept-includes"><span><Check/>Visa guidance & invitation letter</span><span><Check/>Hotel planning near key markets</span><span><Check/>Food and local travel guidance</span><span><Check/>Guides and translators</span><span><Check/>Factory visits you choose</span><span><Check/>Sightseeing between market visits</span></div><div className="concept-departures"><div><small>SPRING</small><b>Canton Fair · April–May</b></div><div><small>AUTUMN</small><b>Canton Fair · October–November</b></div></div><a className="button primary" href="#/contact">Plan a China business trip <ArrowUpRight size={16}/></a></div>
