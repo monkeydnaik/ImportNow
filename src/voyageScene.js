@@ -351,6 +351,7 @@ function frame(){
   const day=dayOf(p);
   if(day!==dayShown){dayEl.textContent='Day '+day;milestones.forEach((el,i)=>el.classList.toggle('on',day>=MS_DAYS[i]));dayShown=day}
   const rp=sx/SAIL;fill.style.width=(rp*100)+'%';boat.style.left=(rp*100)+'%';
+}
 frame();
 return ()=>{
   cancelAnimationFrame(raf);
