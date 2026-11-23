@@ -1,7 +1,9 @@
-import React,{Suspense,useMemo,useRef} from 'react';
+import React,{useEffect,useMemo,useRef,useState} from 'react';
 import {Canvas,useFrame} from '@react-three/fiber';
-import {ContactShadows,useGLTF} from '@react-three/drei';
+import {ContactShadows} from '@react-three/drei';
 import * as THREE from 'three';
+import {Water} from 'three/addons/objects/Water.js';
+import {Sky} from 'three/addons/objects/Sky.js';
 
 const steel=(color,metalness=.35,roughness=.55)=><meshStandardMaterial color={color} metalness={metalness} roughness={roughness}/>;
 
@@ -43,30 +45,6 @@ function Hull(){
   <mesh geometry={geometry} castShadow receiveShadow><meshStandardMaterial color="#17394d" metalness={.68} roughness={.29} side={THREE.DoubleSide}/></mesh>
   <mesh position={[-.05,-.38,0]}><boxGeometry args={[7.8,.07,1.55]}/>{steel('#bd5146',.42,.4)}</mesh>
  </group>;
-}
-
-const VESSEL_MODEL='https://tevy.dev/models/container-ship/v1/lod0.glb';
-
-function ImportedVessel(){
- const {scene}=useGLTF(VESSEL_MODEL);
- const model=useMemo(()=>{
-  const object=scene.clone(true);
-  object.traverse(node=>{if(node.isMesh){node.castShadow=true;node.receiveShadow=true;}});
-  const bounds=new THREE.Box3().setFromObject(object);
-  const size=bounds.getSize(new THREE.Vector3());
-  const center=bounds.getCenter(new THREE.Vector3());
-  return {object,scale:8.2/Math.max(size.z,1),offset:[-center.x,0,-center.z]};
- },[scene]);
- return <group rotation={[0,Math.PI/2,0]} scale={model.scale}>
-  <primitive object={model.object} position={model.offset}/>
- </group>;
-}
-
-class VesselFallback extends React.Component{
- constructor(props){super(props);this.state={failed:false};}
- static getDerivedStateFromError(){return {failed:true};}
- componentDidCatch(error){console.warn('External vessel model unavailable; using the built-in vessel.',error);}
- render(){return this.state.failed?this.props.fallback:this.props.children;}
 }
 
 function PortTerminal({side=1,accent='#d99d53'}){
@@ -150,10 +128,61 @@ function Ship(){
  </group>;
 }
 
-function PortScene(){
+function Ocean(){
+ const {water,sky}=useMemo(()=>{
+  const sun=new THREE.Vector3().setFromSphericalCoords(1,THREE.MathUtils.degToRad(77),THREE.MathUtils.degToRad(122));
+  const sky=new Sky();sky.scale.setScalar(650);
+  const uniforms=sky.material.uniforms;
+  uniforms.turbidity.value=5;
+  uniforms.rayleigh.value=1.4;
+  uniforms.mieCoefficient.value=.004;
+  uniforms.mieDirectionalG.value=.82;
+  uniforms.sunPosition.value.copy(sun);
+  const normals=new THREE.TextureLoader().load('https://cdn.jsdelivr.net/gh/mrdoob/three.js@r160/examples/textures/waternormals.jpg');
+  normals.wrapS=normals.wrapT=THREE.RepeatWrapping;
+  const water=new Water(new THREE.PlaneGeometry(420,420),{
+   textureWidth:512,textureHeight:512,waterNormals:normals,
+   sunDirection:sun.clone(),sunColor:0xfff3df,waterColor:0x0b3a55,
+   distortionScale:2.8,fog:false
+  });
+  water.rotation.x=-Math.PI/2;
+  water.position.y=-.32;
+  water.material.uniforms.size.value=2.4;
+  return {water,sky};
+ },[]);
+ useFrame(({clock})=>{water.material.uniforms.time.value=clock.elapsedTime*.32;});
+ return <><primitive object={sky}/><primitive object={water}/></>;
+}
+
+function GantryCrane({accent='#d99d53',hookRef,trolleyRef}){
+ const frame=steel(accent,.48,.42),dark=steel('#263946',.55,.5),glass=steel('#8bb8c8',.3,.28);
+ return <group>
+  {[-3.05,3.05].map(z=><group key={z}>
+   <mesh position={[0,2.25,z]} castShadow><boxGeometry args={[.42,4.5,.42]}/>{frame}</mesh>
+   <mesh position={[0,.22,z]}><boxGeometry args={[1.05,.38,.9]}/>{dark}</mesh>
+   <mesh position={[0,4.45,z]}><boxGeometry args={[.72,.32,.72]}/>{dark}</mesh>
+  </group>)}
+  <mesh position={[0,4.72,0]} castShadow><boxGeometry args={[9,.5,.62]}/>{frame}</mesh>
+  <mesh position={[0,4.35,0]}><boxGeometry args={[8.4,.12,.72]}/>{dark}</mesh>
+  <group ref={trolleyRef} position={[0,4.92,0]}>
+   <mesh castShadow><boxGeometry args={[1.45,.34,1.05]}/>{dark}</mesh>
+   <mesh position={[0,.22,0]}><boxGeometry args={[.7,.12,.72]}/>{glass}</mesh>
+   <mesh position={[0,-.36,0]}><boxGeometry args={[.12,.58,.12]}/>{frame}</mesh>
+  </group>
+  <group ref={hookRef} position={[0,-.18,0]}>
+   {[-.34,.34].flatMap(x=>[-.28,.28].map(z=><mesh key={x+':'+z} position={[x,.72,z]}><cylinderGeometry args={[.025,.025,1.55,7]}/>{dark}</mesh>))}
+   <mesh position={[0,-.08,0]} castShadow><boxGeometry args={[1.12,.16,.82]}/>{steel('#e6b94f',.5,.42)}</mesh>
+   <mesh position={[0,-.28,0]}><boxGeometry args={[.26,.34,.22]}/>{dark}</mesh>
+  </group>
+  <mesh position={[0,4.95,-2.35]} castShadow><boxGeometry args={[1.5,.9,1.3]}/>{steel('#e8eceb',.2,.65)}</mesh>
+  <mesh position={[0,5.42,-2.35]}><boxGeometry args={[1.55,.12,1.36]}/>{frame}</mesh>
+ </group>;
+}
+
+function PortScene({progressRef}){
  const ship=useRef(),loadHook=useRef(),unloadHook=useRef(),loadTrolley=useRef(),unloadTrolley=useRef(),lifted=useRef(),delivered=useRef(),truck=useRef(),tug=useRef();
  useFrame(({clock})=>{
-  const t=clock.getElapsedTime()%60;
+  const t=progressRef.current*60;
   const ease=v=>{v=THREE.MathUtils.clamp(v,0,1);return v*v*(3-2*v);};
   // Vessel enters from open water, berths at origin, sails the sea lane, then approaches destination from offshore.
   const approach=ease(t/8);
@@ -188,7 +217,7 @@ function PortScene(){
   }
  });
  return <>
-  <color attach="background" args={['#a9c4cf']}/><fog attach="fog" args={['#a9c4cf',15,32]}/>
+  <color attach="background" args={['#a9c4cf']}/><fog attach="fog" args={['#a9c4cf',28,115]}/>
   <hemisphereLight args={['#e5f3fa','#344e58',1.45]}/>
   <directionalLight position={[-4,10,7]} intensity={2.4} castShadow shadow-mapSize-width={2048} shadow-mapSize-height={2048}/>
   <directionalLight position={[4,6,-6]} intensity={.8} color="#a7d8e9"/>
@@ -218,9 +247,29 @@ function GantriesStatic({accent='#d99d53'}){
 }
 
 export default function CargoHandling(){
- return <section className="cargo-ops container" aria-labelledby="cargo-ops-title">
-  <div className="cargo-ops-heading"><div><div className="eyebrow"><i/> 3D PORT LOGISTICS IN 3D</div><h2 id="cargo-ops-title">Watch your order travel<br/><em>from China to India.</em></h2></div><p>A loaded container ship approaches from open water, cranes transfer cargo at the quay, and the vessel sails to the destination terminal for unloading and onward truck delivery. This is an illustrative 3D port operation, not live vessel tracking.</p></div>
-  <div className="cargo-3d-stage"><Canvas shadows dpr={[1,1.25]} camera={{position:[0,13.6,28.5],fov:38}} gl={{antialias:true,powerPreference:'high-performance'}}><PortScene/></Canvas><div className="cargo-3d-label cargo-label-origin">SHANGHAI PORT <small>CHINA · ORIGIN</small></div><div className="cargo-3d-label cargo-label-destination">CHENNAI PORT <small>INDIA · DESTINATION</small></div><div className="cargo-3d-status"><i/> PORT OPERATION SIMULATION <span>BERTH → LOAD → VOYAGE → UNLOAD → DELIVER</span></div></div>
-  <div className="cargo-route-summary"><div><span>STARTING LOCATION</span><b>Shanghai Port, China</b><small>Origin · China</small></div><div className="route-summary-line"><i/><span>SEA FREIGHT</span><i/></div><div><span>ENDING LOCATION</span><b>Chennai Port, India</b><small>Destination · India</small></div><div className="cargo-eta"><span>ESTIMATED SEA FREIGHT</span><b>25–35 days</b><small>Illustrative estimate; route and timing vary.</small></div></div>
+ const sectionRef=useRef(null),progressRef=useRef(0),barRef=useRef(null);
+ const [journey,setJourney]=useState({day:1,stage:'Supplier confirmation'});
+ useEffect(()=>{
+  let raf=0;
+  const update=()=>{
+   if(!sectionRef.current)return;
+   const rect=sectionRef.current.getBoundingClientRect();
+   const p=THREE.MathUtils.clamp((window.innerHeight-rect.top)/(window.innerHeight+rect.height),0,1);
+   progressRef.current=p;
+   if(barRef.current)barRef.current.style.transform=`scaleX(${p})`;
+   const day=Math.max(1,Math.min(35,Math.round(p*34)+1));
+   const stage=p<.12?'Supplier confirmation':p<.28?'Factory checks & production':p<.42?'Quality check & loading':p<.78?'Ocean freight · China → India':p<.91?'Customs & port unloading':'Doorstep delivery';
+   setJourney(old=>old.day===day&&old.stage===stage?old:{day,stage});
+  };
+  const onScroll=()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(update);};
+  update();window.addEventListener('scroll',onScroll,{passive:true});window.addEventListener('resize',onScroll);
+  return()=>{cancelAnimationFrame(raf);window.removeEventListener('scroll',onScroll);window.removeEventListener('resize',onScroll);};
+ },[]);
+ return <section ref={sectionRef} className="cargo-ops container" aria-labelledby="cargo-ops-title">
+  <div className="cargo-ops-heading"><div><div className="eyebrow"><i/> SCROLL-DRIVEN 3D SHIPMENT</div><h2 id="cargo-ops-title">Follow your cargo<br/><em>from China to India.</em></h2></div><p>Scroll to move through an illustrative 35-day shipment: factory preparation, crane loading, ocean freight, Indian port unloading and final delivery. The scene is a simulation, not live vessel tracking.</p></div>
+  <div className="cargo-voyage-hud"><div><small>SHIPMENT JOURNEY</small><b>DAY {journey.day} <span>/ 35</span></b></div><div className="cargo-voyage-current"><small>CURRENT MILESTONE</small><b>{journey.stage}</b></div><div className="cargo-voyage-line"><i ref={barRef}/></div></div>
+  <div className="cargo-3d-stage"><Canvas shadows dpr={[1,1.25]} camera={{position:[0,13.6,28.5],fov:38}} gl={{antialias:true,powerPreference:'high-performance'}}><PortScene progressRef={progressRef}/></Canvas><div className="cargo-3d-label cargo-label-origin">SHANGHAI PORT <small>CHINA · ORIGIN</small></div><div className="cargo-3d-label cargo-label-destination">CHENNAI PORT <small>INDIA · DESTINATION</small></div><div className="cargo-3d-status"><i/> ILLUSTRATIVE PORT OPERATION <span>SCROLL TO CONTROL THE VOYAGE</span></div></div>
+  <div className="cargo-voyage-milestones"><span className={journey.day>=1?'active':''}><i/>D1 · Supplier confirmed</span><span className={journey.day>=5?'active':''}><i/>D5 · Production</span><span className={journey.day>=12?'active':''}><i/>D12 · Vessel loaded</span><span className={journey.day>=25?'active':''}><i/>D25 · India arrival</span><span className={journey.day>=35?'active':''}><i/>D35 · Delivered</span></div>
+  <div className="cargo-route-summary"><div><span>STARTING LOCATION</span><b>Shanghai Port, China</b><small>Origin · China</small></div><div className="route-summary-line"><i/><span>SEA FREIGHT</span><i/></div><div><span>ENDING LOCATION</span><b>Chennai Port, India</b><small>Destination · India</small></div><div className="cargo-eta"><span>JOURNEY MODEL</span><b>35 days</b><small>Illustrative sequence; actual transit and clearance vary.</small></div></div>
  </section>;
 }
