@@ -1,6 +1,6 @@
 import React,{Suspense,useMemo,useRef} from 'react';
 import {Canvas,useFrame} from '@react-three/fiber';
-import {useTexture,Html,OrbitControls,Stars} from '@react-three/drei';
+import {useTexture,OrbitControls,Stars} from '@react-three/drei';
 import * as THREE from 'three';
 
 const R=2;
@@ -44,11 +44,9 @@ function Earth(){
   specularMap:specular,specular:new THREE.Color(0x526d91),shininess:26,
   emissiveMap:night,emissive:new THREE.Color(0xffb86d),emissiveIntensity:1.15
  }),[color,normal,specular,night]);
- const cloudRef=useRef();
- useFrame(({clock})=>{if(cloudRef.current)cloudRef.current.rotation.y=clock.elapsedTime*.009;});
  return <group>
   <mesh><sphereGeometry args={[R,128,128]}/><primitive object={material} attach="material"/></mesh>
-  <mesh ref={cloudRef} scale={1.012}><sphereGeometry args={[R,96,96]}/><meshPhongMaterial map={clouds} transparent opacity={.7} depthWrite={false} shininess={4}/></mesh>
+  <mesh scale={1.012}><sphereGeometry args={[R,96,96]}/><meshPhongMaterial map={clouds} transparent opacity={.7} depthWrite={false} shininess={4}/></mesh>
   <mesh scale={1.025}><sphereGeometry args={[R,80,80]}/><meshBasicMaterial color="#68bff0" transparent opacity={.09} side={THREE.BackSide}/></mesh>
   <mesh scale={1.085}><sphereGeometry args={[R,64,64]}/><meshBasicMaterial color="#4d94d8" transparent opacity={.055} side={THREE.BackSide}/></mesh>
  </group>;
@@ -64,13 +62,9 @@ function CityPin({city}){
   if(ring.current){ring.current.scale.setScalar(1+t*2.2);ring.current.material.opacity=(1-t)*.8;}
   if(dot.current)dot.current.scale.setScalar(1+Math.sin(clock.elapsedTime*2.5+city.lon)*.12);
  });
- const showLabel=['Shanghai','Guangzhou','Shenzhen','Hyderabad','Chennai','Nhava Sheva'].includes(city.name);
  return <group position={p}>
   <mesh ref={dot}><sphereGeometry args={[.024,16,16]}/><meshBasicMaterial color={color}/></mesh>
   <mesh ref={ring} quaternion={quaternion}><ringGeometry args={[.035,.047,36]}/><meshBasicMaterial color={color} transparent opacity={.7} side={THREE.DoubleSide} depthWrite={false}/></mesh>
-  {showLabel&&<Html position={[city.name==='Nhava Sheva'||city.name==='Hyderabad'?-.34:.28,city.name==='Chennai'?-.12:.17,.04]} center distanceFactor={5.6} occlude={false}>
-   <div className="globe-city-label"><b>{city.name}</b><span>{city.role}</span></div>
-  </Html>}
  </group>;
 }
 function TradeRoute({route,index}){
@@ -131,7 +125,7 @@ function GlobeScene(){
    <MiniShip route={routeData[0]}/>
    <mesh rotation={[1.15,.35,0]}><torusGeometry args={[2.17,.007,6,128]}/><meshBasicMaterial color="#6bcaf0" transparent opacity={.3}/></mesh>
   </group>
-  <OrbitControls enablePan={false} enableZoom={false} minPolarAngle={Math.PI*.28} maxPolarAngle={Math.PI*.72} rotateSpeed={.48} autoRotate autoRotateSpeed={.16}/>
+  <OrbitControls enablePan={false} enableZoom={false} enableDamping dampingFactor={.06} minPolarAngle={Math.PI*.28} maxPolarAngle={Math.PI*.72} rotateSpeed={.42}/>
  </>;
 }
 export default function TradeGlobe(){
