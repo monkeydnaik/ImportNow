@@ -5,22 +5,22 @@ import * as THREE from 'three';
 
 function Container({position=[0,0,0],color='#d8894d',scale=1}) {
  return <group position={position} scale={scale}>
-  <mesh castShadow receiveShadow><boxGeometry args={[.72,.42,.48]}/><meshStandardMaterial color={color} metalness:.28 roughness:.58/></mesh>
-  {Array.from({length:7},(_,i)=><mesh key={i} position={[-.31+i*.103,0,.244]}><boxGeometry args={[.018,.37,.012]}/><meshStandardMaterial color="#f4c28b" metalness:.2 roughness:.55/></mesh>)}
-  <mesh position={[0,0,.252]}><boxGeometry args={[.66,.025,.014]}/><meshStandardMaterial color="#f7d8a9" metalness:.2/></mesh>
+  <mesh castShadow receiveShadow><boxGeometry args={[.72,.42,.48]}/><meshStandardMaterial color={color} metalness={.28} roughness={.58}/></mesh>
+  {Array.from({length:7},(_,i)=><mesh key={i} position={[-.31+i*.103,0,.244]}><boxGeometry args={[.018,.37,.012]}/><meshStandardMaterial color="#f4c28b" metalness={.2} roughness={.55}/></mesh>)}
+  <mesh position={[0,0,.252]}><boxGeometry args={[.66,.025,.014]}/><meshStandardMaterial color="#f7d8a9" metalness={.2}/></mesh>
  </group>;
 }
 function Crane({x=-4.2,hookRef,accent='#d99a52'}) {
  return <group position={[x,0,0]}>
-  <mesh position={[0,2.05,0]} castShadow><boxGeometry args={[.16,3.9,.18]}/><meshStandardMaterial color="#b77d42" metalness:.45 roughness:.48/></mesh>
-  <mesh position={[.82,3.94,0]} castShadow><boxGeometry args={[2.05,.16,.24]}/><meshStandardMaterial color={accent} metalness:.48 roughness:.42/></mesh>
-  <mesh position={[-.45,3.94,0]}><boxGeometry args={[.72,.12,.2]}/><meshStandardMaterial color="#efbd70" metalness:.35/></mesh>
-  <mesh position={[1.55,3.55,0]}><boxGeometry args={[.25,.72,.3]}/><meshStandardMaterial color="#344e5d" metalness:.3/></mesh>
-  <mesh position={[-.48,.18,0]}><boxGeometry args={[.16,.36,.7]}/><meshStandardMaterial color="#536a75" metalness:.5/></mesh>
+  <mesh position={[0,2.05,0]} castShadow><boxGeometry args={[.16,3.9,.18]}/><meshStandardMaterial color="#b77d42" metalness={.45} roughness={.48}/></mesh>
+  <mesh position={[.82,3.94,0]} castShadow><boxGeometry args={[2.05,.16,.24]}/><meshStandardMaterial color={accent} metalness={.48} roughness={.42}/></mesh>
+  <mesh position={[-.45,3.94,0]}><boxGeometry args={[.72,.12,.2]}/><meshStandardMaterial color="#efbd70" metalness={.35}/></mesh>
+  <mesh position={[1.55,3.55,0]}><boxGeometry args={[.25,.72,.3]}/><meshStandardMaterial color="#344e5d" metalness={.3}/></mesh>
+  <mesh position={[-.48,.18,0]}><boxGeometry args={[.16,.36,.7]}/><meshStandardMaterial color="#536a75" metalness={.5}/></mesh>
   <group ref={hookRef} position={[.8,2.7,0]}>
-   <mesh position={[0,-.65,0]}><cylinderGeometry args={[.012,.012,1.3,8]}/><meshStandardMaterial color="#cbd7d9" metalness:.7/></mesh>
-   <mesh position={[0,-1.32,0]}><boxGeometry args={[.86,.07,.58]}/><meshStandardMaterial color="#efbd70" metalness:.5/></mesh>
-   <mesh position={[0,-1.43,0]}><torusGeometry args={[.12,.025,8,16]}/><meshStandardMaterial color="#d9e3e4" metalness:.7/></mesh>
+   <mesh position={[0,-.65,0]}><cylinderGeometry args={[.012,.012,1.3,8]}/><meshStandardMaterial color="#cbd7d9" metalness={.7}/></mesh>
+   <mesh position={[0,-1.32,0]}><boxGeometry args={[.86,.07,.58]}/><meshStandardMaterial color="#efbd70" metalness={.5}/></mesh>
+   <mesh position={[0,-1.43,0]}><torusGeometry args={[.12,.025,8,16]}/><meshStandardMaterial color="#d9e3e4" metalness={.7}/></mesh>
   </group>
  </group>;
 }
@@ -28,15 +28,15 @@ function Vessel({refShip}) {
  const colors=['#d76d50','#d9a05b','#357f95','#e4b66e','#6b9cab','#bd604d','#d7a15c','#407d91'];
  return <group ref={refShip}>
   <mesh position={[0,.45,0]} castShadow receiveShadow>
-   <boxGeometry args={[3.1,.48,1.08]}/><meshStandardMaterial color="#172f43" metalness:.52 roughness:.42/>
+   <boxGeometry args={[3.1,.48,1.08]}/><meshStandardMaterial color="#172f43" metalness={.52} roughness={.42}/>
   </mesh>
   <mesh position={[0,.19,0]} rotation={[0,0,Math.PI]} castShadow>
-   <coneGeometry args={[.78,.62,4]}/><meshStandardMaterial color="#c74f43" metalness:.32 roughness:.48/>
+   <coneGeometry args={[.78,.62,4]}/><meshStandardMaterial color="#c74f43" metalness={.32} roughness={.48}/>
   </mesh>
   {Array.from({length:8},(_,i)=><Container key={i} position={[-1.15+(i%4)*.76,.83+Math.floor(i/4)*.45,0]} color={colors[i]}/>)}
   <group position={[1.18,.83,0]}>
-   <mesh position={[0,.35,0]}><boxGeometry args={[.48,.8,.55]}/><meshStandardMaterial color="#e9ece8" roughness:.7/></mesh>
-   <mesh position={[0,.82,0]}><boxGeometry args={[.36,.16,.42]}/><meshStandardMaterial color="#8eb8c4" metalness:.25/></mesh>
+   <mesh position={[0,.35,0]}><boxGeometry args={[.48,.8,.55]}/><meshStandardMaterial color="#e9ece8" roughness={.7}/></mesh>
+   <mesh position={[0,.82,0]}><boxGeometry args={[.36,.16,.42]}/><meshStandardMaterial color="#8eb8c4" metalness={.25}/></mesh>
    <mesh position={[0,.98,0]}><boxGeometry args={[.035,.22,.04]}/><meshStandardMaterial color="#e8eeee"/></mesh>
   </group>
   <mesh position={[0,.16,-.57]}><boxGeometry args={[2.5,.035,.025]}/><meshBasicMaterial color="#f0b76a"/></mesh>
@@ -74,12 +74,12 @@ function PortScene(){
   <pointLight position={[-5,4,3]} intensity={90} distance={12} color="#f3b86f"/>
   <pointLight position={[5,4,-3]} intensity={65} distance={10} color="#66c5df"/>
   <Environment preset="city"/>
-  <mesh rotation={[-Math.PI/2,0,0]} position={[0,-.22,0]} receiveShadow><planeGeometry args={[30,16]}/><meshStandardMaterial color="#0b4058" metalness:.42 roughness:.25/></mesh>
+  <mesh rotation={[-Math.PI/2,0,0]} position={[0,-.22,0]} receiveShadow><planeGeometry args={[30,16]}/><meshStandardMaterial color="#0b4058" metalness={.42} roughness={.25}/></mesh>
   <group ref={water}>
    {Array.from({length:12},(_,i)=><mesh key={i} rotation={[-Math.PI/2,0,0]} position={[-5+i*.95,-.19,-1.7+(i%3)*1.5]}><ringGeometry args={[.22,.25,32]}/><meshBasicMaterial color="#78cde0" transparent opacity={.3}/></mesh>)}
   </group>
-  <mesh position={[-4.45,.05,0]}><boxGeometry args={[2.2,.42,2.2]}/><meshStandardMaterial color="#647984" roughness:.8/></mesh>
-  <mesh position={[4.45,.05,0]}><boxGeometry args={[2.2,.42,2.2]}/><meshStandardMaterial color="#647984" roughness:.8/></mesh>
+  <mesh position={[-4.45,.05,0]}><boxGeometry args={[2.2,.42,2.2]}/><meshStandardMaterial color="#647984" roughness={.8}/></mesh>
+  <mesh position={[4.45,.05,0]}><boxGeometry args={[2.2,.42,2.2]}/><meshStandardMaterial color="#647984" roughness={.8}/></mesh>
   <Crane x={-4.25} hookRef={leftHook}/>
   <Crane x={4.25} hookRef={rightHook} accent="#73a9b9"/>
   <group ref={ship}><Vessel refShip={null}/></group>
