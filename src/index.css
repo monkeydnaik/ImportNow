@@ -925,3 +925,7 @@ body{background:#071521;color:#eaf2f4}
 .concept-industry-card.reveal-on-scroll:nth-child(3n+3),.concept-delivery-card.reveal-on-scroll:nth-child(3n+3),.concept-guide-card.reveal-on-scroll:nth-child(3n+3){transition-delay:.16s}
 .concept-quote-grid article.reveal-on-scroll:nth-child(2){transition-delay:.08s}
 .concept-quote-grid article.reveal-on-scroll:nth-child(3){transition-delay:.16s}
+
+@keyframes importnow-day-tick{0%{opacity:.25;transform:translateY(5px) scale(.97);filter:blur(2px)}100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+.cargo-journey .j-day.day-tick{animation:importnow-day-tick .34s cubic-bezier(.2,.8,.2,1) both}
+@media(prefers-reduced-motion:reduce){.cargo-journey .j-day.day-tick{animation:none}}
