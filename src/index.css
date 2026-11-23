@@ -233,3 +233,102 @@ body{background:radial-gradient(ellipse at 75% 4%,#163349 0%,#0a1928 34%,#071321
 .import-path-card .button{display:inline-flex}
 .import-path-note{color:#829ba9;font-size:10px;line-height:1.6;margin:17px 0 0}
 @media(max-width:680px){.import-path-section{padding:58px 0}.import-path-heading{display:block;margin-bottom:20px}.import-path-heading>p{margin-top:13px}.import-path-grid{grid-template-columns:1fr}.import-path-card{padding:21px}.import-path-card>p{min-height:0}}
+
+
+/* Concept-inspired homepage sections below the live shipment scene */
+.concept-tag{display:flex;align-items:center;gap:9px;color:#efbd70;font:9px var(--mono);letter-spacing:.16em;text-transform:uppercase}
+.concept-tag i{width:7px;height:7px;border-radius:50%;background:#ff765b;box-shadow:0 0 12px #ff765b}
+.concept-heading{max-width:760px;margin-bottom:34px}
+.concept-heading h2,.concept-how-top h2,.concept-china-layout h2,.concept-trips-layout h2,.concept-guides-row h2,.concept-faq-layout h2{font:600 clamp(32px,4.3vw,53px)/1.06 var(--display);letter-spacing:-.06em;color:#f2f7fa;margin:16px 0}
+.concept-heading h2 em,.concept-how-top h2 em,.concept-china-layout h2 em,.concept-trips-layout h2 em,.concept-guides-row h2 em,.concept-faq-layout h2 em,.concept-final-cta h2 em{font-style:normal;color:var(--orange)}
+.concept-heading>p,.concept-how-top>div:first-child>p,.concept-china-layout>div:first-child>p,.concept-trips-layout>div:last-child>p,.concept-guides-row>div>p,.concept-faq-layout>div:first-child>p{max-width:590px;color:#a8bbc6;font-size:13px;line-height:1.9;margin:0}
+.concept-process-section,.concept-industries-section,.concept-deliveries-section,.concept-testimonials-section{padding:84px 0}
+.concept-service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.concept-service-card{position:relative;min-height:210px;padding:23px;border:1px solid #29495b;border-radius:9px;background:linear-gradient(145deg,#17364a,#0a1a29);overflow:hidden;transition:transform .3s,border-color .3s,box-shadow .3s}
+.concept-service-card:hover,.concept-industry-card:hover,.concept-delivery-card:hover{transform:translateY(-5px);border-color:#648da3;box-shadow:0 18px 40px #0004}
+.concept-service-card>span{color:#efbd70;font:11px var(--mono);letter-spacing:.12em}
+.concept-service-card h3,.concept-industry-card h3,.concept-delivery-copy h3{font:600 20px var(--display);color:#f2f7fa;margin:19px 0 9px}
+.concept-service-card p,.concept-delivery-copy p{font-size:12px;line-height:1.8;color:#a8bbc6;margin:0}
+.concept-card-rule{position:absolute;left:23px;bottom:0;width:54px;height:2px;background:linear-gradient(90deg,#ff765b,#efbd70)}
+.concept-how-section{padding:84px 0;background:linear-gradient(145deg,#0b1d2b,#112e40 58%,#0a1a29);border-block:1px solid #29495b}
+.concept-how-top{display:grid;grid-template-columns:1fr 1fr;align-items:end;gap:40px;margin-bottom:38px}
+.concept-route-card{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;padding:20px;border:1px solid #35586c;border-radius:9px;background:#071725}
+.concept-route-card>div{display:flex;flex-direction:column;gap:7px}.concept-route-card small,.concept-route-card>strong small{font:8px var(--mono);letter-spacing:.13em;color:#8faab8}.concept-route-card b{font-size:12px;color:#f2f7fa}.concept-route-card>strong{grid-column:1/-1;display:flex;align-items:center;gap:12px;padding-top:13px;border-top:1px solid #29495b;color:#efbd70;font:12px var(--mono)}
+.concept-route-track{width:72px;height:1px;background:linear-gradient(90deg,#ff765b,#68c8e2);position:relative}.concept-route-track i{position:absolute;top:-3px;left:0;width:7px;height:7px;border-radius:50%;background:#efbd70;box-shadow:0 0 12px #efbd70;animation:concept-route-move 2.5s linear infinite}
+@keyframes concept-route-move{to{left:calc(100% - 7px)}}
+.concept-timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:0 25px}
+.concept-timeline article{display:grid;grid-template-columns:36px 1fr;gap:13px;padding:21px 0;border-top:1px solid #29495b}
+.concept-timeline article>b{display:grid;place-items:center;width:31px;height:31px;border:1px solid #42647a;border-radius:50%;color:#efbd70;font:10px var(--mono)}
+.concept-timeline h3{margin:2px 0 7px;color:#f1f6f8;font:600 16px var(--display)}
+.concept-timeline p{margin:0;color:#a5bac5;font-size:11px;line-height:1.8}
+.concept-industries-section{background:radial-gradient(ellipse at 90% 10%,#15354a 0%,transparent 48%)}
+.concept-industry-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.concept-industry-card{min-height:225px;padding:22px;border:1px solid #2c4b5e;border-radius:9px;background:linear-gradient(145deg,#163449,#0a1a29);transition:transform .3s,border-color .3s,box-shadow .3s}
+.concept-industry-top{display:flex;justify-content:space-between;align-items:center;color:#efbd70}.concept-industry-top span{font:9px var(--mono);letter-spacing:.13em}.concept-industry-card h3{margin:17px 0 12px}
+.concept-industry-card ul,.concept-check-list{list-style:none;padding:0;margin:0;display:grid;gap:9px}
+.concept-industry-card li,.concept-check-list li{display:flex;align-items:flex-start;gap:8px;color:#bfd0d8;font-size:11px;line-height:1.55}
+.concept-industry-card li svg,.concept-check-list li svg{flex:none;color:#72c9a8;margin-top:1px}
+.concept-industry-card>small{display:block;margin-top:16px;padding-top:12px;border-top:1px solid #2a485a;color:#efbd70;font:9px var(--mono);letter-spacing:.04em}
+.concept-china-section{padding:86px 0;background:linear-gradient(110deg,#0c1c2a,#112b3d);border-block:1px solid #29495b}
+.concept-china-layout{display:grid;grid-template-columns:1.1fr .9fr;gap:70px;align-items:center}
+.concept-china-layout h2,.concept-trips-layout h2{margin-bottom:14px}
+.concept-check-list{margin-top:25px;gap:13px}
+.concept-license-card{position:relative;max-width:430px;justify-self:center;width:100%;padding:29px;border:1px solid #7893a0;border-radius:5px;background:linear-gradient(145deg,#e8e5d8,#c9d1c9);color:#213643;box-shadow:0 25px 65px #0005;transform:rotate(1deg)}
+.concept-license-seal{display:grid;place-items:center;width:48px;height:48px;border:1px solid #8b9b91;border-radius:50%;color:#526f70}
+.concept-license-card>small{display:block;margin-top:20px;color:#617875;font:9px var(--mono);letter-spacing:.16em}
+.concept-license-card h3{font:600 25px/1.08 var(--display);letter-spacing:.08em;color:#294b52;margin:10px 0 16px}
+.concept-license-line{height:1px;background:#9baea5;margin-bottom:16px}
+.concept-license-card>span{display:block;margin-top:13px;color:#6d817b;font:8px var(--mono);letter-spacing:.13em}
+.concept-license-card>b{display:block;margin-top:4px;color:#253c43;font-size:12px}
+.concept-license-card>em{display:block;margin-top:24px;padding-top:12px;border-top:1px solid #9baea5;color:#6d817b;font:8px var(--mono);font-style:normal;letter-spacing:.1em}
+.concept-trips-section{padding:86px 0}
+.concept-trips-layout{display:grid;grid-template-columns:1fr 1fr;gap:58px;align-items:center}
+.concept-trip-art{height:390px;position:relative;overflow:hidden;border:1px solid #31566a;border-radius:11px;background:linear-gradient(180deg,#1b4961 0%,#8c7963 64%,#263b42 65%,#0b1c29 100%);box-shadow:0 25px 60px #0004}
+.concept-trip-sun{position:absolute;top:44px;right:55px;width:88px;height:88px;border-radius:50%;background:#eabf81;box-shadow:0 0 70px #efbd7066}
+.concept-trip-label{position:absolute;z-index:2;top:20px;left:20px;padding:9px 12px;border:1px solid #ffffff50;border-radius:4px;background:#071725b8;color:#f3f7f8;font:9px var(--mono);letter-spacing:.12em}
+.concept-trip-building{position:absolute;left:9%;right:9%;bottom:70px;height:190px;display:flex;align-items:stretch;gap:7px;transform:perspective(400px) rotateX(4deg)}
+.concept-trip-building span{flex:1;border:1px solid #e4cda155;background:repeating-linear-gradient(90deg,#d4c4a3 0 4px,#756e61 4px 7px);box-shadow:inset 0 0 25px #182a32aa}
+.concept-trip-city{position:absolute;bottom:20px;left:18px;right:18px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;color:#d7e5e9;font:9px var(--mono);letter-spacing:.12em}
+.concept-trip-city i{width:4px;height:4px;border-radius:50%;background:#efbd70}
+.concept-includes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:23px 0}
+.concept-includes span{display:flex;align-items:flex-start;gap:7px;color:#bfd0d8;font-size:10px;line-height:1.5}
+.concept-includes svg{width:14px;height:14px;flex:none;color:#72c9a8}
+.concept-departures{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px}
+.concept-departures>div{padding:13px;border:1px solid #2d4b5e;border-radius:6px;background:#102a3b;display:flex;flex-direction:column;gap:6px}
+.concept-departures small{color:#efbd70;font:9px var(--mono);letter-spacing:.12em}.concept-departures b{font-size:11px;color:#eaf1f4}
+.concept-trips-layout .button,.concept-final-cta .button{display:inline-flex}
+.concept-deliveries-section{background:linear-gradient(180deg,#0d2030,#0a1927)}
+.concept-delivery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+.concept-delivery-card{overflow:hidden;border:1px solid #2d4c60;border-radius:9px;background:linear-gradient(145deg,#17364a,#0a1a29);transition:transform .3s,border-color .3s,box-shadow .3s}
+.concept-delivery-art{height:145px;position:relative;overflow:hidden;display:flex;align-items:end;justify-content:center;padding:18px;background:radial-gradient(ellipse at 50% 10%,#2c5970,#102b3d 75%)}
+.concept-delivery-art>span{position:absolute;top:13px;left:13px;color:#efbd70;font:8px var(--mono);letter-spacing:.1em}
+.concept-delivery-art>svg{position:absolute;bottom:15px;right:15px;color:#9bbbc8;opacity:.8}
+.concept-delivery-boxes{display:flex;align-items:end;gap:5px;height:75px}
+.concept-delivery-boxes i{display:block;width:38px;height:48px;border:1px solid #f3c47d77;background:linear-gradient(145deg,#d88b52,#84523f);box-shadow:inset 0 0 0 4px #ffffff13}
+.concept-delivery-boxes i:nth-child(2){height:65px;background:linear-gradient(145deg,#4c93a5,#245468)}.concept-delivery-boxes i:nth-child(3){height:55px;background:linear-gradient(145deg,#d4aa65,#88633e)}.concept-delivery-boxes i:nth-child(4){height:40px;background:linear-gradient(145deg,#9e6d55,#553e37)}
+.concept-delivery-copy{padding:17px}.concept-delivery-copy h3{font-size:17px;margin:0 0 8px}.concept-delivery-copy p{font-size:10px;min-height:72px}
+.concept-delivery-copy>div{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}.concept-delivery-copy small{padding:5px 7px;border:1px solid #345368;border-radius:3px;color:#9fb6c2;font:7px var(--mono);letter-spacing:.08em}
+.concept-testimonials-section{background:radial-gradient(ellipse at 50% 100%,#17394d,transparent 65%)}
+.concept-quote-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.concept-quote-grid article{padding:23px;border:1px solid #2d4c60;border-radius:8px;background:#10283a}
+.concept-quote-grid article>svg{color:#efbd70;width:20px;height:20px}
+.concept-quote-grid p{min-height:105px;color:#c4d2d9;font-size:12px;line-height:1.85}
+.concept-quote-grid b,.concept-quote-grid small{display:block}.concept-quote-grid b{color:#f1f6f8;font-size:12px}.concept-quote-grid small{margin-top:5px;color:#8fa9b7;font:9px var(--mono)}
+.concept-guides-section{padding:64px 0;background:linear-gradient(110deg,#17374a,#0c1d2c);border-block:1px solid #2b4a5d}
+.concept-guides-row{display:flex;align-items:center;justify-content:space-between;gap:30px}
+.concept-guides-row h2{margin-bottom:10px}
+.concept-faq-section{padding:84px 0}
+.concept-faq-layout{display:grid;grid-template-columns:.75fr 1.25fr;gap:70px}
+.concept-faq-list details{border-bottom:1px solid #2d4b5e}
+.concept-faq-list summary{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:19px 2px;color:#eff5f7;font:600 15px var(--display);cursor:pointer;list-style:none}
+.concept-faq-list summary::-webkit-details-marker{display:none}
+.concept-faq-list summary svg{flex:none;color:#efbd70;transition:transform .2s}
+.concept-faq-list details[open] summary svg{transform:rotate(180deg)}
+.concept-faq-list details p{margin:0;padding:0 30px 18px 2px;color:#a8bbc6;font-size:12px;line-height:1.85}
+.concept-final-cta{padding:84px 22px;text-align:center;background:radial-gradient(ellipse at center,#1a3c50,#091a28 72%);border-top:1px solid #2a4b5e}
+.concept-final-cta>.concept-tag{justify-content:center}
+.concept-final-cta h2{font:600 clamp(32px,4.5vw,54px)/1.08 var(--display);letter-spacing:-.06em;color:#f2f7fa;margin:18px auto 13px}
+.concept-final-cta>p{max-width:580px;margin:0 auto 23px;color:#a8bbc6;font-size:13px;line-height:1.9}
+@media(max-width:900px){.concept-delivery-grid{grid-template-columns:repeat(2,1fr)}.concept-how-top,.concept-china-layout,.concept-trips-layout,.concept-faq-layout{grid-template-columns:1fr;gap:30px}.concept-license-card{justify-self:start}.concept-trip-art{height:320px}}
+@media(max-width:680px){.concept-process-section,.concept-industries-section,.concept-deliveries-section,.concept-testimonials-section,.concept-how-section,.concept-china-section,.concept-trips-section,.concept-faq-section{padding:58px 0}.concept-service-grid,.concept-industry-grid,.concept-timeline,.concept-quote-grid{grid-template-columns:1fr}.concept-service-card{min-height:0;padding:20px}.concept-how-top{gap:20px}.concept-route-card{padding:14px;gap:7px}.concept-route-track{width:38px}.concept-route-card b{font-size:10px}.concept-timeline article{padding:16px 0}.concept-industry-card{min-height:0}.concept-china-layout{gap:28px}.concept-license-card{padding:23px}.concept-trips-layout{gap:28px}.concept-trip-art{height:275px}.concept-includes{gap:10px}.concept-includes span{font-size:9px}.concept-departures{gap:8px}.concept-departures b{font-size:10px}.concept-delivery-grid{grid-template-columns:1fr}.concept-delivery-art{height:135px}.concept-delivery-copy p{min-height:0}.concept-quote-grid p{min-height:0}.concept-guides-section{padding:48px 0}.concept-guides-row{align-items:flex-start;flex-direction:column}.concept-faq-layout{gap:22px}.concept-faq-list summary{font-size:14px}.concept-final-cta{padding:62px 18px}}
+@media(prefers-reduced-motion:reduce){.concept-route-track i{animation:none}.concept-service-card,.concept-industry-card,.concept-delivery-card{transition:none}}
