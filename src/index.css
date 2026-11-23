@@ -929,3 +929,41 @@ body{background:#071521;color:#eaf2f4}
 @keyframes importnow-day-tick{0%{opacity:.25;transform:translateY(5px) scale(.97);filter:blur(2px)}100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
 .cargo-journey .j-day.day-tick{animation:importnow-day-tick .34s cubic-bezier(.2,.8,.2,1) both}
 @media(prefers-reduced-motion:reduce){.cargo-journey .j-day.day-tick{animation:none}}
+
+/* Distinct photography system: each service, industry and content card gets its own subject */
+.service-card-image,.industry-card-image,.concept-industry-image{position:relative;overflow:hidden;background:#102b3d}
+.service-card-image{height:132px;margin:-25px -24px 20px}
+.service-card-image img,.industry-card-image img,.concept-industry-image img,.concept-delivery-art img,.concept-guide-art img,.page-hero-art>img{width:100%;height:100%;display:block;object-fit:cover;transition:transform .65s cubic-bezier(.2,.8,.2,1),filter .4s}
+.service-card-image:after,.industry-card-image:after,.concept-industry-image:after,.concept-delivery-art:after,.concept-guide-art:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,17,27,.02),rgba(4,17,27,.64));pointer-events:none}
+.service-card-image>span{position:absolute;z-index:1;left:13px;bottom:11px;color:#f1c27a;font:8px var(--mono);letter-spacing:.16em}
+.service-card:hover .service-card-image img,.industry-card:hover .industry-card-image img,.concept-industry-card:hover .concept-industry-image img,.concept-delivery-card:hover .concept-delivery-art img,.concept-guide-card:hover .concept-guide-art img{transform:scale(1.055)}
+.industry-card-image{height:145px;margin:-23px -23px 19px}
+.industry-card-image>small{position:absolute;z-index:1;left:13px;bottom:11px;color:#f1c27a}
+.industry-card>svg{display:none}
+.concept-industry-card{padding-top:0;overflow:hidden}
+.concept-industry-image{height:150px;margin:0 -22px 18px}
+.concept-industry-top{position:relative;z-index:1}
+.concept-delivery-art{isolation:isolate}
+.concept-delivery-art img{position:absolute;inset:0;z-index:-1}
+.concept-delivery-art:after{z-index:-1;background:linear-gradient(90deg,rgba(4,17,27,.68),rgba(4,17,27,.12) 70%),linear-gradient(0deg,rgba(4,17,27,.5),transparent)}
+.concept-delivery-art>span{z-index:1;background:rgba(5,20,31,.72);padding:6px 8px}
+.concept-delivery-art>svg{z-index:1;filter:drop-shadow(0 3px 10px #000)}
+.concept-guide-art{isolation:isolate}
+.concept-guide-art img{position:absolute;inset:0;z-index:-1}
+.concept-guide-art:before{z-index:0}
+.concept-guide-art:after{z-index:0;background:linear-gradient(135deg,rgba(4,17,27,.12),rgba(4,17,27,.62))}
+.concept-guide-art>span,.concept-guide-art>svg{z-index:1}
+.page-hero-art{isolation:isolate;overflow:hidden}
+.page-hero-art>img{position:absolute;inset:0;z-index:-2;filter:saturate(.72) contrast(1.04)}
+.page-hero-art:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(4,17,27,.68),rgba(4,17,27,.08) 85%),linear-gradient(0deg,rgba(4,17,27,.6),transparent 65%)}
+.page-hero-art-caption{position:absolute;left:22px;right:22px;bottom:18px;display:flex;align-items:end;justify-content:space-between;color:#f3f7f6}
+.page-hero-art-caption span{font:8px var(--mono);letter-spacing:.18em;color:#d0dfe4}
+.page-hero-art-caption b{font:700 10px var(--mono);letter-spacing:.14em}
+.page-hero-art-caption i{display:inline-block;width:34px;height:1px;background:#e97852;vertical-align:middle;margin:0 7px}
+@media(max-width:680px){
+ .service-card-image{height:155px;margin:-22px -22px 18px}
+ .industry-card-image{height:175px;margin:-22px -22px 17px}
+ .concept-industry-image{height:175px;margin:0 -20px 16px}
+ .page-hero-art{height:225px}
+}
+@media(prefers-reduced-motion:reduce){.service-card-image img,.industry-card-image img,.concept-industry-image img,.concept-delivery-art img,.concept-guide-art img,.page-hero-art>img{transition:none}}
