@@ -54,3 +54,16 @@
 .plugin-card>span{margin-top:auto;padding:7px 9px;background:#f0f2ef;color:#65737a;font:9px var(--mono)}
 @media(max-width:900px){.tools-layout{grid-template-columns:1fr}.tool-sidebar{display:grid;grid-template-columns:1fr 1fr}.tool-sidebar>.eyebrow{grid-column:1/-1}.plugin-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:680px){.tools-layout{gap:14px}.tool-sidebar{padding:15px;grid-template-columns:1fr}.tool-sidebar>.eyebrow{grid-column:auto}.tool-card{padding:11px}.tool-panel{padding:21px 16px}.tool-panel h2{font-size:26px}.tool-fields{grid-template-columns:1fr;gap:12px}.plugin-grid{grid-template-columns:1fr}.plugin-card{min-height:210px}.tool-note{margin-bottom:40px}}
+
+
+/* Official company facts and contact details */
+.proof-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding-top:26px;padding-bottom:26px;border-bottom:1px solid var(--line)}
+.proof-strip>div{display:flex;flex-direction:column;gap:6px;padding:10px 16px;border-left:1px solid var(--line)}
+.proof-strip strong{font:600 clamp(25px,3vw,34px)/1 var(--display);letter-spacing:-.05em;color:var(--ink)}
+.proof-strip span{font:9px var(--mono);letter-spacing:.09em;color:#7d898e}
+.contact-detail{display:flex;flex-direction:column;gap:5px;padding:13px 0;border-bottom:1px solid #334856}
+.contact-detail small{font:9px var(--mono);letter-spacing:.14em;color:#e9b35c}
+.contact-detail a,.contact-detail span{font-size:13px;color:#eef4f6}
+.contact-detail a:hover,.official-site-link:hover{color:#f1b65d}
+.official-site-link{display:inline-flex;align-items:center;gap:8px;margin-top:16px;color:#f1b65d;font-size:11px;font-weight:800}
+@media(max-width:680px){.proof-strip{grid-template-columns:repeat(2,1fr);gap:8px;padding-top:18px;padding-bottom:18px}.proof-strip>div{padding:10px 8px}.proof-strip span{font-size:8px;line-height:1.5}}
