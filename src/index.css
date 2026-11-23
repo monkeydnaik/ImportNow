@@ -243,3 +243,57 @@ body{background:radial-gradient(ellipse at 75% 4%,#163349 0%,#0a1928 34%,#071321
 /* Avoid sticky navigation covering section headings when users jump or scroll */
 .motion-feature,.section,.dark-band,.process-band,.cta-section,.cargo-ops{scroll-margin-top:100px}
 @media(max-width:680px){.motion-feature{scroll-margin-top:88px}}
+
+
+/* Interactive drag-to-load / sail / drag-to-unload experience */
+.cargo-terminal{touch-action:pan-y;user-select:none}
+.terminal-origin{left:0;width:30%;bottom:24%;z-index:2}
+.terminal-destination{left:auto;right:0;width:28%;bottom:24%;z-index:2;opacity:.82}
+.terminal-ship{left:30%;right:auto;width:43%;transition:transform 2.5s cubic-bezier(.2,.7,.2,1),filter .5s}
+.cargo-phase-sailing .terminal-ship,.cargo-phase-arrived .terminal-ship,.cargo-phase-unloaded .terminal-ship{transform:translateX(47%)}
+.ship-drop-zone,.destination-drop-zone{position:absolute;z-index:6;display:flex;align-items:center;justify-content:center;border:1px dashed #f0bd70a8;border-radius:8px;background:#f0bd7012;color:#f7d59d;font:9px var(--mono);letter-spacing:.14em;transition:background .2s,border-color .2s,opacity .3s}
+.ship-drop-zone{left:43%;top:49%;width:23%;height:22%}
+.destination-drop-zone{right:2%;top:48%;width:23%;height:26%;opacity:.3}
+.cargo-phase-ready .ship-drop-zone{animation:drop-pulse 1.8s ease-in-out infinite}
+.cargo-phase-arrived .destination-drop-zone{opacity:1;animation:drop-pulse 1.8s ease-in-out infinite}
+.cargo-phase-ready .destination-drop-zone{pointer-events:none}
+.cargo-phase-arrived .ship-drop-zone{opacity:.15;pointer-events:none}
+.draggable-container{position:absolute;z-index:9;left:12%;top:63%;width:70px;height:42px;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;border:1px solid #ffe0a5;background:repeating-linear-gradient(90deg,#e8a35a 0 15px,#c47c43 15px 18px);color:#172b36;box-shadow:0 8px 18px #0008;cursor:grab;touch-action:none;transition:box-shadow .2s,filter .2s}
+.draggable-container:before,.draggable-container:after{content:'';position:absolute;top:0;bottom:0;width:3px;background:#ffe0a5aa}
+.draggable-container:before{left:8px}.draggable-container:after{right:8px}
+.draggable-container b{font:700 8px var(--mono);letter-spacing:.1em}
+.draggable-container small{font:6px var(--mono);letter-spacing:.05em}
+.draggable-container .cargo-grip{position:absolute;left:3px;top:2px;font-size:11px;line-height:1;color:#fff7}
+.draggable-container.is-dragging{z-index:15;cursor:grabbing;transform:translate(-50%,-50%) scale(1.12);box-shadow:0 12px 30px #000b,0 0 0 5px #efbd7040;filter:brightness(1.12)}
+.draggable-container.on-ship{left:51%;top:58%}
+.cargo-instruction{position:absolute;z-index:8;left:50%;bottom:9px;transform:translateX(-50%);max-width:calc(100% - 24px);width:max-content;padding:8px 12px;border:1px solid #466477;border-radius:6px;background:#061522eF;color:#dceaf0;text-align:center;font-size:10px;line-height:1.4;box-shadow:0 5px 18px #0004}
+.cargo-complete{position:absolute;z-index:12;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;background:#061522d9;text-align:center}
+.cargo-complete b{color:#9fe0c3;font:12px var(--mono);letter-spacing:.18em}
+.cargo-complete span{color:#dbe9ee;font-size:13px}
+.cargo-complete button{margin-top:7px;padding:10px 16px;border:1px solid #efbd70;border-radius:5px;background:#efbd70;color:#102332;font-weight:700;font-size:11px}
+.cargo-route-summary{display:grid;grid-template-columns:1fr 1fr 1fr 1.15fr;align-items:center;gap:16px;margin-top:16px;padding:20px;border:1px solid #29495b;border-radius:9px;background:linear-gradient(145deg,#122e40,#0b1c2b)}
+.cargo-route-summary>div:not(.route-summary-line){display:flex;flex-direction:column;gap:6px}
+.cargo-route-summary span{color:#92aab7;font:9px var(--mono);letter-spacing:.12em}
+.cargo-route-summary b{color:#f2f6f8;font-size:14px}
+.cargo-route-summary small{color:#8fa6b3;font-size:10px;line-height:1.5}
+.route-summary-line{display:flex;align-items:center;gap:6px;color:#efbd70;font:8px var(--mono);letter-spacing:.1em}
+.route-summary-line i{height:1px;flex:1;background:linear-gradient(90deg,#efbd70,#65b9d2)}
+.cargo-eta{padding-left:16px;border-left:1px solid #365467}
+.cargo-eta b{color:#efbd70;font-size:20px}
+.cargo-ops-steps>div.is-active{border-color:#d8a45f;background:linear-gradient(145deg,#1a3a4b,#102536);box-shadow:inset 0 0 0 1px #d8a45f22}
+.cargo-ops-steps>div.is-active b{color:#ffca7a}
+@keyframes drop-pulse{0%,100%{box-shadow:0 0 0 0 #efbd7020;background:#efbd700d}50%{box-shadow:0 0 0 7px #efbd7015;background:#efbd7026}}
+@media(max-width:680px){
+ .terminal-origin{width:34%}.terminal-destination{width:31%}
+ .terminal-ship{left:25%;width:51%}
+ .cargo-phase-sailing .terminal-ship,.cargo-phase-arrived .terminal-ship,.cargo-phase-unloaded .terminal-ship{transform:translateX(35%)}
+ .ship-drop-zone{left:37%;top:48%;width:25%;height:22%;font-size:7px}
+ .destination-drop-zone{right:1%;top:47%;width:25%;height:25%;font-size:7px}
+ .draggable-container{width:58px;height:36px;left:13%;top:62%}
+ .draggable-container.on-ship{left:53%;top:57%}
+ .cargo-instruction{font-size:9px;bottom:8px;padding:7px 9px}
+ .cargo-route-summary{grid-template-columns:1fr 1fr;gap:14px;padding:15px}
+ .route-summary-line{grid-column:1/-1;grid-row:2}
+ .cargo-eta{padding-left:0;border-left:0;border-top:1px solid #365467;padding-top:12px}
+}
+@media(prefers-reduced-motion:reduce){.terminal-ship{transition:none}.ship-drop-zone,.destination-drop-zone{animation:none!important}}
