@@ -1,5 +1,6 @@
 import React,{useEffect,useRef} from 'react';
 import {mountVoyageScene} from './voyageScene.js';
+import {Globe2} from 'lucide-react';
 
 const journeySteps=[
  ['Source the right factory','Share the product and specifications. The China team shortlists manufacturers and coordinates quotations.'],
@@ -31,7 +32,7 @@ export default function CargoHandling(){
    <div className="cargo-sea-badge"><i/> ILLUSTRATIVE SHIPMENT VIEW <span>NOT LIVE TRACKING</span></div>
    <div className="cargo-journey-ui">
     <div className="container cargo-journey-wrap">
-     <div className="cargo-journey-copy-panel"><div className="cargo-journey-head">
+     <div className="cargo-journey-copy-panel"><a className="cargo-brand-lockup" href="#/" aria-label="ImportNow home"><span className="cargo-brand-mark"><Globe2 size={22}/></span><span className="cargo-brand-name">IMPORT<span>NOW</span><small>CHINA → INDIA</small></span></a><div className="cargo-journey-head">
       <div className="eyebrow"><i/> FROM FACTORY FLOOR TO FRONT DOOR</div>
       <h2 id="cargo-journey-title">Watch your order travel<br/><em>from China to India.</em></h2>
       <p>A detailed port-to-port simulation, driven by your scroll. Follow the ship, container handling and delivery sequence across an illustrative 35-day journey.</p>
