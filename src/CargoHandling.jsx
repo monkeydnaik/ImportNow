@@ -177,9 +177,9 @@ function PortScene(){
   const t=clock.getElapsedTime()%60;
   const ease=v=>{v=THREE.MathUtils.clamp(v,0,1);return v*v*(3-2*v);};
   // Vessel enters from open water, berths at origin, sails the sea lane, then approaches destination from offshore.
-  const approach=ease(t/7);
-  const sailing=ease((t-15)/20);
-  const vesselX=t<7?THREE.MathUtils.lerp(-15.2,-5.1,approach):t<15?-5.1:THREE.MathUtils.lerp(-5.1,5.1,sailing);
+  const approach=ease(t/8);
+  const sailing=ease((t-15)/23);
+  const vesselX=t<8?THREE.MathUtils.lerp(-15.5,-5.1,approach):t<15?-5.1:t<38?THREE.MathUtils.lerp(-5.1,5.1,sailing):5.1;
   if(ship.current){ship.current.position.set(vesselX,.06+Math.sin(clock.elapsedTime*1.15)*.025,0);ship.current.rotation.z=Math.sin(clock.elapsedTime*.7)*.004;}
   const loadY=t<8?-.18:t<10?THREE.MathUtils.lerp(-.18,-2.1,(t-8)/2):t<12?THREE.MathUtils.lerp(-2.1,-.18,(t-10)/2):-.18;
   if(loadHook.current)loadHook.current.position.y=loadY;
@@ -190,9 +190,9 @@ function PortScene(){
    else if(t<15)lifted.current.position.set(THREE.MathUtils.lerp(-4.05,-3.1,(t-12)/3),2.27,0);
    else lifted.current.position.set(ship.current.position.x+2.0,1.18,0);
   }
-  const unloadY=t<39?-.18:t<43?THREE.MathUtils.lerp(-.18,-2.1,(t-39)/4):-2.1;
+  const unloadY=t<40?-.18:t<42?THREE.MathUtils.lerp(-.18,-2.1,(t-40)/2):t<44?THREE.MathUtils.lerp(-2.1,-.18,(t-42)/2):-.18;
   if(unloadHook.current)unloadHook.current.position.y=unloadY;
-  if(unloadTrolley.current)unloadTrolley.current.position.x=t<39?.42:t<43?THREE.MathUtils.lerp(.42,-.55,(t-39)/4):-.55;
+  if(unloadTrolley.current)unloadTrolley.current.position.x=t<40?.42:t<42?THREE.MathUtils.lerp(.42,-.55,(t-40)/2):t<44?THREE.MathUtils.lerp(-.55,.42,(t-42)/2):.42;
   if(delivered.current){
    if(t<39)delivered.current.position.set(ship.current.position.x-.95,.58,0);
    else if(t<43)delivered.current.position.set(4.05,Math.max(.55,2.45+unloadY),0);
@@ -207,22 +207,15 @@ function PortScene(){
   <pointLight position={[-7,5,3]} intensity={35} distance={16} color="#ffd19a"/>
   <Ocean shipRef={ship}/>
   {/* Distant port terminals, gantries and container stacks */}
-  <PortTerminal side={-1} accent="#d99d53"/>\n  <PortTerminal side={1} accent="#6fabbc"/>\n  <group position={[-7.3,0,-1.6]}>
-   <mesh position={[0,-.02,0]}><boxGeometry args={[4,.55,5]}/>{steel('#66777a',.2,.85)}</mesh>
-   <GantriesStatic/>
-   {Array.from({length:8},(_,i)=><Container key={i} position={[-1.55+(i%4)*.9,.52,1.25+Math.floor(i/4)*.8]} color={['#d47a56','#d9aa64','#3c8295','#d0d3c8'][i%4]} scale={.72}/>)}
-  </group>
-  <group position={[7.3,0,-1.6]}>
-   <mesh position={[0,-.02,0]}><boxGeometry args={[4,.55,5]}/>{steel('#66777a',.2,.85)}</mesh>
-   <GantriesStatic accent="#6c9eaa"/>
-   {Array.from({length:8},(_,i)=><Container key={i} position={[-1.55+(i%4)*.9,.52,1.25+Math.floor(i/4)*.8]} color={['#d47a56','#d9aa64','#3c8295','#d0d3c8'][i%4]} scale={.72}/>)}
-  </group>
-  <GantriesStatic/>
+  <PortTerminal side={-1} accent="#d99d53"/>
+  <PortTerminal side={1} accent="#6fabbc"/>\n
+  <group ref={tug}><Tugboat/></group>
   <group position={[-5.1,0,0]}><GantryCrane x={0} hookRef={loadHook} trolleyRef={loadTrolley}/></group>
   <group position={[5.1,0,0]}><GantryCrane x={0} accent="#6fabbc" hookRef={unloadHook} trolleyRef={unloadTrolley}/></group>
   <group ref={ship}><VesselFallback fallback={<Ship/>}><Suspense fallback={<Ship/>}><ImportedVessel/></Suspense></VesselFallback></group>
   <group ref={lifted}><Container color="#e6a35b"/></group>
-  <group ref={delivered}><Container color="#4e9eb3"/></group>\n  <YardTruck truckRef={truck}/>
+  <group ref={delivered}><Container color="#4e9eb3"/></group>
+  <YardTruck truckRef={truck}/>
   <ContactShadows position={[0,-.04,0]} opacity={.23} scale={28} blur={3} far={6}/>
  </>;
 }
