@@ -1,6 +1,7 @@
 import React,{useEffect,useRef} from 'react';
 import {mountVoyageScene} from './voyageScene.js';
-import {Globe2} from 'lucide-react';
+import MotionText from './MotionText.jsx';
+import BrandLogo from './BrandLogo.jsx';
 
 const journeySteps=[
  ['Source the right factory','Share the product and specifications. The China team shortlists manufacturers and coordinates quotations.'],
@@ -32,26 +33,26 @@ export default function CargoHandling(){
    <div className="cargo-sea-badge"><i/> ILLUSTRATIVE SHIPMENT VIEW <span>NOT LIVE TRACKING</span></div>
    <div className="cargo-journey-ui">
     <div className="container cargo-journey-wrap">
-     <div className="cargo-journey-copy-panel"><a className="cargo-brand-lockup" href="#/" aria-label="ImportNow home"><span className="cargo-brand-mark"><Globe2 size={22}/></span><span className="cargo-brand-name">IMPORT<span>NOW</span><small>CHINA → INDIA</small></span></a><div className="cargo-journey-head">
-      <div className="eyebrow"><i/> FROM FACTORY FLOOR TO FRONT DOOR</div>
-      <h2 id="cargo-journey-title">Watch your order travel<br/><em>from China to India.</em></h2>
+     <div className="cargo-journey-copy-panel"><BrandLogo className="cargo-brand-lockup"/><div className="cargo-journey-head">
+      <div className="eyebrow"><i/><MotionText>FROM FACTORY FLOOR TO FRONT DOOR</MotionText></div>
+      <MotionText as="h2" id="cargo-journey-title">Watch your order travel<br/><em>from China to India.</em></MotionText>
       <p>A detailed port-to-port simulation, driven by your scroll. Follow the ship, container handling and delivery sequence across an illustrative 35-day journey.</p>
      </div>
      <ol className="j-steps">
       {journeySteps.map(([title,copy],i)=><li className={'j-step'+(i===0?' on':'')} key={title}>
-       <span className="n">{i+1}</span><div><h4>{title}</h4><p>{copy}</p></div>
+       <span className="n">{i+1}</span><div><MotionText as="h4">{title}</MotionText><p>{copy}</p></div>
       </li>)}
      </ol></div>
      <div className="j-milestones" aria-label="Shipment milestones">
       {milestoneDays.map((day,i)=><span className={'j-ms'+(i===0?' on':'')} key={day}>D{day} · {['Supplier confirmed','Production started','Quality inspection','Cargo ready','Departed Shanghai','In transit','Arrived in India','Delivered'][i]}</span>)}
      </div>
      <div className="j-route">
-      <div className="j-port"><span className="cargo-flag">🇨🇳</span><div><span className="pname">Shanghai</span><small>Origin port · China</small></div></div>
+      <div className="j-port"><span className="cargo-flag">🇨🇳</span><div><span className="pname"><MotionText>Shanghai</MotionText></span><small><MotionText>Origin port · China</MotionText></small></div></div>
       <div className="j-track"><div className="j-fill" ref={fillRef}/><div className="j-boat" ref={boatRef}>🚢</div></div>
-      <div className="j-port"><div className="j-destination"><span className="pname">Hyderabad</span><small>Delivery · India</small></div><span className="cargo-flag">🇮🇳</span></div>
+      <div className="j-port"><div className="j-destination"><span className="pname"><MotionText>Hyderabad</MotionText></span><small><MotionText>Delivery · India</MotionText></small></div><span className="cargo-flag">🇮🇳</span></div>
       <div className="j-day" ref={dayRef}>Day 1</div>
      </div>
-     <div className="cargo-journey-footnote">SIMULATION · 35 DAYS · SHANGHAI → INDIA · ACTUAL TRANSIT TIMES VARY</div>
+     <div className="cargo-journey-footnote"><MotionText>SIMULATION · 35 DAYS · SHANGHAI → INDIA · ACTUAL TRANSIT TIMES VARY</MotionText></div>
     </div>
    </div>
   </div>
