@@ -20,7 +20,7 @@ function flatten(node){
 function split(node,nextKey){
  if(node==null||typeof node==='boolean')return node;
  if(typeof node==='string'||typeof node==='number'){
-  return Array.from(String(node)).map(char=><motion.span className="motion-letter" variants={letterVariants} key={nextKey()}>{char===' '?'\u00a0':char}</motion.span>);
+  return Array.from(String(node)).map(char=>char===' '?' ':<motion.span className="motion-letter" variants={letterVariants} key={nextKey()}>{char}</motion.span>);
  }
  if(Array.isArray(node))return node.map(splitNode=>split(splitNode,nextKey));
  if(React.isValidElement(node)){
