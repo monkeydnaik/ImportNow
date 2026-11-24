@@ -1442,3 +1442,176 @@ body{
  .hero:before{transform:none}
  .hero .button:hover{transform:none}
 }
+
+
+/* FINAL NAVY MARITIME THEME — unify every page and repair the bright cargo-scene panel */
+:root{
+ --ink:#edf5f7;--navy:#061421;--muted:#9bb2bd;--line:#29485b;
+ --orange:#e97852;--gold:#e8b979;--aqua:#75cbd8;
+ color-scheme:dark;
+}
+html,body,#root{background:#061421;color:#edf5f7}
+body{
+ background:
+  linear-gradient(180deg,rgba(5,17,29,.97),rgba(7,24,38,.96)),
+  url('/maritime-chart.svg') center top/cover fixed,
+  #061421!important;
+ color:#edf5f7!important;
+}
+body:before{opacity:.12;background-size:76px 76px;mask-image:linear-gradient(transparent 0%,#000 38%,transparent 100%)}
+.header{background:rgba(4,15,26,.94)!important;border-bottom:1px solid #35556a!important;box-shadow:0 8px 36px #0005}
+.nav-links>a{color:#b5c7ce!important}
+.nav-links>a:hover,.nav-links>a.active{color:#f1c27a!important}
+.brand,.brand small{color:#f1f5f4!important}
+.brand small{color:#91a8b3!important}
+.brand>span:last-child>span{color:#e8b979!important}
+.brand-mark{background:linear-gradient(145deg,#1b526a,#0a2336)!important;border:1px solid #4a8297!important}
+.menu-btn{color:#eaf3f6!important}
+.nav-links{background:#071b2b}
+.nav-links>a{border-color:#29485b!important}
+.nav-cta,.mobile-contact,.button.primary{background:linear-gradient(110deg,#c9674d,#e18b5c)!important;color:#fff!important;border:1px solid #f0a16f55!important}
+.button.secondary{color:#e8f1f4!important;border:1px solid #567184!important;background:rgba(10,32,48,.72)!important}
+.button.light{background:#e9d5b3!important;color:#102334!important}
+.hero{background:#061421!important}
+.hero:before{background-image:linear-gradient(90deg,rgba(3,11,20,.94),rgba(3,11,20,.76) 40%,rgba(3,11,20,.2) 75%,rgba(3,11,20,.52)),linear-gradient(0deg,rgba(3,11,20,.76),transparent 65%),url('https://images.pexels.com/photos/4940274/pexels-photo-4940274.jpeg?auto=compress&cs=tinysrgb&w=2400')!important}
+.hero .eyebrow,.page-hero .eyebrow,.section .eyebrow{color:#e8bc7a!important}
+.hero h1,.page-hero h1,.section-title h2{color:#f0f5f5!important}
+.hero-lead,.page-hero>div:first-child>p{color:#b4c4cb!important}
+.hero-proof>span{background:#102b3e!important;border-color:#587489!important;color:#f0ca8e!important}
+.hero-proof b{color:#edf5f6!important}.hero-proof small{color:#a7bac4!important}
+.ticker{background:#0a2030!important;border-color:#31566c!important;color:#c0d1d7!important}
+.ticker i{background:#e8b979!important}
+.proof-strip{background:linear-gradient(120deg,rgba(17,48,66,.94),rgba(6,22,36,.97))!important;border:1px solid #34576d!important}
+.proof-strip>div{border-color:#35576b!important}
+.proof-strip strong{color:#edc88f!important;background:none!important}
+.proof-strip span{color:#a8bbc4!important}
+.section{background:linear-gradient(180deg,rgba(7,24,38,.94),rgba(6,19,32,.98))!important}
+.section-title h2 em,.page-hero h1 em{color:#e8b979!important}
+.section-title>p{color:#aabdc6!important}
+.service-card,.industry-card,.plugin-card{
+ background:linear-gradient(145deg,#123247,#091d2d)!important;
+ border:1px solid #35566a!important;color:#eaf2f4!important;
+ box-shadow:0 18px 45px #0004,inset 0 1px #ffffff0c!important;
+}
+.service-card h3,.industry-card h3,.plugin-card h3{color:#f1f5f4!important}
+.service-card>p,.industry-card>p,.plugin-card>p{color:#b0c1c8!important}
+.service-card li{color:#c3d1d6!important}
+.service-card li svg{color:#79c8ae!important}
+.card-meta,.industry-card>svg,.plugin-icon{color:#e8b979!important}
+.card-meta span,.industry-card>small,.industry-card label{color:#9db3bd!important}
+.text-link{color:#efb975!important}
+.dark-band,.dark-layout{background:linear-gradient(135deg,#0d2b3e,#061725 58%,#0d2638)!important}
+.dark-layout h2{color:#f2f6f5!important}
+.dark-layout>div>p{color:#b1c2c9!important}
+.process-band{background:linear-gradient(135deg,#0a2030,#102d40)!important;border-block:1px solid #34576a}
+.process-layout h2{color:#eff5f5!important}
+.process-layout>div>p,.step-row p{color:#b1c1c8!important}
+.step-list,.step-row{border-color:#35566a!important}
+.step-row h3{color:#edf4f5!important}.step-row>b{color:#e8b979!important}
+.step-row>svg{color:#75c9b6!important}
+.cta-section{background:radial-gradient(ellipse at 50% 0%,#1a455b,#081b2b 70%)!important;border-block:1px solid #31566a}
+.cta-section h2{color:#f2f5f2!important}.cta-section>p,.cta-section>small{color:#b2c2c9!important}
+.page-hero{background:linear-gradient(180deg,rgba(7,24,38,.85),rgba(6,19,32,.94))!important}
+.page-hero h1{color:#f2f6f5!important}
+.page-hero-art{border:1px solid #3d667c!important;box-shadow:0 22px 60px #0007}
+.page-content{background:transparent!important}
+.disclaimer{background:#102b3b!important;border:1px solid #36596d!important;color:#c0cdd2!important}
+.fine-print{color:#9db1bb!important}
+.timeline{border-color:#34566a!important}.timeline-row{border-color:#34566a!important}
+.timeline-row h3{color:#f0f5f5!important}.timeline-row p{color:#afc0c7!important}
+.timeline-row>b{color:#e8b979!important}.timeline-row>svg{color:#77cbb7!important}
+.about-layout h2{color:#f2f6f5!important}.about-layout p{color:#b1c2c9!important}
+.about-feature,.contact-aside{background:linear-gradient(145deg,#15384c,#081c2b)!important;border:1px solid #36596d}
+.contact-layout{color:#edf4f5}
+.contact-form,.tool-panel{
+ background:linear-gradient(145deg,#123247,#091d2d)!important;
+ border:1px solid #385d72!important;color:#eef4f5!important;
+ box-shadow:0 18px 50px #0004!important;
+}
+.contact-form h2,.tool-panel h2{color:#f2f6f5!important}
+.contact-form label,.tool-field{color:#c5d2d7!important}
+.contact-form input,.contact-form textarea,.tool-field input,.tool-field textarea,.tool-field select,.tool-field>span{
+ background:#071b2b!important;border:1px solid #3a5b70!important;color:#f1f5f5!important;
+}
+.contact-form input::placeholder,.contact-form textarea::placeholder,.tool-field input::placeholder,.tool-field textarea::placeholder{color:#7f99a6!important}
+.contact-form>small,.tool-panel>p{color:#a8bbc4!important}
+.form-message,.tool-feedback{background:#103a3a!important;color:#a9e4cf!important;border:1px solid #387c70!important}
+.result-panel{background:linear-gradient(145deg,#071a29,#102e40)!important;border:1px solid #3b6278!important}
+.result-breakdown span{color:#c0cfd4!important}
+.rfq-preview{background:#071b2b!important;color:#d9e5e9!important;border-color:#36576b!important}
+.checklist label{color:#c4d1d6!important}
+.tool-note{color:#afc0c7!important}
+.tool-note p{color:#afc0c7!important}
+.footer{background:#04111d!important;border-top:1px solid #31536a!important}
+.footer-bottom{border-color:#29485b!important;color:#91a8b3!important}
+.footer-main p,.footer-main>div>a:not(.brand){color:#a8bbc4!important}
+.footer-main>div>b{color:#e8b979!important}
+
+/* The cargo-voyage panel was still using its original white day-mode palette.
+   Rebuild its overlay, journey steps and route HUD for night navigation. */
+.cargo-journey,.cargo-journey-sticky{background:#061421!important}
+.cargo-journey{border-block:1px solid #284a60}
+.cargo-sea-shade{
+ background:linear-gradient(90deg,rgba(3,13,23,.94) 0%,rgba(4,17,29,.86) 29%,rgba(4,17,29,.35) 58%,rgba(4,17,29,.08) 100%)!important;
+}
+.cargo-journey-ui{color:#edf5f7}
+.cargo-journey-head h2{color:#f0f5f5!important;text-shadow:0 8px 30px #0008}
+.cargo-journey-head h2 em{color:#e8b979!important}
+.cargo-journey-head>p{color:#c1cfd4!important}
+.cargo-journey .j-step{border-color:transparent}
+.cargo-journey .j-step .n{background:#102c40!important;border:1px solid #58788b!important;color:#f0c987!important}
+.cargo-journey .j-step h4{color:#f3f6f4!important}
+.cargo-journey .j-step p{color:#b6c7ce!important}
+.cargo-journey .j-step.on{
+ background:linear-gradient(110deg,rgba(13,43,61,.96),rgba(6,23,37,.96))!important;
+ border-color:#4d7489!important;box-shadow:0 15px 45px #0008!important;
+}
+.cargo-journey .j-step.on .n{background:#d17a54!important;border-color:#e5a16e!important;color:#fff!important}
+.cargo-journey .j-step.done .n{border-color:#5e8a8d!important;color:#9ed8ca!important}
+.cargo-journey .j-ms{background:#0d2638!important;border-color:#365b70!important;color:#b4c6ce!important}
+.cargo-journey .j-ms.on{background:#e1ad6d!important;border-color:#e1ad6d!important;color:#102333!important}
+.cargo-journey .j-route{
+ background:linear-gradient(110deg,rgba(12,39,56,.96),rgba(5,20,33,.97))!important;
+ border:1px solid #52778b!important;box-shadow:0 16px 45px #0008!important;
+}
+.cargo-journey .j-port{color:#f0f5f4!important}
+.cargo-journey .j-port small{color:#a8bdc7!important}
+.cargo-journey .j-track{background:repeating-linear-gradient(90deg,#6b8794 0 5px,transparent 5px 10px)!important}
+.cargo-journey .j-fill{background:linear-gradient(90deg,#d77b55,#e9bf79)!important}
+.cargo-journey .j-boat{background:#f0c47e!important;color:#0b1d2b!important;box-shadow:0 0 0 3px #e8b97935,0 5px 18px #0008!important}
+.cargo-journey .j-day{color:#f1c782!important}
+.cargo-journey-footnote{color:#9db3bd!important}
+.cargo-sea-badge{
+ background:rgba(8,29,44,.94)!important;border:1px solid #54758a!important;color:#e9f1f3!important;
+ box-shadow:0 10px 30px #0008!important;
+}
+.cargo-sea-badge span{border-color:#466478!important;color:#a9bec7!important}
+.cargo-sea-badge i{background:#70c9bf!important;box-shadow:0 0 0 4px #70c9bf25!important}
+.cargo-sea-loading{background:rgba(4,17,29,.94)!important;color:#e9c58e!important}
+@media(max-width:820px){
+ .cargo-sea-shade{background:linear-gradient(180deg,rgba(4,15,26,.94) 0%,rgba(4,15,26,.72) 36%,rgba(4,15,26,.16) 62%,rgba(4,15,26,.78) 100%)!important}
+ .cargo-journey-head h2{color:#f2f5f4!important}
+ .cargo-journey .j-step.on{background:rgba(9,31,47,.96)!important}
+ .cargo-journey .j-route{background:rgba(7,25,39,.96)!important}
+}
+@media(max-width:680px){
+ .section{padding-top:64px;padding-bottom:64px}
+ .hero{background:#061421!important}
+ .hero .globe-frame{border-radius:14px}
+ .page-content{padding-top:35px;padding-bottom:65px}
+ .contact-form,.tool-panel{padding:22px!important}
+ .proof-strip{margin-top:14px}
+ .proof-strip>div{padding:10px 12px}
+ .proof-strip strong{font-size:23px}
+ .cargo-journey-ui{padding-top:82px}
+ .cargo-journey-head{max-width:calc(100% - 4px)}
+ .cargo-journey-head h2{font-size:clamp(26px,7vw,34px)!important}
+ .cargo-journey .j-step.on{border-radius:8px}
+}
+@media(max-width:380px){
+ .container,.nav-wrap{width:calc(100% - 30px)}
+ .hero h1{font-size:clamp(43px,13vw,54px)}
+ .nav-links{padding-inline:18px}
+ .cargo-journey .j-route{gap:5px;padding:8px 7px}
+ .cargo-journey .j-port{font-size:8px}
+}
