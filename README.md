@@ -15,12 +15,22 @@ The project combines a navy nautical-chart visual identity with interactive trad
 ## Experience highlights
 
 - **Maritime visual direction** — deep navy surfaces, nautical-chart detailing, warm gold accents and sea-glass teal.
-- **Interactive trade visualisation** — a Three.js globe and China-to-India trade-route presentation.
+- **Interactive 3D Earth** — a Three.js globe with animated city markers, curved China-to-India trade routes, moving vessel pulses, a miniature cargo ship and atmospheric lighting.
+- **Globe information overlays** — a top status label, a China/India city-information panel and a bottom route indicator sit above the 3D canvas. The city names in the panel are a readable overlay; the animated map pins and routes are rendered in the 3D scene.
 - **Cargo journey storytelling** — shipment milestones and cargo-handling visuals designed to explain the import process.
 - **Port visualisation** — a schematic Nhava Sheva port chart with terminal and approach-lane details. It is illustrative and not intended for navigation.
 - **China sourcing journey** — visual introduction to key sourcing destinations including Guangzhou, Shenzhen, Yiwu and Foshan.
 - **Import-planning utilities** — landed-cost planning, CBM calculation, air chargeable-weight calculation, RFQ preparation and an import-readiness checklist.
 - **Enquiry experience** — responsive contact and WhatsApp-oriented enquiry flows.
+
+## Main experience areas
+
+- **Hero and Earth visual:** the main landing section pairs the headline and enquiry actions with the interactive globe and its overlay labels.
+- **Services and industries:** service cards and industry examples explain the sourcing, inspection, freight and delivery support workflow.
+- **Import process:** step-based explanations and cargo-journey visuals show the stages from product brief to delivery.
+- **China sourcing destinations:** Guangzhou, Shenzhen, Yiwu and Foshan are presented as sourcing hubs.
+- **Nhava Sheva port chart:** a separate schematic port illustration provides a location-focused visual reference.
+- **Tools and enquiry:** import-planning utilities and contact forms support early-stage enquiries.
 
 ## Technology
 
@@ -67,6 +77,12 @@ If the enquiry flow uses a WhatsApp destination, configure:
 - `VITE_WHATSAPP_NUMBER` — the business WhatsApp number in international digits-only format.
 
 Use only a verified business contact number. Do not commit private credentials or API keys to the repository.
+
+## Visual and interaction notes
+
+The globe's city markers and trade routes are 3D objects rendered by Three.js. The city-name information panel and the top/bottom route labels are HTML overlays positioned over the globe frame so they remain readable while the Earth rotates. They are informational overlays, not geospatial labels attached to the rotating surface.
+
+The globe uses externally hosted Earth textures. An internet connection is required for the textured Earth assets to load; the scene includes a basic fallback globe while the textures are loading.
 
 ## Accuracy and usage notes
 
