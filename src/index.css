@@ -1298,3 +1298,147 @@ img{max-width:100%}
  .concept-trip-route i{width:8px}
 }
 @media(prefers-reduced-motion:reduce){.concept-trip-main-photo>img,.concept-trip-city-card img{transition:none}}
+
+
+/* === Maritime visual system: hero, chart texture and port map === */
+body{
+ background-color:#f5f6f4;
+ background-image:linear-gradient(rgba(245,246,244,.94),rgba(245,246,244,.94)),url('/maritime-chart.svg');
+ background-position:center top;
+ background-size:auto,cover;
+ background-attachment:fixed;
+}
+.hero{
+ width:100%;max-width:none;margin:0;min-height:700px;
+ padding:76px max(32px,calc((100vw - 1160px)/2)) 58px;
+ position:relative;isolation:isolate;overflow:hidden;
+ color:#f5f4ef;background:#060b13;
+ grid-template-columns:.88fr 1.12fr;gap:clamp(24px,4vw,64px);
+}
+.hero:before{
+ content:"";position:absolute;inset:0;z-index:-2;
+ background-image:
+  linear-gradient(90deg,rgba(4,10,17,.94) 0%,rgba(4,10,17,.83) 35%,rgba(4,10,17,.35) 72%,rgba(4,10,17,.56) 100%),
+  linear-gradient(0deg,rgba(4,10,17,.68),transparent 58%),
+  url('https://images.pexels.com/photos/4940274/pexels-photo-4940274.jpeg?auto=compress&cs=tinysrgb&w=2400');
+ background-position:center,center,center 58%;background-size:cover;background-repeat:no-repeat;
+ transform:scale(1.015);
+}
+.hero:after{
+ content:"";position:absolute;z-index:-1;pointer-events:none;
+ width:min(66vw,850px);height:min(66vw,850px);right:-16%;top:-42%;
+ border-radius:50%;border:1px solid rgba(224,174,100,.23);
+ box-shadow:0 0 0 28px rgba(224,174,100,.025),0 0 0 76px rgba(224,174,100,.018),inset 0 0 100px rgba(48,130,155,.09);
+ background:radial-gradient(circle at 42% 55%,rgba(25,72,89,.12),rgba(4,10,17,.03) 62%,transparent 70%);
+}
+.hero-copy{position:relative;z-index:1;min-width:0}
+.hero .eyebrow{color:#e8b978}
+.hero .eyebrow i{background:#e8b978;box-shadow:0 0 0 4px rgba(232,185,120,.16)}
+.hero h1{color:#f7f5ef;text-wrap:balance}
+.hero h1 em{color:#e8b978}
+.hero-lead{color:#c0cbd0;max-width:500px}
+.hero-proof{flex-wrap:wrap}
+.hero-proof>span{background:#0d1d29;color:#e8c38a;border-color:#6d8490}
+.hero-proof b{color:#f1eee7}
+.hero-proof small{color:#a5b5bc;line-height:1.45}
+.hero-brief-strip{
+ display:flex;align-items:center;gap:clamp(10px,1.5vw,20px);flex-wrap:wrap;
+ margin-top:30px;padding:14px 16px;max-width:640px;
+ border:1px solid rgba(211,173,116,.27);background:rgba(5,15,23,.62);
+ backdrop-filter:blur(12px);border-radius:4px;
+}
+.hero-brief-strip>div{display:flex;flex-direction:column;gap:5px;min-width:0}
+.hero-brief-strip small{font:9px var(--mono);letter-spacing:.12em;color:#91a6b1}
+.hero-brief-strip b{font:700 11px var(--mono);letter-spacing:.06em;color:#f2e6cf;overflow-wrap:anywhere}
+.hero-brief-strip b i{font-style:normal;color:#e8b978}
+.hero-brief-route{color:#c99a59;letter-spacing:.14em;overflow:hidden;max-width:110px;white-space:nowrap}
+.hero-brief-index{margin-left:auto}
+.hero .globe-frame{
+ height:clamp(390px,42vw,540px);background:radial-gradient(ellipse at 50% 45%,rgba(21,65,82,.55),rgba(5,13,21,.86) 68%);
+ border:1px solid rgba(219,177,111,.25);border-radius:5px;
+ box-shadow:0 28px 90px rgba(0,0,0,.42),inset 0 0 80px rgba(3,12,19,.4);
+}
+.hero .globe-frame:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(4,11,18,.18),transparent 30%,transparent 70%,rgba(4,11,18,.32))}
+.hero .globe-topline{color:#e4c28f}
+.hero .globe-topline i{background:#e8b978;box-shadow:0 0 0 4px rgba(232,185,120,.15)}
+.hero .globe-topline span:last-child{color:#a8bac1}
+.hero .globe-location-panel{z-index:2}
+.hero .globe-bottom{color:#f2e7d4}
+.hero .globe-bottom span{background:linear-gradient(90deg,#e7b16b,#78c9c5)}
+.nhava-chart-section{
+ position:relative;overflow:hidden;padding:clamp(68px,8vw,112px) 0;
+ color:#e9edf0;background:#07111c;
+}
+.nhava-chart-section:before{
+ content:"";position:absolute;inset:0;pointer-events:none;opacity:.23;
+ background-image:url('/maritime-chart.svg');background-size:cover;background-position:center;
+}
+.nhava-chart-layout{
+ position:relative;display:grid;grid-template-columns:minmax(240px,.72fr) minmax(0,1.55fr);
+ align-items:center;gap:clamp(28px,5vw,72px);
+}
+.nhava-chart-copy{min-width:0}
+.nhava-chart-kicker{display:flex;align-items:center;gap:10px;color:#d7ad70;font:10px var(--mono);letter-spacing:.13em;line-height:1.5}
+.nhava-chart-kicker i{width:7px;height:7px;border-radius:50%;background:#d7ad70;box-shadow:0 0 0 4px rgba(215,173,112,.14);flex:none}
+.nhava-chart-copy h2{font:600 clamp(36px,4.3vw,58px)/1.04 var(--display);letter-spacing:-.065em;margin:22px 0;color:#f3f2ec;text-wrap:balance}
+.nhava-chart-copy h2 em{font-style:normal;color:#d9ad6d}
+.nhava-chart-copy>p{max-width:420px;color:#a8b7bf;font-size:13px;line-height:1.85}
+.nhava-coordinate-block{display:flex;flex-direction:column;gap:5px;margin:28px 0 25px;padding:15px 17px;border-left:2px solid #d7ad70;background:linear-gradient(90deg,rgba(215,173,112,.1),transparent);max-width:310px}
+.nhava-coordinate-block span{font:500 clamp(17px,2vw,22px)/1.35 var(--mono);letter-spacing:.025em;color:#edc98e;font-variant-numeric:tabular-nums}
+.nhava-coordinate-block small{font:9px var(--mono);letter-spacing:.12em;color:#a4b4bd;margin-top:5px}
+.nhava-chart-legend{display:flex;flex-direction:column;gap:10px;color:#91a4ae;font:9px var(--mono);letter-spacing:.09em}
+.nhava-chart-legend span{display:flex;align-items:center;gap:10px;min-height:18px}
+.nhava-chart-legend i{display:inline-block;width:18px;height:2px;flex:none}
+.legend-gold{background:#d7ad70}.legend-teal{background:#65b8b8}.legend-route{background:repeating-linear-gradient(90deg,#e7b36b 0 4px,transparent 4px 7px)}
+.nhava-chart-panel{
+ min-width:0;padding:14px;border:1px solid rgba(212,163,106,.36);
+ background:rgba(5,14,23,.88);box-shadow:0 28px 80px rgba(0,0,0,.28);
+}
+.nhava-chart-topline,.nhava-chart-bottomline{
+ display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+ color:#a9bbc3;font:9px var(--mono);letter-spacing:.1em;line-height:1.5;padding:5px 5px 12px;
+}
+.nhava-chart-topline span:first-child{display:flex;align-items:center;gap:8px}
+.nhava-chart-topline i{width:6px;height:6px;background:#69c4bd;border-radius:50%;box-shadow:0 0 0 4px rgba(105,196,189,.12)}
+.nhava-chart-map{display:block;width:100%;height:auto;aspect-ratio:1000/570;border:1px solid rgba(212,163,106,.2)}
+.nhava-chart-bottomline{padding:12px 5px 4px;color:#d5b47f}
+.nhava-chart-bottomline span:last-child{color:#8298a4;text-align:right}
+@media(max-width:900px){
+ .hero{grid-template-columns:1fr 1fr;padding-top:60px;padding-bottom:48px;min-height:630px}
+ .hero h1{font-size:clamp(48px,6vw,66px)}
+ .hero-brief-strip{gap:10px}
+ .nhava-chart-layout{grid-template-columns:1fr;gap:30px}
+ .nhava-chart-copy>p{max-width:650px}
+ .nhava-chart-legend{flex-direction:row;flex-wrap:wrap;gap:14px}
+}
+@media(max-width:680px){
+ .hero{width:100%;min-height:0;display:flex;flex-direction:column;align-items:stretch;padding:54px 18px 36px;gap:28px}
+ .hero:before{background-position:center,center,58% center}
+ .hero:after{width:100vw;height:100vw;right:-42%;top:-14%}
+ .hero h1{font-size:clamp(48px,14vw,68px);line-height:1.02;max-width:11ch}
+ .hero-lead{font-size:13px;line-height:1.75}
+ .hero-proof{margin-top:25px}
+ .hero-brief-strip{display:grid;grid-template-columns:auto 1fr;gap:10px 16px;margin-top:22px;padding:12px}
+ .hero-brief-route{display:none}
+ .hero-brief-index{margin-left:0;grid-column:1/-1;padding-top:8px;border-top:1px solid rgba(211,173,116,.2)}
+ .hero .globe-frame{height:350px;width:100%}
+ .nhava-chart-section{padding:65px 0}
+ .nhava-chart-layout{gap:25px}
+ .nhava-chart-copy h2{font-size:clamp(36px,11vw,48px)}
+ .nhava-chart-panel{padding:8px}
+ .nhava-chart-topline,.nhava-chart-bottomline{font-size:8px;letter-spacing:.06em}
+ .nhava-chart-bottomline{align-items:flex-start}
+ .nhava-chart-bottomline span:last-child{max-width:46%}
+ .nhava-chart-map{min-height:180px}
+}
+@media(max-width:380px){
+ .hero{padding-inline:16px}
+ .hero h1{font-size:46px}
+ .hero-actions .button{gap:8px;padding:13px 11px}
+ .nhava-coordinate-block span{font-size:16px}
+ .nhava-chart-bottomline{font-size:7px}
+}
+@media(prefers-reduced-motion:reduce){
+ .hero:before{transform:none}
+ .hero .button:hover{transform:none}
+}
