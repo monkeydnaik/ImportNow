@@ -90,7 +90,21 @@ export default function HomeAfterCargo(){
    </div>
   </section>
   <section className="concept-trips-section"><div className="container concept-trips-layout">
-   <div className="concept-trip-art"><div className="concept-trip-sun"/><div className="concept-trip-label">CANTON FAIR · GUANGZHOU</div><div className="concept-trip-building"><span/><span/><span/><span/></div><div className="concept-trip-city">GUANGZHOU <i/> SHENZHEN <i/> YIWU <i/> FOSHAN</div></div>
+   <div className="concept-trip-art" aria-label="China trade-city photography: Canton Fair in Guangzhou, Shenzhen skyline, Yiwu wholesale market and Foshan furniture market">
+    <div className="concept-trip-main-photo">
+     <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Aerial_View%2C_Zone_B%2C_Canton_Fair_Complex_20230701-C.jpg" alt="Aerial view of the Canton Fair Complex in Guangzhou beside the Pearl River" loading="lazy"/>
+     <div className="concept-trip-photo-shade"/>
+     <div className="concept-trip-label"><i/> CANTON FAIR · PAZHOU, GUANGZHOU</div>
+     <div className="concept-trip-main-caption"><small>THE CHINA SOURCING CIRCUIT</small><b>Meet the markets.<br/><em>See the factories.</em></b></div>
+     <span className="concept-trip-coordinates">23.1095° N / 113.3596° E</span>
+    </div>
+    <div className="concept-trip-city-strip">
+     <div className="concept-trip-city-card"><img src="https://cgj.sz.gov.cn/img/2/2974/2974038/2192590.jpg" alt="Shenzhen Futian central business district at night" loading="lazy"/><span><small>TECH & ELECTRONICS</small><b>SHENZHEN</b></span></div>
+     <div className="concept-trip-city-card"><img src="https://oss.hubbuyer.com/admin/prod/image/introduce/202601/2026011313253867500000000.jpeg" alt="Wholesale stalls inside Yiwu International Trade City" loading="lazy"/><span><small>WHOLESALE MARKETS</small><b>YIWU</b></span></div>
+     <div className="concept-trip-city-card"><img src="https://www.synotrip.com/sites/default/files/74618/740485974a9408b44c05dc3edfc9d2e6_0.png" alt="Furniture showroom in Foshan's Lecong market district" loading="lazy"/><span><small>FURNITURE & INTERIORS</small><b>FOSHAN</b></span></div>
+    </div>
+    <div className="concept-trip-route"><span>GUANGZHOU</span><i/><span>SHENZHEN</span><i/><span>YIWU</span><i/><span>FOSHAN</span></div>
+   </div>
    <div><Tag>BUSINESS TRIPS TO CHINA</Tag><MotionText as="h2">Your China business trip<br/><em>with the details taken care of.</em></MotionText><p>Plan visits to trade fairs, wholesale markets and shortlisted factories with practical on-ground guidance. The itinerary is shaped around your sourcing goals.</p><div className="concept-includes"><span><Check/>Visa guidance & invitation letter</span><span><Check/>Hotel planning near key markets</span><span><Check/>Food and local travel guidance</span><span><Check/>Guides and translators</span><span><Check/>Factory visits you choose</span><span><Check/>Sightseeing between market visits</span></div><div className="concept-departures"><div><small>SPRING</small><b>Canton Fair · April–May</b></div><div><small>AUTUMN</small><b>Canton Fair · October–November</b></div></div><a className="button primary" href="#/contact">Plan a China business trip <ArrowUpRight size={16}/></a></div>
   </div></section>
   <section className="concept-deliveries-section"><div className="container"><Heading tag="RECENTLY DELIVERED" title={<>Another shipment coordinated.<br/><em>Another business moving forward.</em></>} copy="Examples of sourcing and delivery requirements across different business types."/><div className="concept-delivery-grid">{deliveries.map(([route,title,copy,a,b],index)=><article className="concept-delivery-card" key={title}><div className="concept-delivery-art"><img src={deliveryImages[index]} alt={title+' delivery project'} loading="lazy"/><MotionText>{route}</MotionText><Truck size={32}/></div><div className="concept-delivery-copy"><MotionText as="h3">{title}</MotionText><p>{copy}</p><div><MotionText as="small">{a}</MotionText><MotionText as="small">{b}</MotionText></div></div></article>)}</div></div></section>
