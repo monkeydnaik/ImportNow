@@ -6,6 +6,7 @@ The project combines a navy nautical-chart visual identity with interactive trad
 
 ## Project links
 
+- **Live project preview:** https://import-now-nine.vercel.app/
 - **Company website:** https://www.importnow.in/
 - **GitHub repository:** https://github.com/monkeydnaik/ImportNow
 - **Default branch:** `main`
